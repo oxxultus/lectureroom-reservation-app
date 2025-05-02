@@ -4,6 +4,7 @@
  */
 package deu.view;
 
+import deu.controller.LoginController;
 import deu.view.custom.FadeGlassPane;
 import java.awt.CardLayout;
 
@@ -544,6 +545,7 @@ public class Auth extends javax.swing.JFrame {
         
         fadeTransition(() -> {
             // "home"이라는 이름으로 등록된 패널로 전환
+            new LoginController().login("test", "12345"); // 컨트롤러 호출
             CardLayout layout = (CardLayout) getContentPane().getLayout();
             layout.show(getContentPane(), "home");
         }, null);
