@@ -17,7 +17,11 @@ import javax.swing.JLabel;
  * @author oxxultus
  */
 public class Reservation extends javax.swing.JPanel {
-    
+
+    // 사용자 정보 저장
+    private String userNumber;
+    private String userPassword;
+
     // 선택시 버튼 색 저장하는 공간
     private JButton selectedCalendarButton = null;
     private JButton selectedRoomButton = null;
@@ -32,6 +36,11 @@ public class Reservation extends javax.swing.JPanel {
      * Creates new form Reservation
      */
     public Reservation() {
+        initComponents();
+    }
+    public Reservation(String userNumber, String userPassword) {
+        this.userNumber = userNumber;
+        this.userPassword = userPassword;
         initComponents();
     }
     
@@ -60,7 +69,7 @@ public class Reservation extends javax.swing.JPanel {
             }
         }
 
-        // ❗ 새 버튼을 추가하지 않고 기존 컴포넌트만 수정
+        // 새 버튼을 추가하지 않고 기존 컴포넌트만 수정
         for (int day = 0; day < 7; day++) {
             for (int period = 0; period < 13; period++) {
                 String buttonName = "day" + day + "_" + period;
@@ -70,7 +79,7 @@ public class Reservation extends javax.swing.JPanel {
                         JButton dayBtn = (JButton) comp;
                         dayBtn.setText(dummySubjects[day][period]);
 
-                        // ✅ 특정 셀에 대해 초록색 처리
+                        // 특정 셀에 대해 초록색 처리
                         if ("day2_0".equals(buttonName)) {
                             dayBtn.setBackground(Color.GREEN);
                             dayBtn.setEnabled(false); // 특별 한 경우 버튼 클릭을 하지 못하게
@@ -78,23 +87,23 @@ public class Reservation extends javax.swing.JPanel {
                             dayBtn.setBackground(null); // 초기화
                         }
                         
-                        // ✅ 기존 리스너 제거 (중복 방지)
+                        // 기존 리스너 제거 (중복 방지)
                         for (ActionListener al : dayBtn.getActionListeners()) {
                             dayBtn.removeActionListener(al);
                         }
 
-                        // ✅ 새 리스너 추가
+                        // 새 리스너 추가
                         dayBtn.addActionListener(e -> {
                             JButton source = (JButton) e.getSource(); // 클릭한 버튼
                             String name = source.getName();
                             reservationTimeField.setText(name);
 
-                            // 🔄 이전 선택된 버튼 초기화
+                            // 이전 선택된 버튼 초기화
                             if (selectedCalendarButton != null) {
                                 selectedCalendarButton.setBackground(null);  // 초기색으로 복원
                             }
 
-                            // ✅ 현재 버튼 강조 (선택 상태처럼)
+                            // 현재 버튼 강조 (선택 상태처럼)
                             source.setBackground(new Color(255, 200, 0)); // 노란색 등으로 강조
                             selectedCalendarButton = source; // 현재 선택된 버튼 저장
                         });
@@ -1630,7 +1639,7 @@ public class Reservation extends javax.swing.JPanel {
                 lectureRoomList.removeAll();
                 selectedRoomButton = null;
 
-                // ✅ 9층일 경우에만 강의실 버튼 생성
+                // 9층일 경우에만 강의실 버튼 생성
                 if ("9".equals(floorBtn.getText())) {
                     String[] rooms = {
                         "A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09",

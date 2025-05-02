@@ -4,8 +4,11 @@
  */
 package deu.view;
 
-import deu.controller.LoginController;
+import deu.controller.UserClientController;
+import deu.dto.response.BasicResponse;
 import deu.view.custom.FadeGlassPane;
+
+import javax.swing.*;
 import java.awt.CardLayout;
 
 /**
@@ -338,6 +341,11 @@ public class Auth extends javax.swing.JFrame {
         signup_signupButton.setRoundBottomRight(0);
         signup_signupButton.setRoundTopLeft(15);
         signup_signupButton.setRoundTopRight(0);
+        signup_signupButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signup_signupButtonActionPerformed(evt);
+            }
+        });
         signup.add(signup_signupButton);
         signup_signupButton.setBounds(460, 520, 380, 40);
 
@@ -520,11 +528,8 @@ public class Auth extends javax.swing.JFrame {
     private void signup_undoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signup_undoButtonActionPerformed
         // 텍스트 필드 초기화 + 플레이스홀더 재설정
         signup_signupNumberField.setText("");
-
         signup_signupPasswordField.setText("");
-
         signup_signupNameField.setText("");
-
         signup_signupMajorField.setText("");
 
         fadeTransition(() -> {
@@ -535,21 +540,79 @@ public class Auth extends javax.swing.JFrame {
     }//GEN-LAST:event_signup_undoButtonActionPerformed
 
     private void login_loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_loginButtonActionPerformed
-        // 입력 필드 초기화
-        login_loginNumberField.setText("");
-        login_loginPasswordField.setText("");
-        
-        Home homePanel = new Home();
-        
-        getContentPane().add(homePanel, "home");
-        
-        fadeTransition(() -> {
-            // "home"이라는 이름으로 등록된 패널로 전환
-            new LoginController().login("test", "12345"); // 컨트롤러 호출
-            CardLayout layout = (CardLayout) getContentPane().getLayout();
-            layout.show(getContentPane(), "home");
-        }, null);
+        // 컨트롤러 호출
+        BasicResponse result = new UserClientController().login(
+                login_loginNumberField.getText(),
+                login_loginPasswordField.getText()
+        );
+
+        if (result.code.equals("200")) {
+            fadeTransition(() -> {
+                // 입력 필드 초기화
+                Home homePanel = new Home(login_loginNumberField.getText(), login_loginPasswordField.getText());
+                getContentPane().add(homePanel, "home");
+
+                login_loginNumberField.setText("");
+                login_loginPasswordField.setText("");
+
+                // "home"이라는 이름으로 등록된 패널로 전환
+                CardLayout layout = (CardLayout) getContentPane().getLayout();
+                layout.show(getContentPane(), "home");
+            }, null);
+        } else {
+            // 로그인 실패 알림창 추가
+            JOptionPane.showMessageDialog(
+                    this,
+                    result.message,      // 서버에서 전달된 메시지 (예: 비밀번호 오류, 사용자 없음 등)
+                    "로그인 실패",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
     }//GEN-LAST:event_login_loginButtonActionPerformed
+
+    private void signup_signupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signup_signupButtonActionPerformed
+
+        // 컨트롤러 호출
+        BasicResponse result = new UserClientController().signup(
+                signup_signupNumberField.getText(),
+                signup_signupPasswordField.getText(),
+                signup_signupNameField.getText(),
+                signup_signupMajorField.getText()
+        );
+        if (result.code.equals("200")) {
+            fadeTransition(() -> {
+                // 텍스트 필드 초기화 + 플레이스홀더 재설정
+                signup_signupNumberField.setText("");
+                signup_signupPasswordField.setText("");
+                signup_signupNameField.setText("");
+                signup_signupMajorField.setText("");
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        result.message,      // 서버에서 전달된 메시지 (예: 비밀번호 오류, 사용자 없음 등)
+                        "회원가입 성공",
+                        JOptionPane.WARNING_MESSAGE
+                );
+
+                // "login"이라는 이름으로 등록된 패널로 전환
+                CardLayout layout = (CardLayout) getContentPane().getLayout();
+                layout.show(getContentPane(), "login");
+            }, null);
+        }else{
+            signup_signupNumberField.setText("");
+            signup_signupPasswordField.setText("");
+            signup_signupNameField.setText("");
+            signup_signupMajorField.setText("");
+            JOptionPane.showMessageDialog(
+                    this,
+                    result.message,      // 서버에서 전달된 메시지 (예: 비밀번호 오류, 사용자 없음 등)
+                    "회원가입 실패",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+    }//GEN-LAST:event_signup_signupButtonActionPerformed
 
     /**
      * @param args the command line arguments

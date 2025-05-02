@@ -4,14 +4,14 @@
  */
 package deu.view;
 
+import deu.controller.UserClientController;
+import deu.dto.response.BasicResponse;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 /**
  *
@@ -19,13 +19,30 @@ import javax.swing.SwingUtilities;
  */
 public class Home extends javax.swing.JPanel {
 
+    private String userNumber;
+    private String userPassword;
+
     /**
      * Creates new form Home
      */
     public Home() {
         initComponents();
     }
-    
+
+    public Home(String userNumber, String userPassword) {
+        this.userNumber = userNumber;
+        this.userPassword = userPassword;
+        initComponents();
+    }
+
+    public String getUserNumber() {
+        return userNumber;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
     public JPanel getMain() {
     return main;
     }
@@ -1779,27 +1796,38 @@ public class Home extends javax.swing.JPanel {
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         Auth frame = (Auth) SwingUtilities.getWindowAncestor(this);
-        if (frame != null) {
-            frame.fadeTransition(() -> {
-                // 전환 전 작업 (예: 아무거나 제거 X)
-            }, () -> {
-                Container contentPane = frame.getContentPane();
-                CardLayout layout = (CardLayout) contentPane.getLayout();
 
-                layout.show(contentPane, "login");
+        BasicResponse result = new UserClientController().logout(userNumber, userPassword);
+        if (result.code.equals("200")) {
+            if (frame != null) {
+                frame.fadeTransition(() -> {
+                    // 전환 전 작업 (예: 아무거나 제거 X)
+                }, () -> {
+                    Container contentPane = frame.getContentPane();
+                    CardLayout layout = (CardLayout) contentPane.getLayout();
 
-                // 전환 이후 "home" 패널 제거
-                Component[] components = contentPane.getComponents();
-                for (Component comp : components) {
-                    if (comp.getName() != null && comp.getName().equals("home")) {
-                        contentPane.remove(comp);
-                        break;
+                    layout.show(contentPane, "login");
+
+                    // 전환 이후 "home" 패널 제거
+                    Component[] components = contentPane.getComponents();
+                    for (Component comp : components) {
+                        if (comp.getName() != null && comp.getName().equals("home")) {
+                            contentPane.remove(comp);
+                            break;
+                        }
                     }
-                }
-
-                contentPane.revalidate();
-                contentPane.repaint();
-            });
+                    contentPane.revalidate();
+                    contentPane.repaint();
+                });
+            }
+        }else{
+            // 로그아웃 실패 알림창 추가
+            JOptionPane.showMessageDialog(
+                    this,
+                    result.message,      // 서버에서 전달된 메시지
+                    "로그아웃 실패",
+                    JOptionPane.WARNING_MESSAGE
+            );
         }
     }//GEN-LAST:event_logoutButtonActionPerformed
 
@@ -1847,7 +1875,7 @@ public class Home extends javax.swing.JPanel {
         Auth authFrame = (Auth) SwingUtilities.getWindowAncestor(this);
 
         if (authFrame != null) {
-            Reservation reservation = new Reservation();  // 교체할 새로운 패널
+            Reservation reservation = new Reservation(getUserNumber(),getUserPassword());  // 교체할 새로운 패널
 
             authFrame.fadeTransition(() -> {
                 // 기존 main을 제거
