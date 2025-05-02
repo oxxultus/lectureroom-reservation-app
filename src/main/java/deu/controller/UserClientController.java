@@ -5,6 +5,7 @@ import deu.dto.request.LogoutRequest;
 import deu.dto.request.SignupRequest;
 import deu.dto.request.UserCommandRequest;
 import deu.dto.response.BasicResponse;
+import deu.dto.response.CurrentResponse;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -92,5 +93,26 @@ public class UserClientController {
             System.out.println("서버 통신 실패: " + e.getMessage());
         }
         return null;
+    }
+
+    // 동시 접속자 수 요충 컨트롤러
+    public CurrentResponse currentUserCounts() {
+        try (
+                Socket socket = new Socket("localhost", 9999);
+                ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
+        ) {
+            UserCommandRequest req = new UserCommandRequest("동시접속자", null);
+            out.writeObject(req);
+
+            Object res = in.readObject();
+            if (res instanceof CurrentResponse r) {
+                System.out.println("접속자 수: " + r.currentUserCount + "명");
+                return r;
+            }
+        } catch (Exception e) {
+            System.out.println("서버 통신 실패: " + e.getMessage());
+        }
+        return new CurrentResponse(-1);
     }
 }

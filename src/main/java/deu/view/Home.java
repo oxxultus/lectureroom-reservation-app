@@ -62,7 +62,7 @@ public class Home extends javax.swing.JPanel {
         userManagementButton = new deu.view.custom.ButtonRound();
         deuLogo1 = new javax.swing.JLabel();
         concurrentUsers1 = new deu.view.custom.PanelRound();
-        jLabel2 = new javax.swing.JLabel();
+        managerMenuCurrentUser = new javax.swing.JLabel();
         commonMenu = new deu.view.custom.ButtonRound();
         menu = new javax.swing.JPanel();
         logoutButton = new deu.view.custom.ButtonRound();
@@ -71,7 +71,7 @@ public class Home extends javax.swing.JPanel {
         manegementMenu = new deu.view.custom.ButtonRound();
         deuLogo = new javax.swing.JLabel();
         concurrentUsers = new deu.view.custom.PanelRound();
-        jLabel1 = new javax.swing.JLabel();
+        commonMenuCurrentUser = new javax.swing.JLabel();
         main = new javax.swing.JPanel();
         profilePanel = new deu.view.custom.PanelRound();
         profileImageField = new deu.view.custom.LabelRound();
@@ -276,10 +276,19 @@ public class Home extends javax.swing.JPanel {
         concurrentUsers1.setRoundTopLeft(10);
         concurrentUsers1.setRoundTopRight(10);
 
-        jLabel2.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("1 명 접속중");
+        managerMenuCurrentUser.setBackground(new java.awt.Color(204, 204, 204));
+        managerMenuCurrentUser.setForeground(new java.awt.Color(255, 255, 255));
+        managerMenuCurrentUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        managerMenuCurrentUser.setText("1 명 접속중");
+        managerMenuCurrentUser.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                managerMenuCurrentUserAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
         javax.swing.GroupLayout concurrentUsers1Layout = new javax.swing.GroupLayout(concurrentUsers1);
         concurrentUsers1.setLayout(concurrentUsers1Layout);
@@ -287,14 +296,14 @@ public class Home extends javax.swing.JPanel {
             concurrentUsers1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, concurrentUsers1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                .addComponent(managerMenuCurrentUser, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
                 .addContainerGap())
         );
         concurrentUsers1Layout.setVerticalGroup(
             concurrentUsers1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, concurrentUsers1Layout.createSequentialGroup()
                 .addContainerGap(7, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addComponent(managerMenuCurrentUser)
                 .addContainerGap())
         );
 
@@ -396,10 +405,19 @@ public class Home extends javax.swing.JPanel {
         concurrentUsers.setRoundTopLeft(10);
         concurrentUsers.setRoundTopRight(10);
 
-        jLabel1.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("1 명 접속중");
+        commonMenuCurrentUser.setBackground(new java.awt.Color(204, 204, 204));
+        commonMenuCurrentUser.setForeground(new java.awt.Color(255, 255, 255));
+        commonMenuCurrentUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        commonMenuCurrentUser.setText("0 명 접속중");
+        commonMenuCurrentUser.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                commonMenuCurrentUserAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
         javax.swing.GroupLayout concurrentUsersLayout = new javax.swing.GroupLayout(concurrentUsers);
         concurrentUsers.setLayout(concurrentUsersLayout);
@@ -407,14 +425,14 @@ public class Home extends javax.swing.JPanel {
             concurrentUsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, concurrentUsersLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                .addComponent(commonMenuCurrentUser, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
                 .addContainerGap())
         );
         concurrentUsersLayout.setVerticalGroup(
             concurrentUsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, concurrentUsersLayout.createSequentialGroup()
                 .addContainerGap(7, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(commonMenuCurrentUser)
                 .addContainerGap())
         );
 
@@ -1868,7 +1886,40 @@ public class Home extends javax.swing.JPanel {
     }//GEN-LAST:event_manegementMenuActionPerformed
 
     private void logoutButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButton1ActionPerformed
-        // TODO add your handling code here:
+        Auth frame = (Auth) SwingUtilities.getWindowAncestor(this);
+
+        BasicResponse result = new UserClientController().logout(userNumber, userPassword);
+        if (result.code.equals("200")) {
+            if (frame != null) {
+                frame.fadeTransition(() -> {
+                    // 전환 전 작업 (예: 아무거나 제거 X)
+                }, () -> {
+                    Container contentPane = frame.getContentPane();
+                    CardLayout layout = (CardLayout) contentPane.getLayout();
+
+                    layout.show(contentPane, "login");
+
+                    // 전환 이후 "home" 패널 제거
+                    Component[] components = contentPane.getComponents();
+                    for (Component comp : components) {
+                        if (comp.getName() != null && comp.getName().equals("home")) {
+                            contentPane.remove(comp);
+                            break;
+                        }
+                    }
+                    contentPane.revalidate();
+                    contentPane.repaint();
+                });
+            }
+        }else{
+            // 로그아웃 실패 알림창 추가
+            JOptionPane.showMessageDialog(
+                    this,
+                    result.message,      // 서버에서 전달된 메시지
+                    "로그아웃 실패",
+                    JOptionPane.WARNING_MESSAGE
+            );
+        }
     }//GEN-LAST:event_logoutButton1ActionPerformed
 
     private void LectureRoomReservationMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LectureRoomReservationMenuActionPerformed
@@ -1950,6 +2001,22 @@ public class Home extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_commonMenuActionPerformed
 
+    private void managerMenuCurrentUserAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_managerMenuCurrentUserAncestorAdded
+        Timer userCountTimer = new Timer(3000, e -> {
+            int currentUserCount = new UserClientController().currentUserCounts().currentUserCount;
+            managerMenuCurrentUser.setText(currentUserCount + " 명 접속중");
+        });
+        userCountTimer.start();
+    }//GEN-LAST:event_managerMenuCurrentUserAncestorAdded
+
+    private void commonMenuCurrentUserAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_commonMenuCurrentUserAncestorAdded
+        Timer userCountTimer = new Timer(3000, e -> {
+            int currentUserCount = new UserClientController().currentUserCounts().currentUserCount;
+            commonMenuCurrentUser.setText(currentUserCount + " 명 접속중");
+        });
+        userCountTimer.start();
+    }//GEN-LAST:event_commonMenuCurrentUserAncestorAdded
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private deu.view.custom.ButtonRound LectureRoomReservationMenu;
@@ -1960,6 +2027,7 @@ public class Home extends javax.swing.JPanel {
     private javax.swing.JPanel calendarTime;
     private deu.view.custom.ButtonRound cancelButton;
     private deu.view.custom.ButtonRound commonMenu;
+    private javax.swing.JLabel commonMenuCurrentUser;
     private deu.view.custom.PanelRound concurrentUsers;
     private deu.view.custom.PanelRound concurrentUsers1;
     private javax.swing.JLabel date0;
@@ -2066,14 +2134,13 @@ public class Home extends javax.swing.JPanel {
     private javax.swing.JLabel deuLogo1;
     private deu.view.custom.TextFieldRound floorField;
     private javax.swing.JLabel floorLabel;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private deu.view.custom.TextFieldRound lectureRoomField;
     private javax.swing.JLabel lectureRoomLabel;
     private deu.view.custom.ButtonRound logoutButton;
     private deu.view.custom.ButtonRound logoutButton1;
     private javax.swing.JPanel main;
     private javax.swing.JPanel managerMenu;
+    private javax.swing.JLabel managerMenuCurrentUser;
     private deu.view.custom.ButtonRound manegementMenu;
     private javax.swing.JPanel menu;
     private deu.view.custom.PanelRound myReservationCalendar;
