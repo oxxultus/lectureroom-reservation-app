@@ -66,6 +66,7 @@
     ├── java
     │   └── deu
     │       ├── controller      # 사용자 요청 처리
+    │       ├── model/dto       # 요청 임시데이터
     │       └── view            # Swing 기반 사용자 인터페이스
     └── resources
     └── Images-new.logo     # 이미지 및 정적 리소스 파일

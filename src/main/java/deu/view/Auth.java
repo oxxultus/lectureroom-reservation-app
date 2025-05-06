@@ -5,7 +5,7 @@
 package deu.view;
 
 import deu.controller.UserClientController;
-import deu.dto.response.BasicResponse;
+import deu.model.dto.response.BasicResponse;
 import deu.view.custom.FadeGlassPane;
 
 import javax.swing.*;

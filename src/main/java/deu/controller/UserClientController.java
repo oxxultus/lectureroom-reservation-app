@@ -1,11 +1,11 @@
 package deu.controller;
 
-import deu.dto.request.LoginRequest;
-import deu.dto.request.LogoutRequest;
-import deu.dto.request.SignupRequest;
-import deu.dto.request.UserCommandRequest;
-import deu.dto.response.BasicResponse;
-import deu.dto.response.CurrentResponse;
+import deu.model.dto.request.LoginRequest;
+import deu.model.dto.request.LogoutRequest;
+import deu.model.dto.request.SignupRequest;
+import deu.model.dto.request.UserCommandRequest;
+import deu.model.dto.response.BasicResponse;
+import deu.model.dto.response.CurrentResponse;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -107,7 +107,7 @@ public class UserClientController {
 
             Object res = in.readObject();
             if (res instanceof CurrentResponse r) {
-                System.out.println("접속자 수: " + r.currentUserCount + "명");
+                // System.out.println("접속자 수: " + r.currentUserCount + "명");
                 return r;
             }
         } catch (Exception e) {
