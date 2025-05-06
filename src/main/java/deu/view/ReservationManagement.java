@@ -5,10 +5,14 @@
 package deu.view;
 
 import deu.view.custom.ButtonRound;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
@@ -16,6 +20,8 @@ import javax.swing.JLabel;
  *
  * @author oxxultus
  */
+@Getter
+@Setter
 public class ReservationManagement extends javax.swing.JPanel {
     
     // 선택시 버튼 색 저장하는 공간
@@ -24,9 +30,9 @@ public class ReservationManagement extends javax.swing.JPanel {
     private JButton selectedFloorButton = null;
     
     // 선택된 색상 저장
-    private static final Color FLOOR_DEFAULT_COLOR = new Color(255, 255, 255);
-    private static final Color FLOOR_SELECTED_COLOR = new Color(20, 90, 170);
-    private static final Color ROOM_SELECTED_COLOR = new Color(20, 90, 170);
+    public static final Color FLOOR_DEFAULT_COLOR = new Color(255, 255, 255);
+    public static final Color FLOOR_SELECTED_COLOR = new Color(20, 90, 170);
+    public static final Color ROOM_SELECTED_COLOR = new Color(20, 90, 170);
 
     /**
      * Creates new form Reservation
@@ -35,7 +41,7 @@ public class ReservationManagement extends javax.swing.JPanel {
         initComponents();
     }
     
-    private ButtonRound createStyledButton(String text, int width, int height) {
+    public ButtonRound createStyledButton(String text, int width, int height) {
         ButtonRound btn = new ButtonRound();
         btn.setText(text);
         btn.setPreferredSize(new Dimension(width, height));
@@ -48,63 +54,23 @@ public class ReservationManagement extends javax.swing.JPanel {
         btn.setRoundBottomRight(10);
         return btn;
     }
-    
-    private void updateCalendarWithDummyData(String room) {
-        calendar.setVisible(false);
-        lectureRoomField.setText(room);
-
-        String[][] dummySubjects = new String[7][13];
-        for (int j = 0; j < 7; j++) {
-            for (int k = 0; k < 13; k++) {
-                dummySubjects[j][k] = (j + 1) + "-" + (k + 1);
-            }
+    public void clearSelectedButtons() {
+        if (selectedFloorButton != null) {
+            selectedFloorButton.setBackground(FLOOR_DEFAULT_COLOR);
+            selectedFloorButton.setForeground(Color.BLACK);
+            selectedFloorButton = null;
         }
-
-        // ❗ 새 버튼을 추가하지 않고 기존 컴포넌트만 수정
-        for (int day = 0; day < 7; day++) {
-            for (int period = 0; period < 13; period++) {
-                String buttonName = "day" + day + "_" + period;
-
-                for (Component comp : calendar.getComponents()) {
-                    if (comp instanceof JButton && buttonName.equals(comp.getName())) {
-                        JButton dayBtn = (JButton) comp;
-                        dayBtn.setText(dummySubjects[day][period]);
-
-                        // ✅ 특정 셀에 대해 초록색 처리
-                        if ("day2_0".equals(buttonName)) {
-                            dayBtn.setBackground(Color.GREEN);
-                            dayBtn.setEnabled(false); // 특별 한 경우 버튼 클릭을 하지 못하게
-                        } else {
-                            dayBtn.setBackground(null); // 초기화
-                        }
-                        
-                        // ✅ 기존 리스너 제거 (중복 방지)
-                        for (ActionListener al : dayBtn.getActionListeners()) {
-                            dayBtn.removeActionListener(al);
-                        }
-
-                        // ✅ 새 리스너 추가
-                        dayBtn.addActionListener(e -> {
-                            JButton source = (JButton) e.getSource(); // 클릭한 버튼
-                            String name = source.getName();
-                            reservationTimeField.setText(name);
-
-                            // 🔄 이전 선택된 버튼 초기화
-                            if (selectedCalendarButton != null) {
-                                selectedCalendarButton.setBackground(null);  // 초기색으로 복원
-                            }
-
-                            // ✅ 현재 버튼 강조 (선택 상태처럼)
-                            source.setBackground(new Color(255, 200, 0)); // 노란색 등으로 강조
-                            selectedCalendarButton = source; // 현재 선택된 버튼 저장
-                        });
-                    }
-                }
-            }
+        if (selectedRoomButton != null) {
+            selectedRoomButton.setBackground(FLOOR_DEFAULT_COLOR);
+            selectedRoomButton.setForeground(Color.BLACK);
+            selectedRoomButton = null;
         }
-        calendar.setVisible(true);
+        if (selectedCalendarButton != null) {
+            selectedCalendarButton.setBackground(null);
+            selectedCalendarButton = null;
+        }
     }
-    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -269,11 +235,6 @@ public class ReservationManagement extends javax.swing.JPanel {
         buildingPanel.setLayout(null);
 
         buildingComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "산학관", "정보관" }));
-        buildingComboBox.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                buildingComboBoxItemStateChanged(evt);
-            }
-        });
         buildingPanel.add(buildingComboBox);
         buildingComboBox.setBounds(10, 10, 220, 30);
 
@@ -1614,91 +1575,15 @@ public class ReservationManagement extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_calendarDateAncestorAdded
 
-    private void buildingComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_buildingComboBoxItemStateChanged
-       // 초기화
-       buildingField.setText("");
-       floorField.setText("");
-       floorButtonPanel.removeAll();
-       lectureRoomList.removeAll();
-       calendar.setVisible(false);
-       selectedFloorButton = null;
-       selectedRoomButton = null;
+    // 컨트롤러 이벤트 연결
+    public void addBuildingSelectionListener(ItemListener listener) {
+        buildingComboBox.addItemListener(listener);
+    }
 
-       String selectedBuilding = (String) buildingComboBox.getSelectedItem();
-       buildingField.setText(selectedBuilding);
-
-       if (!"정보관".equals(selectedBuilding)) {
-           floorButtonPanel.revalidate();
-           floorButtonPanel.repaint();
-           return;
-       }
-
-       int maxFloor = 9;
-
-       for (int i = 1; i <= maxFloor; i++) {
-            final int currentFloor = i;
-            ButtonRound floorBtn = createStyledButton(String.valueOf(currentFloor), 45, 45);
-            floorBtn.setBackground(FLOOR_DEFAULT_COLOR);
-            floorBtn.setForeground(Color.BLACK);
-
-            floorBtn.addActionListener(e -> {
-                calendar.setVisible(false);
-                if (selectedFloorButton != null) {
-                    selectedFloorButton.setBackground(FLOOR_DEFAULT_COLOR);
-                    selectedFloorButton.setForeground(Color.BLACK);
-                }
-
-                floorBtn.setBackground(FLOOR_SELECTED_COLOR);
-                floorBtn.setForeground(Color.WHITE);
-                selectedFloorButton = floorBtn;
-
-                floorDisplayField.setText(floorBtn.getText());
-                floorField.setText(floorBtn.getText());
-
-                lectureRoomList.removeAll();
-                selectedRoomButton = null;
-
-                // ✅ 9층일 경우에만 강의실 버튼 생성
-                if ("9".equals(floorBtn.getText())) {
-                    String[] rooms = {
-                        "A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09",
-                        "A10", "A11", "A12", "A13", "A14", "A15", "A16", "A17", "A18"
-                    };
-
-                    for (String room : rooms) {
-                        ButtonRound roomBtn = createStyledButton(room, 100, 30);
-                        roomBtn.setBackground(FLOOR_DEFAULT_COLOR);
-                        roomBtn.setForeground(Color.BLACK);
-
-                        roomBtn.addActionListener(ev -> {
-                            calendar.setVisible(false);
-                            if (selectedRoomButton != null) {
-                                selectedRoomButton.setBackground(FLOOR_DEFAULT_COLOR);
-                                selectedRoomButton.setForeground(Color.BLACK);
-                            }
-
-                            roomBtn.setBackground(ROOM_SELECTED_COLOR);
-                            roomBtn.setForeground(Color.WHITE);
-                            selectedRoomButton = roomBtn;
-
-                            updateCalendarWithDummyData(room);
-                        });
-
-                        lectureRoomList.add(roomBtn);
-                    }
-                }
-
-                lectureRoomList.revalidate();
-                lectureRoomList.repaint();
-            });
-
-            floorButtonPanel.add(floorBtn);
-        }
-
-       floorButtonPanel.revalidate();
-       floorButtonPanel.repaint();
-    }//GEN-LAST:event_buildingComboBoxItemStateChanged
-
+    // 필드 값 가져오기
+    public String getSelectedBuilding() {
+        return (String) buildingComboBox.getSelectedItem();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> buildingComboBox;

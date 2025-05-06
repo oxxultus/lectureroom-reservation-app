@@ -6,17 +6,19 @@ package deu.view;
 
 import deu.controller.UserClientController;
 import deu.model.dto.response.BasicResponse;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Component;
-import java.awt.Container;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 /**
  *
  * @author oxxultus
  */
+@Getter
+@Setter
 public class Home extends javax.swing.JPanel {
 
     private String userNumber;
@@ -35,18 +37,6 @@ public class Home extends javax.swing.JPanel {
         initComponents();
     }
 
-    public String getUserNumber() {
-        return userNumber;
-    }
-
-    public String getUserPassword() {
-        return userPassword;
-    }
-
-    public JPanel getMain() {
-    return main;
-    }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -228,11 +218,6 @@ public class Home extends javax.swing.JPanel {
         logoutButton1.setRoundBottomRight(10);
         logoutButton1.setRoundTopLeft(10);
         logoutButton1.setRoundTopRight(10);
-        logoutButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logoutButton1ActionPerformed(evt);
-            }
-        });
         managerMenu.add(logoutButton1);
         logoutButton1.setBounds(1020, 10, 70, 30);
 
@@ -243,11 +228,6 @@ public class Home extends javax.swing.JPanel {
         reservationManagementButton.setRoundBottomRight(0);
         reservationManagementButton.setRoundTopLeft(10);
         reservationManagementButton.setRoundTopRight(0);
-        reservationManagementButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reservationManagementButtonActionPerformed(evt);
-            }
-        });
         managerMenu.add(reservationManagementButton);
         reservationManagementButton.setBounds(160, 10, 180, 30);
 
@@ -258,11 +238,6 @@ public class Home extends javax.swing.JPanel {
         userManagementButton.setRoundBottomRight(10);
         userManagementButton.setRoundTopLeft(0);
         userManagementButton.setRoundTopRight(10);
-        userManagementButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userManagementButtonActionPerformed(evt);
-            }
-        });
         managerMenu.add(userManagementButton);
         userManagementButton.setBounds(339, 10, 180, 30);
 
@@ -317,11 +292,6 @@ public class Home extends javax.swing.JPanel {
         commonMenu.setRoundBottomRight(10);
         commonMenu.setRoundTopLeft(10);
         commonMenu.setRoundTopRight(10);
-        commonMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                commonMenuActionPerformed(evt);
-            }
-        });
         managerMenu.add(commonMenu);
         commonMenu.setBounds(580, 10, 112, 30);
 
@@ -342,11 +312,6 @@ public class Home extends javax.swing.JPanel {
         logoutButton.setRoundBottomRight(10);
         logoutButton.setRoundTopLeft(10);
         logoutButton.setRoundTopRight(10);
-        logoutButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logoutButtonActionPerformed(evt);
-            }
-        });
         menu.add(logoutButton);
         logoutButton.setBounds(1020, 10, 70, 30);
 
@@ -357,11 +322,6 @@ public class Home extends javax.swing.JPanel {
         myReservationMenu.setRoundBottomRight(0);
         myReservationMenu.setRoundTopLeft(10);
         myReservationMenu.setRoundTopRight(0);
-        myReservationMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                myReservationMenuActionPerformed(evt);
-            }
-        });
         menu.add(myReservationMenu);
         myReservationMenu.setBounds(160, 10, 180, 30);
 
@@ -372,11 +332,6 @@ public class Home extends javax.swing.JPanel {
         LectureRoomReservationMenu.setRoundBottomRight(10);
         LectureRoomReservationMenu.setRoundTopLeft(0);
         LectureRoomReservationMenu.setRoundTopRight(10);
-        LectureRoomReservationMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LectureRoomReservationMenuActionPerformed(evt);
-            }
-        });
         menu.add(LectureRoomReservationMenu);
         LectureRoomReservationMenu.setBounds(339, 10, 180, 30);
 
@@ -387,11 +342,6 @@ public class Home extends javax.swing.JPanel {
         manegementMenu.setRoundBottomRight(10);
         manegementMenu.setRoundTopLeft(10);
         manegementMenu.setRoundTopRight(10);
-        manegementMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                manegementMenuActionPerformed(evt);
-            }
-        });
         menu.add(manegementMenu);
         manegementMenu.setBounds(580, 10, 112, 30);
 
@@ -1812,43 +1762,6 @@ public class Home extends javax.swing.JPanel {
         add(main, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
-        Auth frame = (Auth) SwingUtilities.getWindowAncestor(this);
-
-        BasicResponse result = new UserClientController().logout(userNumber, userPassword);
-        if (result.code.equals("200")) {
-            if (frame != null) {
-                frame.fadeTransition(() -> {
-                    // 전환 전 작업 (예: 아무거나 제거 X)
-                }, () -> {
-                    Container contentPane = frame.getContentPane();
-                    CardLayout layout = (CardLayout) contentPane.getLayout();
-
-                    layout.show(contentPane, "login");
-
-                    // 전환 이후 "home" 패널 제거
-                    Component[] components = contentPane.getComponents();
-                    for (Component comp : components) {
-                        if (comp.getName() != null && comp.getName().equals("home")) {
-                            contentPane.remove(comp);
-                            break;
-                        }
-                    }
-                    contentPane.revalidate();
-                    contentPane.repaint();
-                });
-            }
-        }else{
-            // 로그아웃 실패 알림창 추가
-            JOptionPane.showMessageDialog(
-                    this,
-                    result.message,      // 서버에서 전달된 메시지
-                    "로그아웃 실패",
-                    JOptionPane.WARNING_MESSAGE
-            );
-        }
-    }//GEN-LAST:event_logoutButtonActionPerformed
-
     private void calendarDateAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_calendarDateAncestorAdded
         java.time.LocalDate today = java.time.LocalDate.now();
         java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("E/yyyy-MM-dd");
@@ -1862,144 +1775,12 @@ public class Home extends javax.swing.JPanel {
     }//GEN-LAST:event_calendarDateAncestorAdded
 
     private void myReservationListAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_myReservationListAncestorAdded
+
         // 개인의 예약 내용을 저장해서 불러온 뒤 버튼을 추가한다.
         
         // 버튼 혹은 패널 혹은 라벨을 생성해서 값을 넣은 후
         // myReservationList.add(컴포넌트) 방식으로 추가한다.
     }//GEN-LAST:event_myReservationListAncestorAdded
-
-    private void manegementMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manegementMenuActionPerformed
-       Auth authFrame = (Auth) SwingUtilities.getWindowAncestor(this);
-
-        if (authFrame != null) {
-            ReservationManagement reservationManagement = new ReservationManagement(); 
-
-            authFrame.fadeTransition(() -> {
-               this.removeAll();
-            }, () -> {
-                this.add(managerMenu, BorderLayout.NORTH);
-                this.add(reservationManagement, BorderLayout.CENTER);
-                this.revalidate();
-                this.repaint();
-            });
-        }
-    }//GEN-LAST:event_manegementMenuActionPerformed
-
-    private void logoutButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButton1ActionPerformed
-        Auth frame = (Auth) SwingUtilities.getWindowAncestor(this);
-
-        BasicResponse result = new UserClientController().logout(userNumber, userPassword);
-        if (result.code.equals("200")) {
-            if (frame != null) {
-                frame.fadeTransition(() -> {
-                    // 전환 전 작업 (예: 아무거나 제거 X)
-                }, () -> {
-                    Container contentPane = frame.getContentPane();
-                    CardLayout layout = (CardLayout) contentPane.getLayout();
-
-                    layout.show(contentPane, "login");
-
-                    // 전환 이후 "home" 패널 제거
-                    Component[] components = contentPane.getComponents();
-                    for (Component comp : components) {
-                        if (comp.getName() != null && comp.getName().equals("home")) {
-                            contentPane.remove(comp);
-                            break;
-                        }
-                    }
-                    contentPane.revalidate();
-                    contentPane.repaint();
-                });
-            }
-        }else{
-            // 로그아웃 실패 알림창 추가
-            JOptionPane.showMessageDialog(
-                    this,
-                    result.message,      // 서버에서 전달된 메시지
-                    "로그아웃 실패",
-                    JOptionPane.WARNING_MESSAGE
-            );
-        }
-    }//GEN-LAST:event_logoutButton1ActionPerformed
-
-    private void LectureRoomReservationMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LectureRoomReservationMenuActionPerformed
-        Auth authFrame = (Auth) SwingUtilities.getWindowAncestor(this);
-
-        if (authFrame != null) {
-            Reservation reservation = new Reservation(getUserNumber(),getUserPassword());  // 교체할 새로운 패널
-
-            authFrame.fadeTransition(() -> {
-                // 기존 main을 제거
-                this.removeAll(); // CENTER 영역에서 모두 제거 (reservation 포함)
-            }, () -> {
-                this.add(menu, BorderLayout.NORTH); // 원래의 main 다시 추가
-                this.add(reservation, BorderLayout.CENTER);  // main이 있던 자리에 reservation 추가
-                this.revalidate();
-                this.repaint();
-            });
-        }
-    }//GEN-LAST:event_LectureRoomReservationMenuActionPerformed
-
-    private void myReservationMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myReservationMenuActionPerformed
-        Auth authFrame = (Auth) SwingUtilities.getWindowAncestor(this);
-
-        if (authFrame != null) {
-            authFrame.fadeTransition(() -> {
-                this.removeAll(); // CENTER 영역에서 모두 제거 (reservation 포함)
-            }, () -> {
-                this.add(menu, BorderLayout.NORTH); // 원래의 menu 다시 추가
-                this.add(main, BorderLayout.CENTER); // 원래의 main 다시 추가
-                this.revalidate();
-                this.repaint();
-            });
-        }
-    }//GEN-LAST:event_myReservationMenuActionPerformed
-
-    private void userManagementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userManagementButtonActionPerformed
-        Auth authFrame = (Auth) SwingUtilities.getWindowAncestor(this);
-
-        if (authFrame != null) {
-            ReservationManagement reservationManagement = new ReservationManagement(); 
-            authFrame.fadeTransition(() -> {
-                this.removeAll(); // CENTER 영역에서 모두 제거 (reservation 포함)
-            }, () -> {
-                this.add(managerMenu, BorderLayout.NORTH); // 원래의 menu 다시 추가
-                this.revalidate();
-                this.repaint();
-            });
-        }
-    }//GEN-LAST:event_userManagementButtonActionPerformed
-
-    private void reservationManagementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservationManagementButtonActionPerformed
-        Auth authFrame = (Auth) SwingUtilities.getWindowAncestor(this);
-
-        if (authFrame != null) {
-            ReservationManagement reservationManagement = new ReservationManagement(); 
-            authFrame.fadeTransition(() -> {
-                this.removeAll(); // CENTER 영역에서 모두 제거 (reservation 포함)
-            }, () -> {
-                this.add(managerMenu, BorderLayout.NORTH); // 원래의 menu 다시 추가
-                this.add(reservationManagement, BorderLayout.CENTER); // 원래의 main 다시 추가
-                this.revalidate();
-                this.repaint();
-            });
-        }
-    }//GEN-LAST:event_reservationManagementButtonActionPerformed
-
-    private void commonMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commonMenuActionPerformed
-        Auth authFrame = (Auth) SwingUtilities.getWindowAncestor(this);
-
-        if (authFrame != null) {
-            authFrame.fadeTransition(() -> {
-                this.removeAll(); // CENTER 영역에서 모두 제거 (reservation 포함)
-            }, () -> {
-                this.add(menu, BorderLayout.NORTH); // 원래의 menu 다시 추가
-                this.add(main, BorderLayout.CENTER); // 원래의 main 다시 추가
-                this.revalidate();
-                this.repaint();
-            });
-        }
-    }//GEN-LAST:event_commonMenuActionPerformed
 
     private void managerMenuCurrentUserAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_managerMenuCurrentUserAncestorAdded
         Timer userCountTimer = new Timer(3000, e -> {
@@ -2017,6 +1798,35 @@ public class Home extends javax.swing.JPanel {
         userCountTimer.start();
     }//GEN-LAST:event_commonMenuCurrentUserAncestorAdded
 
+    public void addLogoutListener(ActionListener listener) {
+        logoutButton.addActionListener(listener);
+        logoutButton1.addActionListener(listener);
+    }
+    public void addReservationMenuListener(ActionListener listener) {
+        LectureRoomReservationMenu.addActionListener(listener);
+    }
+    public void addMyReservationMenuListener(ActionListener listener) {
+        myReservationMenu.addActionListener(listener);
+    }
+    public void addManagementMenuListener(ActionListener listener) {
+        manegementMenu.addActionListener(listener);
+    }
+    public void addUserManagementListener(ActionListener listener) {
+        userManagementButton.addActionListener(listener);
+    }
+    public void addReservationManagementListener(ActionListener listener) {
+        reservationManagementButton.addActionListener(listener);
+    }
+    public void addCommonMenuListener(ActionListener listener) {
+        commonMenu.addActionListener(listener);
+    }
+    public void replaceMainContent(JPanel northPanel, JPanel centerPanel) {
+        removeAll();
+        if (northPanel != null) add(northPanel, BorderLayout.NORTH);
+        if (centerPanel != null) add(centerPanel, BorderLayout.CENTER);
+        revalidate();
+        repaint();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private deu.view.custom.ButtonRound LectureRoomReservationMenu;
@@ -2178,5 +1988,18 @@ public class Home extends javax.swing.JPanel {
     private javax.swing.JLabel titleLabel;
     private deu.view.custom.ButtonRound updateButton;
     private deu.view.custom.ButtonRound userManagementButton;
+
+    public JPanel getMenuPanel() {
+        return menu;
+    }
+
+    public JPanel getMainPanel() {
+        return main;
+    }
+
+    public JPanel getManagerMenuPanel() {
+        return managerMenu;
+    }
+
     // End of variables declaration//GEN-END:variables
 }

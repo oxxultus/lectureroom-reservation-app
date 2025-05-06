@@ -1,5 +1,6 @@
-package deu.controller;
+package deu.controller.ui;
 
+import deu.controller.UserClientController;
 import deu.model.dto.response.BasicResponse;
 import deu.view.Auth;
 
@@ -13,6 +14,7 @@ public class AuthSwingController {
         this.view = view;
         this.userController = new UserClientController();
 
+        // 이벤트 연결
         view.addLoginListener(this::handleLogin);
         view.addSignupListener(this::handleSignup);
         view.addSwitchToSignupListener(this::switchToSignup);

@@ -4,17 +4,13 @@
  */
 package deu.view;
 
-import deu.controller.UserClientController;
-import deu.model.dto.response.BasicResponse;
-import deu.view.custom.FadeGlassPane;
+import deu.controller.ui.HomeSwingController;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 /**
  *
@@ -23,37 +19,12 @@ import java.awt.event.ComponentEvent;
 @Getter
 @Setter
 public class Auth extends javax.swing.JFrame {
-    
-    private FadeGlassPane glassPane;
 
     /**
      * Creates new form Auth
      */
     public Auth() {
         initComponents();
-        setupFadeGlassPane();
-    }
-    private void setupFadeGlassPane() {
-        glassPane = new FadeGlassPane();
-        glassPane.setBackground(new Color(0, 0, 0, 200));
-        setGlassPane(glassPane);
-        glassPane.setSize(getSize());
-        glassPane.setVisible(false);
-
-        // 동적으로 프레임 크기 변경 시에도 크기 맞춤
-        addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                glassPane.setSize(getSize());
-            }
-        });
-    }
-    public void fadeTransition(Runnable beforeFadeOut, Runnable afterFadeIn) {
-        glassPane.startFade(true, 45, () -> {
-            if (beforeFadeOut != null) beforeFadeOut.run();
-
-            glassPane.startFade(false, 45, afterFadeIn);
-        });
     }
 
     /**
@@ -511,7 +482,7 @@ public class Auth extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    // 컨트롤러 분리
+    // 컨트롤러 이벤트 등록
     public void addLoginListener(ActionListener listener) {
         login_loginButton.addActionListener(listener);
     }
@@ -525,68 +496,60 @@ public class Auth extends javax.swing.JFrame {
         signup_undoButton.addActionListener(listener);
     }
 
+    // 사용자 설정 메서드
     public void showPanel(String name) {
         CardLayout layout = (CardLayout) getContentPane().getLayout();
         layout.show(getContentPane(), name);
     }
-
     public void addPanel(Component comp, String name) {
         getContentPane().add(comp, name);
     }
-
     public void clearSignupFields() {
         signup_signupNumberField.setText("");
         signup_signupPasswordField.setText("");
         signup_signupNameField.setText("");
         signup_signupMajorField.setText("");
     }
-
     public void transitionToHome(String userId, String userPw) {
         Home homePanel = new Home(userId, userPw);
+
+        new HomeSwingController(homePanel);
+
+        homePanel.setName("home");
+
         addPanel(homePanel, "home");
         showPanel("home");
     }
-
     public void switchToLoginPanel() {
         clearSignupFields();
         showPanel("login");
     }
-
     public void switchToSignupPanel() {
         clearSignupFields();
         showPanel("signup");
     }
 
-    // 회원가입 - 학번 또는 아이디
+    // 필드 값 전달
     public String getSignupId() {
         return signup_signupNumberField.getText().trim();
     }
-
-    // 회원가입 - 비밀번호 (JPasswordField일 경우)
     public String getSignupPassword() {
         return new String(signup_signupPasswordField.getText()).trim();
     }
-
-    // 회원가입 - 이름
     public String getSignupName() {
         return signup_signupNameField.getText().trim();
     }
-
-    // 회원가입 - 전공
     public String getSignupMajor() {
         return signup_signupMajorField.getText().trim();
     }
-
-    // 아이디 텍스트 필드 값 반환
     public String getLoginId() {
         return login_loginNumberField.getText().trim();
     }
-
-    // 비밀번호 텍스트 필드 값 반환
     public String getLoginPassword() {
         return new String(login_loginPasswordField.getPassword()).trim();
     }
 
+    // 메시지 출력
     public void showError(String message) {
         JOptionPane.showMessageDialog(
                 this,
@@ -595,7 +558,6 @@ public class Auth extends javax.swing.JFrame {
                 JOptionPane.ERROR_MESSAGE
         );
     }
-
     public void showSuccess(String message) {
         JOptionPane.showMessageDialog(
                 this,
