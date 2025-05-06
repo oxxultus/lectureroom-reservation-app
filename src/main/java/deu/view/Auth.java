@@ -7,14 +7,21 @@ package deu.view;
 import deu.controller.UserClientController;
 import deu.model.dto.response.BasicResponse;
 import deu.view.custom.FadeGlassPane;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.swing.*;
-import java.awt.CardLayout;
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 /**
  *
  * @author oxxultus
  */
+@Getter
+@Setter
 public class Auth extends javax.swing.JFrame {
     
     private FadeGlassPane glassPane;
@@ -28,8 +35,18 @@ public class Auth extends javax.swing.JFrame {
     }
     private void setupFadeGlassPane() {
         glassPane = new FadeGlassPane();
+        glassPane.setBackground(new Color(0, 0, 0, 200));
         setGlassPane(glassPane);
-        glassPane.setVisible(false); // 기본은 숨김
+        glassPane.setSize(getSize());
+        glassPane.setVisible(false);
+
+        // 동적으로 프레임 크기 변경 시에도 크기 맞춤
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                glassPane.setSize(getSize());
+            }
+        });
     }
     public void fadeTransition(Runnable beforeFadeOut, Runnable afterFadeIn) {
         glassPane.startFade(true, 45, () -> {
@@ -144,11 +161,6 @@ public class Auth extends javax.swing.JFrame {
         login_loginButton.setRoundBottomRight(15);
         login_loginButton.setRoundTopLeft(15);
         login_loginButton.setRoundTopRight(15);
-        login_loginButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                login_loginButtonActionPerformed(evt);
-            }
-        });
         login.add(login_loginButton);
         login_loginButton.setBounds(460, 450, 460, 40);
 
@@ -160,11 +172,6 @@ public class Auth extends javax.swing.JFrame {
         login_signupButton.setRoundBottomRight(15);
         login_signupButton.setRoundTopLeft(15);
         login_signupButton.setRoundTopRight(15);
-        login_signupButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                login_signupButtonActionPerformed(evt);
-            }
-        });
         login.add(login_signupButton);
         login_signupButton.setBounds(460, 500, 460, 40);
 
@@ -326,11 +333,6 @@ public class Auth extends javax.swing.JFrame {
         signup_undoButton.setRoundBottomRight(15);
         signup_undoButton.setRoundTopLeft(0);
         signup_undoButton.setRoundTopRight(15);
-        signup_undoButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                signup_undoButtonActionPerformed(evt);
-            }
-        });
         signup.add(signup_undoButton);
         signup_undoButton.setBounds(830, 520, 90, 40);
 
@@ -341,11 +343,6 @@ public class Auth extends javax.swing.JFrame {
         signup_signupButton.setRoundBottomRight(0);
         signup_signupButton.setRoundTopLeft(15);
         signup_signupButton.setRoundTopRight(0);
-        signup_signupButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                signup_signupButtonActionPerformed(evt);
-            }
-        });
         signup.add(signup_signupButton);
         signup_signupButton.setBounds(460, 520, 380, 40);
 
@@ -514,105 +511,99 @@ public class Auth extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void login_signupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_signupButtonActionPerformed
-        login_loginNumberField.setText("");
-        login_loginPasswordField.setText("");
+    // 컨트롤러 분리
+    public void addLoginListener(ActionListener listener) {
+        login_loginButton.addActionListener(listener);
+    }
+    public void addSignupListener(ActionListener listener) {
+        signup_signupButton.addActionListener(listener);
+    }
+    public void addSwitchToSignupListener(ActionListener listener) {
+        login_signupButton.addActionListener(listener);
+    }
+    public void addSwitchToLoginListener(ActionListener listener) {
+        signup_undoButton.addActionListener(listener);
+    }
 
-        fadeTransition(() -> {
-            // "signup"이라는 이름으로 등록된 패널로 전환
-            CardLayout layout = (CardLayout) getContentPane().getLayout();
-            layout.show(getContentPane(), "signup");
-        }, null);
-    }//GEN-LAST:event_login_signupButtonActionPerformed
+    public void showPanel(String name) {
+        CardLayout layout = (CardLayout) getContentPane().getLayout();
+        layout.show(getContentPane(), name);
+    }
 
-    private void signup_undoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signup_undoButtonActionPerformed
-        // 텍스트 필드 초기화 + 플레이스홀더 재설정
+    public void addPanel(Component comp, String name) {
+        getContentPane().add(comp, name);
+    }
+
+    public void clearSignupFields() {
         signup_signupNumberField.setText("");
         signup_signupPasswordField.setText("");
         signup_signupNameField.setText("");
         signup_signupMajorField.setText("");
+    }
 
-        fadeTransition(() -> {
-            // "login"이라는 이름으로 등록된 패널로 전환
-            CardLayout layout = (CardLayout) getContentPane().getLayout();
-            layout.show(getContentPane(), "login");
-        }, null);
-    }//GEN-LAST:event_signup_undoButtonActionPerformed
+    public void transitionToHome(String userId, String userPw) {
+        Home homePanel = new Home(userId, userPw);
+        addPanel(homePanel, "home");
+        showPanel("home");
+    }
 
-    private void login_loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_loginButtonActionPerformed
-        // 컨트롤러 호출
-        BasicResponse result = new UserClientController().login(
-                login_loginNumberField.getText(),
-                login_loginPasswordField.getText()
+    public void switchToLoginPanel() {
+        clearSignupFields();
+        showPanel("login");
+    }
+
+    public void switchToSignupPanel() {
+        clearSignupFields();
+        showPanel("signup");
+    }
+
+    // 회원가입 - 학번 또는 아이디
+    public String getSignupId() {
+        return signup_signupNumberField.getText().trim();
+    }
+
+    // 회원가입 - 비밀번호 (JPasswordField일 경우)
+    public String getSignupPassword() {
+        return new String(signup_signupPasswordField.getText()).trim();
+    }
+
+    // 회원가입 - 이름
+    public String getSignupName() {
+        return signup_signupNameField.getText().trim();
+    }
+
+    // 회원가입 - 전공
+    public String getSignupMajor() {
+        return signup_signupMajorField.getText().trim();
+    }
+
+    // 아이디 텍스트 필드 값 반환
+    public String getLoginId() {
+        return login_loginNumberField.getText().trim();
+    }
+
+    // 비밀번호 텍스트 필드 값 반환
+    public String getLoginPassword() {
+        return new String(login_loginPasswordField.getPassword()).trim();
+    }
+
+    public void showError(String message) {
+        JOptionPane.showMessageDialog(
+                this,
+                message,
+                "오류",
+                JOptionPane.ERROR_MESSAGE
         );
+    }
 
-        if (result.code.equals("200")) {
-            fadeTransition(() -> {
-                // 입력 필드 초기화
-                Home homePanel = new Home(login_loginNumberField.getText(), login_loginPasswordField.getText());
-                getContentPane().add(homePanel, "home");
-
-                login_loginNumberField.setText("");
-                login_loginPasswordField.setText("");
-
-                // "home"이라는 이름으로 등록된 패널로 전환
-                CardLayout layout = (CardLayout) getContentPane().getLayout();
-                layout.show(getContentPane(), "home");
-            }, null);
-        } else {
-            // 로그인 실패 알림창 추가
-            JOptionPane.showMessageDialog(
-                    this,
-                    result.message,      // 서버에서 전달된 메시지 (예: 비밀번호 오류, 사용자 없음 등)
-                    "로그인 실패",
-                    JOptionPane.WARNING_MESSAGE
-            );
-            return;
-        }
-    }//GEN-LAST:event_login_loginButtonActionPerformed
-
-    private void signup_signupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signup_signupButtonActionPerformed
-
-        // 컨트롤러 호출
-        BasicResponse result = new UserClientController().signup(
-                signup_signupNumberField.getText(),
-                signup_signupPasswordField.getText(),
-                signup_signupNameField.getText(),
-                signup_signupMajorField.getText()
+    public void showSuccess(String message) {
+        JOptionPane.showMessageDialog(
+                this,
+                message,
+                "성공",
+                JOptionPane.INFORMATION_MESSAGE
         );
-        if (result.code.equals("200")) {
-            fadeTransition(() -> {
-                // 텍스트 필드 초기화 + 플레이스홀더 재설정
-                signup_signupNumberField.setText("");
-                signup_signupPasswordField.setText("");
-                signup_signupNameField.setText("");
-                signup_signupMajorField.setText("");
-
-                JOptionPane.showMessageDialog(
-                        this,
-                        result.message,      // 서버에서 전달된 메시지 (예: 비밀번호 오류, 사용자 없음 등)
-                        "회원가입 성공",
-                        JOptionPane.WARNING_MESSAGE
-                );
-
-                // "login"이라는 이름으로 등록된 패널로 전환
-                CardLayout layout = (CardLayout) getContentPane().getLayout();
-                layout.show(getContentPane(), "login");
-            }, null);
-        }else{
-            signup_signupNumberField.setText("");
-            signup_signupPasswordField.setText("");
-            signup_signupNameField.setText("");
-            signup_signupMajorField.setText("");
-            JOptionPane.showMessageDialog(
-                    this,
-                    result.message,      // 서버에서 전달된 메시지 (예: 비밀번호 오류, 사용자 없음 등)
-                    "회원가입 실패",
-                    JOptionPane.WARNING_MESSAGE
-            );
-            return;
-        }
-    }//GEN-LAST:event_signup_signupButtonActionPerformed
+    }
 
     /**
      * @param args the command line arguments
