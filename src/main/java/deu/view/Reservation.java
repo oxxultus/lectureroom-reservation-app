@@ -1559,6 +1559,9 @@ public class Reservation extends javax.swing.JPanel {
     public void addBuildingSelectionListener(ItemListener listener) {
         buildingComboBox.addItemListener(listener);
     }
+    public void addReservationButtionListener(ActionListener listener) {
+        updateButton.addActionListener(listener);
+    }
 
     // 필드 값 가져오기
     public String getSelectedBuilding() {

@@ -5,6 +5,7 @@ import deu.view.custom.ButtonRound;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.util.Arrays;
@@ -17,9 +18,12 @@ public class ReservationManagementSwingController {
         this.view = view;
 
         // 이벤트 연결
-        this.view.addBuildingSelectionListener(this::handleBuildingSelection);
+        view.addBuildingSelectionListener(this::handleBuildingSelection);
+        view.addUpdateButtonListener(this::updateButton);
+        view.addDeleteButtonListener(this::deleteButton);
     }
 
+    // 건물 정보 가져오기 기능
     private void handleBuildingSelection(ItemEvent e) {
         if (e.getStateChange() != ItemEvent.SELECTED) return;
 
@@ -100,6 +104,7 @@ public class ReservationManagementSwingController {
         view.getFloorButtonPanel().repaint();
     }
 
+    // 캘린더에 클릭 시 각 강의실의 정보를 갱신 하는 기능
     private void updateCalendarWithDummyData(String room) {
         view.getCalendar().setVisible(false);
         view.getLectureRoomField().setText(room);
@@ -151,8 +156,55 @@ public class ReservationManagementSwingController {
         view.getCalendar().setVisible(true);
     }
 
+    // 수정하기 버튼 기능
+    private void updateButton(ActionEvent e) {
+
+        // 필드 값을 가져온다.
+        view.getReservationUserNumber().getText();
+        view.getTitleField().getText();
+        view.getBuildingField().getText();
+        view.getFloorField().getText();
+        view.getLectureRoomField().getText();
+        view.getReservationTimeField().getText();
+        view.getDescriptionField().getText();
+
+        // TODO: 가져온 값을 바탕으로 컨트롤러를 호출하여 서버와 통신하여 수정 처리한다.
+    }
+
+    // 삭제하기 버튼 기능
+    private void deleteButton(ActionEvent e) {
+
+        // 필드 값을 가져온다.
+        view.getReservationUserNumber().getText();
+        view.getTitleField().getText();
+        view.getBuildingField().getText();
+        view.getFloorField().getText();
+        view.getLectureRoomField().getText();
+        view.getReservationTimeField().getText();
+
+        // TODO: 가져온 값을 바탕으로 컨트롤러를 호출하여 서버와 통신하여 삭제 처리한다.
+
+
+        // 필드 초기화
+        clearReservationFieldData();
+    }
+
+    // 건물에 따른 강의실 정보 가져오는 기능
     private List<String> getDynamicRoomNames() {
         // 예: 해당 층/건물에 따라 다르게 리턴
         return Arrays.asList("R101", "R102", "R103");
+    }
+
+    // 입력 필드 초기화 - 수정 금지
+    private void clearReservationFieldData(){
+        // 필드 값을 비운다.
+        view.getReservationUserNumber().setText("");
+        view.getTitleField().setText("");
+        view.getDescriptionField().setText("");
+
+        //view.getLectureRoomField().setText("");
+        // view.getReservationTimeField().setText("");
+        // view.getBuildingField().setText("");
+        // view.getFloorField().setText("");
     }
 }

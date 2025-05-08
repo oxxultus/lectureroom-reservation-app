@@ -5,6 +5,7 @@ import deu.view.custom.ButtonRound;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.util.List;
@@ -17,9 +18,11 @@ public class ReservationSwingController {
         this.view = view;
 
         // 이벤트 연결
-        this.view.addBuildingSelectionListener(this::handleBuildingSelection);
+        view.addBuildingSelectionListener(this::handleBuildingSelection);
+        view.addReservationButtionListener(this::lectureRoomReservationButton);
     }
 
+    // 건물을 선택 하는 기능
     private void handleBuildingSelection(ItemEvent e) {
         if (e.getStateChange() != ItemEvent.SELECTED) return;
 
@@ -100,6 +103,7 @@ public class ReservationSwingController {
         view.getFloorButtonPanel().repaint();
     }
 
+    // 캘린더에 클릭 시 각 강의실의 정보를 갱신 하는 기능
     private void updateCalendarWithDummyData(String room) {
         view.getCalendar().setVisible(false);
         view.getLectureRoomField().setText(room);
@@ -151,8 +155,36 @@ public class ReservationSwingController {
         view.getCalendar().setVisible(true);
     }
 
+    // 예약하는 버튼 기능
+    private void lectureRoomReservationButton(ActionEvent e){
+
+        // 사용자 이름 가져오기
+        String userName = view.getUserNumber();
+
+        // 예약을 위한 정보 가져오기
+        String building = view.getBuildingField().getText();
+        String floor = view.getFloorField().getText();
+        String lectureRoom = view.getLectureRoomField().getText();
+        String title = view.getTitleField().getText();
+        String description = view.getDescriptionField().getText();
+
+        // TODO: 예약 컨트롤러를 호출해서 해당 데이터로 예약 정보 저장하기
+
+
+        //예약 후 작성 데이터 초기화
+        refreshReservationWriteDataField();
+    }
+
+    // 건물에 따른 강의실 정보 가져오는 기능
     private List<String> getDynamicRoomNames() {
         // 예: 해당 층/건물에 따라 다르게 리턴
         return Arrays.asList("R101", "R102", "R103");
+    }
+
+    // 필드 갱신하는 기능 - 수정 금지
+    private void refreshReservationWriteDataField(){
+        view.getTitleField().setText("");
+        view.getDescriptionField().setText("");
+        view.getReservationTimeField().setText("");
     }
 }

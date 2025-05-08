@@ -72,7 +72,7 @@ public class UserManagementSwingController {
         clearProfileField();
     }
 
-    // 테이블 항목 선택 시 텍스트 필드에 채워 넣는 이벤트 - 수정하지 않아도 됨
+    // 테이블 항목 선택 시 텍스트 필드에 채워 넣는 이벤트 - 수정 금지
     private void addTableSelectionListener() {
         view.getUserTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -92,7 +92,7 @@ public class UserManagementSwingController {
         });
     }
 
-    // 테이블이 생성 될 때 갱신되는 기능 - 수정하지 않아도 됨
+    // 테이블이 생성 될 때 갱신되는 기능 - 수정 금지
     private AncestorListener createTableInitListener() {
         return new AncestorListener() {
             @Override
@@ -108,7 +108,7 @@ public class UserManagementSwingController {
         };
     }
 
-    // 불러온 사용자 데이터 필드 비우기 - 수정하지 않아도 됨
+    // 불러온 사용자 데이터 필드 비우기 - 수정 금지
     private void clearProfileField(){
         view.getProfileNameField().setText("");
         view.getProfileNumberField().setText("");

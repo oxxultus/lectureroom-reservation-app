@@ -106,7 +106,7 @@ public class ReservationManagement extends javax.swing.JPanel {
         deleteButton = new deu.view.custom.ButtonRound();
         updateButton = new deu.view.custom.ButtonRound();
         titleLabel1 = new javax.swing.JLabel();
-        titleField1 = new deu.view.custom.TextFieldRound();
+        reservationUserNumber = new deu.view.custom.TextFieldRound();
         calendar = new javax.swing.JPanel();
         day0_0 = new deu.view.custom.ButtonRound();
         day1_0 = new deu.view.custom.ButtonRound();
@@ -418,13 +418,13 @@ public class ReservationManagement extends javax.swing.JPanel {
         reservationInformationPanel.add(titleLabel1);
         titleLabel1.setBounds(540, 10, 40, 20);
 
-        titleField1.setEditable(false);
-        titleField1.setBackground(new java.awt.Color(255, 255, 255));
-        titleField1.setForeground(new java.awt.Color(0, 0, 0));
-        titleField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        titleField1.setRound(10);
-        reservationInformationPanel.add(titleField1);
-        titleField1.setBounds(580, 10, 130, 20);
+        reservationUserNumber.setEditable(false);
+        reservationUserNumber.setBackground(new java.awt.Color(255, 255, 255));
+        reservationUserNumber.setForeground(new java.awt.Color(0, 0, 0));
+        reservationUserNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        reservationUserNumber.setRound(10);
+        reservationInformationPanel.add(reservationUserNumber);
+        reservationUserNumber.setBounds(580, 10, 130, 20);
 
         myReservationCalendar.add(reservationInformationPanel);
         reservationInformationPanel.setBounds(10, 10, 820, 70);
@@ -1579,6 +1579,12 @@ public class ReservationManagement extends javax.swing.JPanel {
     public void addBuildingSelectionListener(ItemListener listener) {
         buildingComboBox.addItemListener(listener);
     }
+    public void addUpdateButtonListener(ActionListener listener) {
+       updateButton.addActionListener(listener);
+    }
+    public void addDeleteButtonListener(ActionListener listener) {
+        deleteButton.addActionListener(listener);
+    }
 
     // 필드 값 가져오기
     public String getSelectedBuilding() {
@@ -1707,6 +1713,7 @@ public class ReservationManagement extends javax.swing.JPanel {
     private deu.view.custom.PanelRound myReservationCalendar;
     private deu.view.custom.PanelRound reservationInformationPanel;
     private deu.view.custom.TextFieldRound reservationTimeField;
+    private deu.view.custom.TextFieldRound reservationUserNumber;
     private javax.swing.JLabel reservationUserNumberLabel;
     private javax.swing.JLabel time0;
     private javax.swing.JLabel time1;
@@ -1722,7 +1729,6 @@ public class ReservationManagement extends javax.swing.JPanel {
     private javax.swing.JLabel time8;
     private javax.swing.JLabel time9;
     private deu.view.custom.TextFieldRound titleField;
-    private deu.view.custom.TextFieldRound titleField1;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JLabel titleLabel1;
     private deu.view.custom.ButtonRound updateButton;

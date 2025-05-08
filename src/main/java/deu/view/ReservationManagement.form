@@ -503,7 +503,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="deu.view.custom.TextFieldRound" name="titleField1">
+            <Component class="deu.view.custom.TextFieldRound" name="reservationUserNumber">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">

@@ -6,12 +6,14 @@ package deu.view;
 
 import deu.controller.UserClientController;
 import deu.model.dto.response.BasicResponse;
+import deu.view.custom.ButtonRound;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.event.AncestorListener;
 
 /**
  *
@@ -24,6 +26,16 @@ public class Home extends javax.swing.JPanel {
     private String userNumber;
     private String userPassword;
 
+    // 선택시 버튼 색 저장하는 공간
+    private JButton selectedCalendarButton = null;
+    private JButton selectedRoomButton = null;
+    private JButton selectedFloorButton = null;
+
+    // 선택된 색상 저장
+    public static final Color FLOOR_DEFAULT_COLOR = new Color(255, 255, 255);
+    public static final Color FLOOR_SELECTED_COLOR = new Color(20, 90, 170);
+    public static final Color ROOM_SELECTED_COLOR = new Color(20, 90, 170);
+
     /**
      * Creates new form Home
      */
@@ -35,6 +47,35 @@ public class Home extends javax.swing.JPanel {
         this.userNumber = userNumber;
         this.userPassword = userPassword;
         initComponents();
+    }
+    public ButtonRound createStyledButton(String text, int width, int height) {
+        ButtonRound btn = new ButtonRound();
+        btn.setText(text);
+        btn.setPreferredSize(new Dimension(width, height));
+        btn.setBackground(Color.WHITE);
+        btn.setForeground(Color.BLACK);
+        btn.setBorderColor(Color.GRAY);
+        btn.setRoundTopLeft(10);
+        btn.setRoundTopRight(10);
+        btn.setRoundBottomLeft(10);
+        btn.setRoundBottomRight(10);
+        return btn;
+    }
+    public void clearSelectedButtons() {
+        if (selectedFloorButton != null) {
+            selectedFloorButton.setBackground(FLOOR_DEFAULT_COLOR);
+            selectedFloorButton.setForeground(Color.BLACK);
+            selectedFloorButton = null;
+        }
+        if (selectedRoomButton != null) {
+            selectedRoomButton.setBackground(FLOOR_DEFAULT_COLOR);
+            selectedRoomButton.setForeground(Color.BLACK);
+            selectedRoomButton = null;
+        }
+        if (selectedCalendarButton != null) {
+            selectedCalendarButton.setBackground(null);
+            selectedCalendarButton = null;
+        }
     }
 
     /**
@@ -1802,6 +1843,7 @@ public class Home extends javax.swing.JPanel {
         logoutButton.addActionListener(listener);
         logoutButton1.addActionListener(listener);
     }
+    // 버튼 리스너
     public void addReservationMenuListener(ActionListener listener) {
         LectureRoomReservationMenu.addActionListener(listener);
     }
@@ -1826,6 +1868,20 @@ public class Home extends javax.swing.JPanel {
         if (centerPanel != null) add(centerPanel, BorderLayout.CENTER);
         revalidate();
         repaint();
+    }
+    public void addDeleteReservationListner(ActionListener listener){
+        cancelButton.addActionListener(listener);
+    }
+
+    // 생성 리스너
+    public void addUserReservationCalendarInitListener(AncestorListener listener) {
+        calendar.addAncestorListener(listener);
+    }
+    public void addMyReservationListInitListener(AncestorListener listener){
+        myReservationList.addAncestorListener(listener);
+    }
+    public void addUserProfileInitListner(AncestorListener listener) {
+        profilePanel.addAncestorListener(listener);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
