@@ -21,6 +21,7 @@ public class AuthSwingController {
         view.addSwitchToLoginListener(this::switchToLogin);
     }
 
+    // 로그인 버튼 기능
     private void handleLogin(ActionEvent e) {
         String id = view.getLoginId();
         String pw = view.getLoginPassword();
@@ -35,6 +36,7 @@ public class AuthSwingController {
         }
     }
 
+    // 회원 가입 버튼 기능
     private void handleSignup(ActionEvent e) {
         String id = view.getSignupId();
         String pw = view.getSignupPassword();
@@ -50,10 +52,12 @@ public class AuthSwingController {
         }
     }
 
+    // 회원 가입 패널 전환 - 수정 금지
     private void switchToSignup(ActionEvent e) {
         view.switchToSignupPanel();
     }
 
+    // 로그인 패널 전환 - 수정 금지
     private void switchToLogin(ActionEvent e) {
         view.switchToLoginPanel();
     }
