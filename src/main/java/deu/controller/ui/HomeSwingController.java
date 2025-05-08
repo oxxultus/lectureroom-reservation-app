@@ -2,10 +2,7 @@ package deu.controller.ui;
 
 import deu.controller.UserClientController;
 import deu.model.dto.response.BasicResponse;
-import deu.view.Auth;
-import deu.view.Home;
-import deu.view.Reservation;
-import deu.view.ReservationManagement;
+import deu.view.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -69,7 +66,11 @@ public class HomeSwingController {
     }
 
     private void showUserManagerManagement(ActionEvent e) {
-        view.replaceMainContent(view.getManagerMenuPanel(), null);
+        UserManagement panel = new UserManagement();
+
+        new UserManagementSwingController(panel);
+
+        view.replaceMainContent(view.getManagerMenuPanel(), panel);
     }
 
     private void showReservationManagement(ActionEvent e) {
