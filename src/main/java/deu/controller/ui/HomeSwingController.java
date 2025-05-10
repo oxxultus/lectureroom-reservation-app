@@ -198,7 +198,6 @@ public class HomeSwingController {
             public void ancestorMoved(AncestorEvent event) {}
         };
     }
-
     // 캘린더가 생성 될 때 갱신 되는 기능 - 수정 금지
     private AncestorListener createUserReservationCalendarInitListener() {
         return new AncestorListener() {
@@ -214,7 +213,6 @@ public class HomeSwingController {
             public void ancestorMoved(AncestorEvent event) {}
         };
     }
-
     // 프로필이 생성 될 때 갱신 되는 기능 - 수정 금지
     private AncestorListener createUserProfileInitListener() {
         return new AncestorListener() {
@@ -230,7 +228,6 @@ public class HomeSwingController {
             public void ancestorMoved(AncestorEvent event) {}
         };
     }
-
     // 로그아웃 버튼 기능 - 수정 금지
     private void handleLogout(ActionEvent e) {
         Auth frame = (Auth) SwingUtilities.getWindowAncestor(view);
@@ -253,20 +250,17 @@ public class HomeSwingController {
             JOptionPane.showMessageDialog(view, result.message, "로그아웃 실패", JOptionPane.WARNING_MESSAGE);
         }
     }
-
     // 예약 메뉴 전환 - 수정 금지
     private void showReservationPanel(ActionEvent e) {
         Reservation reservation = new Reservation(view.getUserNumber(), view.getUserPassword());
         new ReservationSwingController(reservation);
         view.replaceMainContent(view.getMenuPanel(), reservation);
     }
-
     // 기본 메뉴 전환 - 수정 금지
     private void showMainPanel(ActionEvent e) {
         view.replaceMainContent(view.getMenuPanel(), view.getMainPanel());
         refreshUserReservationCalendar();
     }
-
     // 관리자 전용 메뉴 전환 - 수정 금지
     private void showManagerMenu(ActionEvent e) {
         ReservationManagement panel = new ReservationManagement();
@@ -275,7 +269,6 @@ public class HomeSwingController {
 
         view.replaceMainContent(view.getManagerMenuPanel(), panel);
     }
-
     // 사용자 관리 메뉴 전환 - 수정 금지
     private void showUserManagerManagement(ActionEvent e) {
         UserManagement panel = new UserManagement();
@@ -284,7 +277,6 @@ public class HomeSwingController {
 
         view.replaceMainContent(view.getManagerMenuPanel(), panel);
     }
-
     // 예악 관리 메뉴 전환 - 수정 금지
     private void showReservationManagement(ActionEvent e) {
         ReservationManagement panel = new ReservationManagement();
@@ -293,7 +285,6 @@ public class HomeSwingController {
 
         view.replaceMainContent(view.getManagerMenuPanel(), panel);
     }
-
     // 일반 사용자 전용 매뉴 전환 - 수정 금지
     private void showCommonMenu(ActionEvent e) {
         view.replaceMainContent(view.getMenuPanel(), view.getMainPanel());
