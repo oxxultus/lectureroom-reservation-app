@@ -52,6 +52,8 @@ public class AuthSwingController {
         }
     }
 
+    // 수정 안해도 되는 부분 ===========================================================================================
+
     // 회원 가입 패널 전환 - 수정 금지
     private void switchToSignup(ActionEvent e) {
         view.switchToSignupPanel();

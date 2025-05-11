@@ -181,6 +181,8 @@ public class ReservationSwingController {
         return Arrays.asList("R101", "R102", "R103");
     }
 
+    // 수정 안해도 되는 부분 ===========================================================================================
+
     // 필드 갱신하는 기능 - 수정 금지
     private void refreshReservationWriteDataField(){
         view.getTitleField().setText("");

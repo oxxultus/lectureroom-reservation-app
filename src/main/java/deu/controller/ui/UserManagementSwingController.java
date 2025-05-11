@@ -72,6 +72,8 @@ public class UserManagementSwingController {
         clearProfileField();
     }
 
+    // 수정 안해도 되는 부분 ===========================================================================================
+
     // 테이블 항목 선택 시 텍스트 필드에 채워 넣는 이벤트 - 수정 금지
     private void addTableSelectionListener() {
         view.getUserTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {

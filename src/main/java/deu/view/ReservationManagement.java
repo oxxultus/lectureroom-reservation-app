@@ -13,8 +13,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.*;
+import javax.swing.event.AncestorListener;
 
 /**
  *
@@ -81,6 +81,12 @@ public class ReservationManagement extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ReservationListFrame = new javax.swing.JFrame();
+        reservationListMenu = new javax.swing.JPanel();
+        reservationListFrameRefreshButton = new deu.view.custom.ButtonRound();
+        reservationListPanel = new javax.swing.JPanel();
+        reservationListScrollPane = new javax.swing.JScrollPane();
+        reservationList = new javax.swing.JPanel();
         buildingPanel = new deu.view.custom.PanelRound();
         buildingComboBox = new javax.swing.JComboBox<>();
         floorPanel = new deu.view.custom.PanelRound();
@@ -221,6 +227,43 @@ public class ReservationManagement extends javax.swing.JPanel {
         time10 = new javax.swing.JLabel();
         time11 = new javax.swing.JLabel();
         time12 = new javax.swing.JLabel();
+        reservationListFrameButton = new deu.view.custom.ButtonRound();
+
+        ReservationListFrame.setMinimumSize(new java.awt.Dimension(278, 550));
+        ReservationListFrame.setName("ReservationListFrame"); // NOI18N
+        ReservationListFrame.setResizable(false);
+
+        reservationListMenu.setBackground(new java.awt.Color(249, 249, 251));
+        reservationListMenu.setMaximumSize(new java.awt.Dimension(278, 50));
+        reservationListMenu.setMinimumSize(new java.awt.Dimension(278, 50));
+        reservationListMenu.setPreferredSize(new java.awt.Dimension(278, 50));
+        reservationListMenu.setLayout(null);
+
+        reservationListFrameRefreshButton.setBackground(new java.awt.Color(0, 102, 255));
+        reservationListFrameRefreshButton.setForeground(new java.awt.Color(255, 255, 255));
+        reservationListFrameRefreshButton.setText("새로고침");
+        reservationListFrameRefreshButton.setRoundBottomLeft(10);
+        reservationListFrameRefreshButton.setRoundBottomRight(10);
+        reservationListFrameRefreshButton.setRoundTopLeft(10);
+        reservationListFrameRefreshButton.setRoundTopRight(10);
+        reservationListMenu.add(reservationListFrameRefreshButton);
+        reservationListFrameRefreshButton.setBounds(182, 10, 90, 30);
+
+        ReservationListFrame.getContentPane().add(reservationListMenu, java.awt.BorderLayout.NORTH);
+
+        reservationListPanel.setBackground(new java.awt.Color(255, 255, 255));
+        reservationListPanel.setMaximumSize(new java.awt.Dimension(278, 32767));
+        reservationListPanel.setMinimumSize(new java.awt.Dimension(278, 500));
+        reservationListPanel.setPreferredSize(new java.awt.Dimension(278, 500));
+        reservationListPanel.setLayout(null);
+
+        reservationList.setLayout(new java.awt.GridLayout(0, 1, 0, 3));
+        reservationListScrollPane.setViewportView(reservationList);
+
+        reservationListPanel.add(reservationListScrollPane);
+        reservationListScrollPane.setBounds(10, 10, 260, 430);
+
+        ReservationListFrame.getContentPane().add(reservationListPanel, java.awt.BorderLayout.CENTER);
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(1100, 550));
@@ -285,10 +328,10 @@ public class ReservationManagement extends javax.swing.JPanel {
         lectureRoomList.setBackground(new java.awt.Color(255, 255, 255));
         lectureRoomList.setLayout(new java.awt.GridLayout(6, 3, 5, 5));
         lectureRoomListPanel.add(lectureRoomList);
-        lectureRoomList.setBounds(10, 10, 223, 300);
+        lectureRoomList.setBounds(10, 10, 223, 270);
 
         add(lectureRoomListPanel);
-        lectureRoomListPanel.setBounds(6, 220, 240, 320);
+        lectureRoomListPanel.setBounds(6, 210, 240, 290);
 
         myReservationCalendar.setBackground(new java.awt.Color(255, 255, 255));
         myReservationCalendar.setBorderColor(java.awt.Color.black);
@@ -1561,6 +1604,14 @@ public class ReservationManagement extends javax.swing.JPanel {
 
         add(myReservationCalendar);
         myReservationCalendar.setBounds(252, 6, 840, 535);
+
+        reservationListFrameButton.setText("예약 대기 리스트");
+        reservationListFrameButton.setRoundBottomLeft(10);
+        reservationListFrameButton.setRoundBottomRight(10);
+        reservationListFrameButton.setRoundTopLeft(10);
+        reservationListFrameButton.setRoundTopRight(10);
+        add(reservationListFrameButton);
+        reservationListFrameButton.setBounds(6, 510, 240, 30);
     }// </editor-fold>//GEN-END:initComponents
 
     private void calendarDateAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_calendarDateAncestorAdded
@@ -1585,6 +1636,15 @@ public class ReservationManagement extends javax.swing.JPanel {
     public void addDeleteButtonListener(ActionListener listener) {
         deleteButton.addActionListener(listener);
     }
+    public void addReservationFrameButtonListener(ActionListener listener) {
+        reservationListFrameButton.addActionListener(listener);
+    }
+    public void addReservationFrameRefreshButtonListener(ActionListener listener) {
+        reservationListFrameRefreshButton.addActionListener(listener);
+    }
+    public void addReservationListInitListener(AncestorListener listener) {
+        reservationList.addAncestorListener(listener);
+    }
 
     // 필드 값 가져오기
     public String getSelectedBuilding() {
@@ -1592,6 +1652,7 @@ public class ReservationManagement extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFrame ReservationListFrame;
     private javax.swing.JComboBox<String> buildingComboBox;
     private deu.view.custom.TextFieldRound buildingField;
     private javax.swing.JLabel buildingLabel;
@@ -1712,6 +1773,12 @@ public class ReservationManagement extends javax.swing.JPanel {
     private deu.view.custom.PanelRound lectureRoomListPanel;
     private deu.view.custom.PanelRound myReservationCalendar;
     private deu.view.custom.PanelRound reservationInformationPanel;
+    private javax.swing.JPanel reservationList;
+    private deu.view.custom.ButtonRound reservationListFrameButton;
+    private deu.view.custom.ButtonRound reservationListFrameRefreshButton;
+    private javax.swing.JPanel reservationListMenu;
+    private javax.swing.JPanel reservationListPanel;
+    private javax.swing.JScrollPane reservationListScrollPane;
     private deu.view.custom.TextFieldRound reservationTimeField;
     private deu.view.custom.TextFieldRound reservationUserNumber;
     private javax.swing.JLabel reservationUserNumberLabel;

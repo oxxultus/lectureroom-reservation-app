@@ -2,12 +2,18 @@ package deu.controller.ui;
 
 import deu.view.ReservationManagement;
 import deu.view.custom.ButtonRound;
+import deu.view.custom.RoundReservationInformationButton;
 
 import javax.swing.*;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.ItemEvent;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,6 +27,9 @@ public class ReservationManagementSwingController {
         view.addBuildingSelectionListener(this::handleBuildingSelection);
         view.addUpdateButtonListener(this::updateButton);
         view.addDeleteButtonListener(this::deleteButton);
+        view.addReservationFrameButtonListener(this::reservationListFrameButton);
+        view.addReservationFrameRefreshButtonListener(this::reservationListPanelRefreshButton);
+        view.addReservationListInitListener(createReservationListPanelInitListener());
     }
 
     // 건물 정보 가져오기 기능
@@ -193,6 +202,143 @@ public class ReservationManagementSwingController {
     private List<String> getDynamicRoomNames() {
         // 예: 해당 층/건물에 따라 다르게 리턴
         return Arrays.asList("R101", "R102", "R103");
+    }
+
+    // 예약 목록을 갱신하는 기능
+    private void reservationListPanelRefresh() {
+       JPanel reservationListPanel = view.getReservationList();
+
+       reservationListPanel.removeAll();
+       reservationListPanel.setLayout(new GridLayout(0, 1, 0, 5)); // 세로 1열
+
+       List<RoundReservationInformationButton> pendingReservations = getPendingReservations();
+
+       for (RoundReservationInformationButton btn : pendingReservations) {
+           btn.addActionListener(e -> processReservationChoice(btn));
+           reservationListPanel.add(btn);
+       }
+
+       reservationListPanel.revalidate();
+       reservationListPanel.repaint();
+   }
+
+    // 예약 수락 / 거절 팝업 기능 인터페이스 기능
+    private void processReservationChoice(RoundReservationInformationButton btn) {
+        int choice = JOptionPane.showOptionDialog(
+                view,
+                "이 예약을 어떻게 처리하시겠습니까?",
+                "예약 처리",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                new String[]{"예약 수락", "예약 거절"},
+                "예약 수락"
+        );
+
+        if (choice == JOptionPane.YES_OPTION) {
+            // int code = new ReservationController().acceptReservation(btn);
+            int code = 200;
+            if (code == 200) {
+                JOptionPane.showMessageDialog(view, "예약이 수락되었습니다.");
+            } else if (code == 409) {
+                JOptionPane.showMessageDialog(view, "동일 시간대에 이미 예약이 존재합니다.", "예약 실패", JOptionPane.WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(view, "처리에 실패했습니다.", "오류", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if (choice == JOptionPane.NO_OPTION) {
+            // int code = new ReservationController().rejectReservation(btn.getNumber());
+            int code = 200;
+            if (code == 200) {
+                JOptionPane.showMessageDialog(view, "예약이 거절되었습니다.");
+            } else {
+                JOptionPane.showMessageDialog(view, "처리에 실패했습니다.", "오류", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        reservationListPanelRefresh(); // 리스트 갱신
+    }
+
+    // 서버 에서 예약 신청 내역 중 "대기" 인 내역을 버튼에 반영해서 버튼을 가져 오는 기능
+    private List<RoundReservationInformationButton> getPendingReservations() {
+        List<RoundReservationInformationButton> result = new ArrayList<>();
+
+        // 예시 데이터: 실제로는 파일이나 서버에서 데이터를 가져와야 함
+        String[][] dummyData = {
+                {"정보관", "9", "A01", "S2023001", "대기", "2025-05-10T13:00", "2025-05-10T15:00"},
+                {"정보관", "9", "A02", "S2023002", "완료", "2025-05-11T09:00", "2025-05-11T10:00"},
+                {"정보관", "9", "A03", "S2023003", "대기", "2025-05-11T10:00", "2025-05-11T11:00"},
+                {"정보관", "9", "A03", "S2023003", "대기", "2025-05-11T10:00", "2025-05-11T11:00"}
+        };
+
+        for (String[] data : dummyData) {
+            if ("대기".equals(data[4])) {
+                RoundReservationInformationButton btn = new RoundReservationInformationButton();
+                btn.setBuildingName(data[0]);
+                btn.setFloor(data[1]);
+                btn.setLectureRoom(data[2]);
+                btn.setNumber(data[3]);
+                btn.setStatus(data[4]);
+                btn.setStartTime(data[5]);
+                btn.setEndTime(data[6]);
+
+                btn.setText(data[0] + " / " + data[2] + " / " + data[5].substring(11, 16) + "~" + data[6].substring(11, 16));
+                btn.setPreferredSize(new Dimension(112, 40));
+                btn.setBackground(Color.WHITE);
+                btn.setForeground(Color.BLACK);
+                btn.setFont(new Font("SansSerif", Font.PLAIN, 12));
+                btn.setRoundTopLeft(10);
+                btn.setRoundTopRight(10);
+                btn.setRoundBottomLeft(10);
+                btn.setRoundBottomRight(10);
+
+                result.add(btn);
+            }
+        }
+
+        return result;
+    }
+
+    // 수정 안해도 되는 부분 ===========================================================================================
+
+    // 예약 목록의 새로고침 버튼 기능 - 수정 금지
+    private void reservationListPanelRefreshButton(ActionEvent e) {
+        System.out.println("reservationListPanelRefreshButton");
+        reservationListPanelRefresh();
+    }
+
+    // 예약 목록이 생성될 때 갱신되는 기능 - 수정 금지
+    private AncestorListener createReservationListPanelInitListener() {
+        return new AncestorListener() {
+            @Override
+            public void ancestorAdded(AncestorEvent event) {
+                reservationListPanelRefresh();
+            }
+            @Override
+            public void ancestorRemoved(AncestorEvent event) {}
+
+            @Override
+            public void ancestorMoved(AncestorEvent event) {}
+        };
+    }
+
+    // 예약 목록 프레임 띄우는 기능 - 수정 금지
+    private void reservationListFrameButton(ActionEvent e){
+        JFrame authFrame = (JFrame) SwingUtilities.getWindowAncestor(view);
+        JFrame reservationListFrame = view.getReservationListFrame(); // 또는 직접 필드 사용
+
+        if (authFrame != null && reservationListFrame != null) {
+            int authX = authFrame.getX();
+            int authY = authFrame.getY();
+            int authWidth = authFrame.getWidth();
+            int authHeight = authFrame.getHeight();
+
+            // 프레임 우측에 위치 (10px 여백)
+            int x = authX + authWidth + 10;
+            int y = authY + (authHeight - reservationListFrame.getHeight()) / 2;
+
+            reservationListFrame.setLocation(x, y);
+            reservationListFrame.setVisible(true);
+            reservationListFrame.toFront(); // 항상 위로
+        }
     }
 
     // 입력 필드 초기화 - 수정 금지
