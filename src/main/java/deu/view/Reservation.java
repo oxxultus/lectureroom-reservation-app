@@ -44,6 +44,7 @@ public class Reservation extends javax.swing.JPanel {
     public Reservation() {
         initComponents();
     }
+
     public Reservation(String userNumber, String userPassword) {
         this.userNumber = userNumber;
         this.userPassword = userPassword;
@@ -63,6 +64,7 @@ public class Reservation extends javax.swing.JPanel {
         btn.setRoundBottomRight(10);
         return btn;
     }
+
     public void clearSelectedButtons() {
         if (selectedFloorButton != null) {
             selectedFloorButton.setBackground(FLOOR_DEFAULT_COLOR);

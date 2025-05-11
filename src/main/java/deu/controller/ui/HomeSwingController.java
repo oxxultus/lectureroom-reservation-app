@@ -36,14 +36,17 @@ public class HomeSwingController {
 
     // 사용자 예약 정보를 캘린더에 갱신 하는 기능
     private void refreshUserReservationCalendar() {
+        // 현재 시각을 기준으로 날자를 계산하는 부분입니다. (편의를 위해 작성 해 두었습니다.)
         java.time.LocalDate today = java.time.LocalDate.now();
         java.time.format.DateTimeFormatter dayFormatter = java.time.format.DateTimeFormatter.ofPattern("MM-dd(E)");
 
+        // TODO: 해당 시간대에 예약이 되어 있는 경우 true로 표시 합니다. (인터페이스의 버튼 기능을 disable 하기 위함 입니다.)
         // 예시 예약 데이터: [day][period]
         boolean[][] isReserved = new boolean[7][13];
         isReserved[2][0] = true; // 3일 후 1교시
         isReserved[4][5] = true; // 5일 후 6교시
 
+        // TODO: 캘린더에 지정된 버튼의 이름은 day행_열 을 기준 으로 되어있습니다. (즉 개인의 예약 정보이기. 때문에 개인의 예약 정보만 가져와야 합니다.)
         for (int day = 0; day < 7; day++) {
             java.time.LocalDate targetDate = today.plusDays(day);
             String dayText = targetDate.format(dayFormatter); // 예: "05-08(수)"
@@ -60,17 +63,18 @@ public class HomeSwingController {
                             btn.removeActionListener(al);
                         }
 
-                        // 예약된 경우
+                        // TODO: 예약된 경우의 버튼 표시 입니다. (다른 인수(int 1,2,3 혹은 string 대기, 완료)등을 사용 하여 예약 대기, 완료 상태를 표시할 수 있도록 변경하는 것이 좋을 것 같습니다.)
                         if (isReserved[day][period]) {
                             //btn.setText(dayText + " / " + (period + 1) + "교시");
                             btn.setText((period + 1) + "교시");
                             btn.setBackground(Color.GREEN);
                             btn.setEnabled(false);
-                        } else { // 예약이 안된 경우
+                        } else { // TODO: 예약이 안 된 경우의 버튼 표시 입니다.
                             btn.setText((period + 1) + "교시");
                             btn.setBackground(null);
                             btn.setEnabled(true);
 
+                            // TODO: 각 시간별 버튼에 대한 기능을 넣는 부분입니다.
                             btn.addActionListener(ev -> {
                                 JButton source = (JButton) ev.getSource();
                                 if (view.getSelectedCalendarButton() != null) {
@@ -81,11 +85,12 @@ public class HomeSwingController {
 
                                 // 버튼 클릭 시 정보 출력
                                 // 버튼 이름에서 day와 period 정보 추출 (예: day2_0 → 2, 0)
-                                String buttonName2 = source.getName(); // 반드시 name이 지정돼 있어야 함
+                                String buttonName2 = source.getName(); // 반드시 name이 지정돼 있어야 함 (지정되어 있습니다.)
                                 String[] tokens = buttonName.replace("day", "").split("_");
                                 int dayIndex = Integer.parseInt(tokens[0]);
                                 int periodIndex = Integer.parseInt(tokens[1]);
 
+                                // TODO: 선택된 데이터를 바탕으로 서버를 통해 데이터를 조회하여 가져와야 합니다.
                                 // 예시 데이터 (실제에선 파일 또는 서버에서 조회)
                                 String userNumber = "S2023001";
                                 String lectureRoom = "정보관 A01";
@@ -119,7 +124,10 @@ public class HomeSwingController {
         String title = view.getTitleField().getText();
         String description = view.getDescriptionField().getText();
 
-        // TODO: 해당 예약을 삭제하는 로직
+        /**
+         * TODO: 해당 예약을 삭제하는 로직
+         * - 삭제가 안될 시 처리가 필요합니다.
+         */
 
         // 예약 캘린더 갱신
         refreshUserReservationCalendar(); //myReservationList
@@ -132,6 +140,7 @@ public class HomeSwingController {
         // 기존 패널 내용 초기화
         myReservationList.removeAll();
 
+        // TODO: 컨트롤러를 통해 서버와 통신하여 해당 사용자의 예약 내역을 받아와야 합니다.
         // 예시 예약 정보 5개 이내로 준비 (실제에선 파일에서 읽거나 서비스로부터 받아야 함)
         String[][] reservations = {
                 {"2025-05-08", "정보관 A01", "3교시"},
@@ -141,6 +150,7 @@ public class HomeSwingController {
                 {"2025-05-12", "정보관 A04", "2교시"}
         };
 
+        // TODO: 해당 부분에서 사용자의 예약 내역을 바탕으로 화면에 표시하는 부분입니다.
         // 최대 5개까지만 표시
         int count = Math.min(reservations.length, 5);
         for (int i = 0; i < count; i++) {
@@ -166,7 +176,7 @@ public class HomeSwingController {
         myReservationList.revalidate();
         myReservationList.repaint();
 
-        // 현재 예약 개수 정보 가져가기
+        // 현재 예약 개수 정보 가져와서 출력하기
         view.getReservationCount().setText(String.valueOf(reservations.length));
         view.getReservationTotalCount().setText(String.valueOf(5 - reservations.length));
     }
@@ -174,7 +184,8 @@ public class HomeSwingController {
     // 사용자 프로필 정보를 갱신 하는 기능
     private void refreshUserProfile(){
         String number = view.getUserNumber();
-        // 이름은 컨트롤러 호출해서 서버에서 해당 번호에 맞는 이름을 반환받는 메서드 필요함
+
+        // TODO: 이름은 컨트롤러 호출해서 서버에서 해당 번호에 맞는 이름을 반환받는 메서드 필요합니다.
         String name = "임시데이터";
 
         // 프로필 설정

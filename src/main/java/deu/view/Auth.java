@@ -132,11 +132,6 @@ public class Auth extends javax.swing.JFrame {
         login_loginButton.setRoundBottomRight(15);
         login_loginButton.setRoundTopLeft(15);
         login_loginButton.setRoundTopRight(15);
-        login_loginButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                login_loginButtonActionPerformed(evt);
-            }
-        });
         login.add(login_loginButton);
         login_loginButton.setBounds(460, 450, 460, 40);
 
@@ -148,11 +143,6 @@ public class Auth extends javax.swing.JFrame {
         login_signupButton.setRoundBottomRight(15);
         login_signupButton.setRoundTopLeft(15);
         login_signupButton.setRoundTopRight(15);
-        login_signupButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                login_signupButtonActionPerformed(evt);
-            }
-        });
         login.add(login_signupButton);
         login_signupButton.setBounds(460, 500, 460, 40);
 
@@ -314,11 +304,6 @@ public class Auth extends javax.swing.JFrame {
         signup_undoButton.setRoundBottomRight(15);
         signup_undoButton.setRoundTopLeft(0);
         signup_undoButton.setRoundTopRight(15);
-        signup_undoButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                signup_undoButtonActionPerformed(evt);
-            }
-        });
         signup.add(signup_undoButton);
         signup_undoButton.setBounds(830, 520, 90, 40);
 
@@ -329,11 +314,6 @@ public class Auth extends javax.swing.JFrame {
         signup_signupButton.setRoundBottomRight(0);
         signup_signupButton.setRoundTopLeft(15);
         signup_signupButton.setRoundTopRight(0);
-        signup_signupButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                signup_signupButtonActionPerformed(evt);
-            }
-        });
         signup.add(signup_signupButton);
         signup_signupButton.setBounds(460, 520, 380, 40);
 
@@ -554,7 +534,7 @@ public class Auth extends javax.swing.JFrame {
         return signup_signupNumberField.getText().trim();
     }
     public String getSignupPassword() {
-        return new String(signup_signupPasswordField.getText()).trim();
+        return signup_signupPasswordField.getText().trim();
     }
     public String getSignupName() {
         return signup_signupNameField.getText().trim();
