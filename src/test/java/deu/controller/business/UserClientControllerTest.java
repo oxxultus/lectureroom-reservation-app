@@ -1,8 +1,7 @@
-package deu.controller;
+package deu.controller.business;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import deu.controller.business.UserClientController;
 import deu.model.dto.response.BasicResponse;
 import deu.model.dto.response.CurrentResponse;
 import org.junit.jupiter.api.Test;
