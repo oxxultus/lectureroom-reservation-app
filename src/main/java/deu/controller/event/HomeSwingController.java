@@ -1,6 +1,6 @@
-package deu.controller.ui;
+package deu.controller.event;
 
-import deu.controller.UserClientController;
+import deu.controller.business.UserClientController;
 import deu.model.dto.response.BasicResponse;
 import deu.view.*;
 import deu.view.custom.PanelRound;

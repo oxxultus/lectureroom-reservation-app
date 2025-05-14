@@ -1,6 +1,6 @@
 package deu;
 
-import deu.controller.ui.AuthSwingController;
+import deu.controller.event.AuthSwingController;
 import deu.view.Auth;
 
 public class Main {

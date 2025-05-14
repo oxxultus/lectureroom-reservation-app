@@ -4,7 +4,7 @@
  */
 package deu.view;
 
-import deu.controller.ui.HomeSwingController;
+import deu.controller.event.HomeSwingController;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,4 +1,4 @@
-package deu.controller;
+package deu.controller.business;
 
 import deu.model.dto.request.LoginRequest;
 import deu.model.dto.request.LogoutRequest;

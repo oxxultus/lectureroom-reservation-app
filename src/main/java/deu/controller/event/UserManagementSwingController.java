@@ -1,4 +1,4 @@
-package deu.controller.ui;
+package deu.controller.event;
 
 import deu.view.UserManagement;
 

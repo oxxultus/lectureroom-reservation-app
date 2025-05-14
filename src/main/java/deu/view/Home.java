@@ -4,8 +4,7 @@
  */
 package deu.view;
 
-import deu.controller.UserClientController;
-import deu.model.dto.response.BasicResponse;
+import deu.controller.business.UserClientController;
 import deu.view.custom.ButtonRound;
 import lombok.Getter;
 import lombok.Setter;
