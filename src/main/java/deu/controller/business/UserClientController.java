@@ -1,9 +1,9 @@
 package deu.controller.business;
 
-import deu.model.dto.request.LoginRequest;
-import deu.model.dto.request.LogoutRequest;
-import deu.model.dto.request.SignupRequest;
-import deu.model.dto.request.UserCommandRequest;
+import deu.model.dto.request.data.LoginRequest;
+import deu.model.dto.request.data.LogoutRequest;
+import deu.model.dto.request.data.SignupRequest;
+import deu.model.dto.request.command.UserCommandRequest;
 import deu.model.dto.response.BasicResponse;
 import deu.model.dto.response.CurrentResponse;
 
