@@ -11,6 +11,7 @@ import javax.swing.event.AncestorListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Optional;
 
 public class HomeSwingController {
 
@@ -299,6 +300,17 @@ public class HomeSwingController {
     // 일반 사용자 전용 매뉴 전환 - 수정 금지
     private void showCommonMenu(ActionEvent e) {
         view.replaceMainContent(view.getMenuPanel(), view.getMainPanel());
+    }
+    // 관리자 패널 허용 효뷰 가눙 - 수정 금지
+    private void checkManagementAuthority() {
+        view.getUserNumber()
+                .chars()
+                .mapToObj(c -> (char) c)
+                .findFirst()
+                .ifPresent(ch -> {
+                    boolean isManager = (ch == 'M');
+                    view.getManegementMenu().setVisible(isManager);
+                });
     }
 
 }
