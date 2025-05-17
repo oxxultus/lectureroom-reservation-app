@@ -301,16 +301,13 @@ public class HomeSwingController {
     private void showCommonMenu(ActionEvent e) {
         view.replaceMainContent(view.getMenuPanel(), view.getMainPanel());
     }
-    // 관리자 패널 허용 효뷰 가눙 - 수정 금지
+    // 관리자 패널 허용 여부 기눙 - 수정 금지
     private void checkManagementAuthority() {
         view.getUserNumber()
                 .chars()
-                .mapToObj(c -> (char) c)
+                .mapToObj(c -> Character.toUpperCase((char) c)) // 대소문자 무시
                 .findFirst()
-                .ifPresent(ch -> {
-                    boolean isManager = (ch == 'M');
-                    view.getManegementMenu().setVisible(isManager);
-                });
+                .ifPresent(ch -> view.getManegementMenu().setVisible(ch == 'M'));
     }
 
 }
