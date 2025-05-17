@@ -22,7 +22,7 @@ public class ReservationSwingController {
         view.addReservationButtionListener(this::lectureRoomReservationButton);
     }
 
-    // 건물을 선택 하는 기능
+    // 건물과 층을 선택 하는 기능
     private void handleBuildingSelection(ItemEvent e) {
         if (e.getStateChange() != ItemEvent.SELECTED) return;
 
@@ -40,6 +40,12 @@ public class ReservationSwingController {
         if (!"정보관".equals(selectedBuilding)) {
             view.getFloorButtonPanel().revalidate();
             view.getFloorButtonPanel().repaint();
+            view.getLectureRoomList().revalidate();
+            view.getLectureRoomList().repaint();
+
+            view.getFloorDisplayField().setText("");
+
+            refreshReservationWriteDataField();
             return;
         }
 
@@ -67,6 +73,8 @@ public class ReservationSwingController {
                 view.getLectureRoomList().removeAll();
                 view.setSelectedRoomButton(null);
 
+                refreshReservationWriteDataField(); // 입력 패널 초기화
+
                 if ("9".equals(floorBtn.getText())) {
                     for (String room : getDynamicRoomNames()) {
                         ButtonRound roomBtn = view.createStyledButton(room, 100, 30);
@@ -83,6 +91,8 @@ public class ReservationSwingController {
 
                             roomBtn.setBackground(view.ROOM_SELECTED_COLOR);
                             roomBtn.setForeground(Color.WHITE);
+                            refreshReservationWriteDataField(); // 입력 패널 초기화
+
                             view.setSelectedRoomButton(roomBtn);
 
                             updateCalendarWithDummyData(room);
@@ -197,5 +207,6 @@ public class ReservationSwingController {
         view.getTitleField().setText("");
         view.getDescriptionField().setText("");
         view.getReservationTimeField().setText("");
+        view.getLectureRoomField().setText("");
     }
 }

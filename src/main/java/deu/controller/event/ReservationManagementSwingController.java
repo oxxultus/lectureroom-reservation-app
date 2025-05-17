@@ -30,7 +30,7 @@ public class ReservationManagementSwingController {
         view.addReservationListInitListener(createReservationListPanelInitListener());
     }
 
-    // 건물 정보 가져오기 기능
+    // 건물 정보와 층 정보를 가져오기 기능
     private void handleBuildingSelection(ItemEvent e) {
         if (e.getStateChange() != ItemEvent.SELECTED) return;
 
@@ -49,6 +49,12 @@ public class ReservationManagementSwingController {
         if (!"정보관".equals(selectedBuilding)) {
             view.getFloorButtonPanel().revalidate();
             view.getFloorButtonPanel().repaint();
+            view.getLectureRoomList().revalidate();
+            view.getLectureRoomList().repaint();
+
+            view.getFloorDisplayField().setText("");
+
+            clearReservationFieldData();
             return;
         }
 
@@ -78,6 +84,8 @@ public class ReservationManagementSwingController {
                 view.getLectureRoomList().removeAll();
                 view.setSelectedRoomButton(null);
 
+                clearReservationFieldData(); // 입력 패널 초기화
+
                 // TODO: 선택된 층이 9층일 경우 해당 층의 강의실 정보를 가져와 버튼으로 생성하고 해당 버튼의 기능을 추가하는 부분입니다.
                 if ("9".equals(floorBtn.getText())) {
                     for (String room : getDynamicRoomNames()) {
@@ -96,6 +104,9 @@ public class ReservationManagementSwingController {
 
                             roomBtn.setBackground(view.ROOM_SELECTED_COLOR);
                             roomBtn.setForeground(Color.WHITE);
+
+                            clearReservationFieldData(); // 입력 패널 초기화
+
                             view.setSelectedRoomButton(roomBtn);
 
                             // TODO: 해당 강의실의 시간표정보를 가져와 갱신하는 부분입니다. (transfer_data => 강의실이름)
@@ -356,6 +367,8 @@ public class ReservationManagementSwingController {
         view.getReservationUserNumber().setText("");
         view.getTitleField().setText("");
         view.getDescriptionField().setText("");
+        view.getReservationTimeField().setText("");
+        view.getLectureRoomField().setText("");
 
         //view.getLectureRoomField().setText("");
         // view.getReservationTimeField().setText("");
