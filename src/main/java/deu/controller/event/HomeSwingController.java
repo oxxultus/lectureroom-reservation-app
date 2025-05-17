@@ -270,6 +270,7 @@ public class HomeSwingController {
     }
     // 기본 메뉴 전환 - 수정 금지
     private void showMainPanel(ActionEvent e) {
+        checkManagementAuthority();
         view.replaceMainContent(view.getMenuPanel(), view.getMainPanel());
         refreshUserReservationCalendar();
     }

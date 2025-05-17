@@ -517,6 +517,8 @@ public class Auth extends javax.swing.JFrame {
 
         homePanel.setName("home");
 
+        checkManagementAuthority(homePanel);
+
         addPanel(homePanel, "home");
         showPanel("home");
     }
@@ -527,6 +529,14 @@ public class Auth extends javax.swing.JFrame {
     public void switchToSignupPanel() {
         clearSignupFields();
         showPanel("signup");
+    }
+    // 관리자 패널 허용 여부 기눙 - 수정 금지
+    private void checkManagementAuthority(Home view) {
+        view.getUserNumber()
+                .chars()
+                .mapToObj(c -> Character.toUpperCase((char) c)) // 대소문자 무시
+                .findFirst()
+                .ifPresent(ch -> view.getManegementMenu().setVisible(ch == 'M'));
     }
 
     // 필드 값 전달
