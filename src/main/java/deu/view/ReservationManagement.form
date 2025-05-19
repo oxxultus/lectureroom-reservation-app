@@ -757,7 +757,7 @@
                   <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
                 </Property>
                 <Property name="borderPainted" type="boolean" value="true"/>
-                <Property name="name" type="java.lang.String" value="day4_0" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="day5_0" noResource="true"/>
                 <Property name="roundBottomLeft" type="int" value="13"/>
                 <Property name="roundBottomRight" type="int" value="13"/>
                 <Property name="roundTopLeft" type="int" value="13"/>

@@ -1,5 +1,8 @@
 package deu.controller.event;
 
+import deu.controller.business.LectureClientController;
+import deu.model.dto.response.BasicResponse;
+import deu.model.entity.Lecture;
 import deu.view.Reservation;
 import deu.view.custom.ButtonRound;
 
@@ -13,6 +16,7 @@ import java.util.Arrays;
 
 public class ReservationSwingController {
     private final Reservation view;
+    private final LectureClientController lectureClientController = new LectureClientController();
 
     public ReservationSwingController(Reservation view) {
         this.view = view;
@@ -94,8 +98,9 @@ public class ReservationSwingController {
                             refreshReservationWriteDataField(); // 입력 패널 초기화
 
                             view.setSelectedRoomButton(roomBtn);
+                            view.getLectureRoomField().setText(room);
 
-                            updateCalendarWithDummyData(room);
+                            updateCalendarWithDummyData();
                         });
 
                         view.getLectureRoomList().add(roomBtn);
@@ -113,12 +118,32 @@ public class ReservationSwingController {
         view.getFloorButtonPanel().repaint();
     }
 
-    // 캘린더에 예약 정보 갱신 하는 기능
-    private void updateCalendarWithDummyData(String room) {
+    // 캘린더에 예약 정보 갱신 하는 기능 - 강의 정보 불러오는 기능 추가 완료
+    private void updateCalendarWithDummyData() {
         view.getCalendar().setVisible(false);
-        view.getLectureRoomField().setText(room);
+        System.out.println(view.getLectureRoomField().getText());
 
-        // TODO: 각 캘린더의 시간대 별 버튼에 부여된 이름으로 버튼의 객체를 가져오기 위한 임시 변수(각 버튼은 "day행_열" 형식으로 이름이 지정되어 있습니다.)
+        // 1. 서버에서 주간 강의 일정 요청
+        BasicResponse res = lectureClientController.returnLectureOfWeek(
+                view.getBuildingField().getText(),
+                view.getFloorField().getText(),
+                view.getLectureRoomField().getText()
+        );
+
+        // 2. 실패 시 알림 후 종료
+        if (res == null) {
+            JOptionPane.showMessageDialog(null, "서버 응답이 없습니다.");
+            return;
+        }
+
+        if (!"200".equals(res.code) || !(res.data instanceof Lecture[][])) {
+            JOptionPane.showMessageDialog(null, "강의 데이터를 불러오지 못했습니다: " + res.data);
+            return;
+        }
+
+        Lecture[][] schedule = (Lecture[][]) res.data;
+
+        // 3. 더미 텍스트 초기화
         String[][] dummySubjects = new String[7][13];
         for (int j = 0; j < 7; j++) {
             for (int k = 0; k < 13; k++) {
@@ -126,7 +151,7 @@ public class ReservationSwingController {
             }
         }
 
-        // TODO: 각 시간대 별로 예약 내역에 따른 색상을 지정하는 부분입니다.(예: 예약대기중(RED), 예약완료(BLUE))
+        // 4. 버튼에 강의 스케줄 반영
         for (int day = 0; day < 7; day++) {
             for (int period = 0; period < 13; period++) {
                 String buttonName = "day" + day + "_" + period;
@@ -136,33 +161,35 @@ public class ReservationSwingController {
                         JButton dayBtn = (JButton) comp;
                         dayBtn.setText(dummySubjects[day][period]);
 
-                        // TODO: 해당 방식 처럼 특정 시간대의 색상을 변경하는 것이 가능합니다.
-                        // TODO: 또한 예약된 시간대인 경우 버튼을 비 활성화 하는 것도 가능합니다.
-                        if ("day2_0".equals(buttonName)) {
-                            dayBtn.setBackground(Color.GREEN); // 특정 시간대의 색상을 설정하는 부분
-                            dayBtn.setEnabled(false); // 비활성화 하는 부분
-                        } else {
-                            dayBtn.setBackground(null);
-                        }
-
-                        // TODO: 해당 부분에서 기존의 버튼에 지정된 기능을 초기화 합니다.(오류 방지를 위해)
+                        // 기존 리스너 제거
                         for (ActionListener al : dayBtn.getActionListeners()) {
                             dayBtn.removeActionListener(al);
                         }
 
-                        // TODO: 해당 부분에서 모든 버튼의 공통적인 기능을 추가합니다.
-                        dayBtn.addActionListener(ev -> {
-                            JButton source = (JButton) ev.getSource();
-                            String name = source.getName();
-                            view.getReservationTimeField().setText(name);
+                        if (schedule[day][period] != null) {
+                            // 예약된 강의가 있는 경우
+                            dayBtn.setBackground(new Color(100, 149, 237)); // 파란색
+                            dayBtn.setText(schedule[day][period].getTitle());
+                            dayBtn.setEnabled(false);
+                        } else {
+                            // 예약 가능한 경우
+                            dayBtn.setBackground(null);
+                            dayBtn.setEnabled(true);
+                            dayBtn.addActionListener(ev -> {
+                                JButton source = (JButton) ev.getSource();
+                                String name = source.getName();
+                                view.getReservationTimeField().setText(name);
 
-                            if (view.getSelectedCalendarButton() != null) {
-                                view.getSelectedCalendarButton().setBackground(null);
-                            }
-                            // TODO: 버튼 선택시 변경될 색상을 지정 합니다.
-                            source.setBackground(new Color(255, 200, 0));
-                            view.setSelectedCalendarButton(source);
-                        });
+                                // 이전 선택 버튼 색상 원복
+                                if (view.getSelectedCalendarButton() != null) {
+                                    view.getSelectedCalendarButton().setBackground(null);
+                                }
+
+                                // 현재 선택 버튼 표시
+                                source.setBackground(new Color(255, 200, 0)); // 노란색
+                                view.setSelectedCalendarButton(source);
+                            });
+                        }
                     }
                 }
             }
@@ -197,7 +224,7 @@ public class ReservationSwingController {
     // 건물에 따른 강의실 정보 가져오는 기능
     private List<String> getDynamicRoomNames() {
         // TODO: 건물과 해당 층/건물에 따라 다르게 리턴 해야 합니다.
-        return Arrays.asList("R101", "R102", "R103");
+        return Arrays.asList("R101", "R102", "912");
     }
 
     // 수정 안해도 되는 부분 ===========================================================================================

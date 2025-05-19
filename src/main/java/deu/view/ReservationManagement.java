@@ -534,7 +534,7 @@ public class ReservationManagement extends javax.swing.JPanel {
         day5_0.setForeground(new java.awt.Color(0, 0, 0));
         day5_0.setBorderColor(java.awt.Color.darkGray);
         day5_0.setBorderPainted(true);
-        day5_0.setName("day4_0"); // NOI18N
+        day5_0.setName("day5_0"); // NOI18N
         day5_0.setRoundBottomLeft(13);
         day5_0.setRoundBottomRight(13);
         day5_0.setRoundTopLeft(13);
