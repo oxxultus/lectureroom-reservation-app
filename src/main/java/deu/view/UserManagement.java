@@ -147,7 +147,6 @@ public class UserManagement extends javax.swing.JPanel {
         editProfileDataPanel.add(nameLabel);
         nameLabel.setBounds(10, 110, 240, 17);
 
-        editProfileNameField.setEditable(false);
         editProfileNameField.setBackground(new java.awt.Color(255, 255, 255));
         editProfileNameField.setForeground(new java.awt.Color(0, 0, 0));
         editProfileNameField.setRound(10);
