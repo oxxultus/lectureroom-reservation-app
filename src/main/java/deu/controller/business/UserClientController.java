@@ -1,8 +1,8 @@
 package deu.controller.business;
 
-import deu.model.dto.request.data.LoginRequest;
-import deu.model.dto.request.data.LogoutRequest;
-import deu.model.dto.request.data.SignupRequest;
+import deu.model.dto.request.data.user.LoginRequest;
+import deu.model.dto.request.data.user.LogoutRequest;
+import deu.model.dto.request.data.user.SignupRequest;
 import deu.model.dto.request.command.UserCommandRequest;
 import deu.model.dto.response.BasicResponse;
 import deu.model.dto.response.CurrentResponse;
@@ -26,7 +26,7 @@ public class UserClientController {
 
             Object res = in.readObject();
             if (res instanceof BasicResponse r) {
-                System.out.println("서버 응답: " + r.message);
+                System.out.println("서버 응답: " + r.data);
                 if ((r.code).equals("200")) {
                     return r; // 로그인 성공
                 }
@@ -56,7 +56,7 @@ public class UserClientController {
 
             Object res = in.readObject();
             if (res instanceof BasicResponse r) {
-                System.out.println("서버 응답: " + r.message);
+                System.out.println("서버 응답: " + r.data);
                 if (r.code.equals("200")) {
                     return r; // 회원가입 성공
                 }else{
@@ -82,7 +82,7 @@ public class UserClientController {
 
             Object res = in.readObject();
             if (res instanceof BasicResponse r) {
-                System.out.println("서버 응답: " + r.message);
+                System.out.println("서버 응답: " + r.data);
                 if ((r.code).equals("200")) {
                     return r; // 로그아웃 성공
                 } else{

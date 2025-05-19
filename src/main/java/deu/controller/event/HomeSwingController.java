@@ -259,7 +259,7 @@ public class HomeSwingController {
             frame.revalidate();
             frame.repaint();
         } else {
-            JOptionPane.showMessageDialog(view, result.message, "로그아웃 실패", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(view, result.data, "로그아웃 실패", JOptionPane.WARNING_MESSAGE);
         }
     }
     // 예약 메뉴 전환 - 수정 금지

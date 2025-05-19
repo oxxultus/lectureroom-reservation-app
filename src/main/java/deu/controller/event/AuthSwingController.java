@@ -30,9 +30,9 @@ public class AuthSwingController {
         if (res != null && res.code.equals("200")) {
             view.transitionToHome(id, pw);
         } else if (res != null && res.code.equals("401")) {
-            view.showError("로그인 실패: " + (res != null ? res.message : "비밀번호 오류"));
+            view.showError("로그인 실패: " + (res != null ? res.data : "비밀번호 오류"));
         } else {
-            view.showError("로그인 실패: " + (res != null ? res.message : "존재하지 않는 사용자(아이디 오류)"));
+            view.showError("로그인 실패: " + (res != null ? res.data : "존재하지 않는 사용자(아이디 오류)"));
         }
     }
 
@@ -48,7 +48,7 @@ public class AuthSwingController {
             view.showSuccess("회원가입 성공!");
             view.switchToLoginPanel();
         } else {
-            view.showError("회원가입 실패: " + (res != null ? res.message : "서버 오류"));
+            view.showError("회원가입 실패: " + (res != null ? res.data : "서버 오류"));
         }
     }
 

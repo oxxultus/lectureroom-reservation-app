@@ -30,7 +30,7 @@ public class UserClientControllerTest {
 
             assertNotNull(response);
             assertEquals("200", response.code);
-            assertEquals("로그인 성공", response.message);
+            assertEquals("로그인 성공", response.data);
         }
     }
 
@@ -49,7 +49,7 @@ public class UserClientControllerTest {
 
             assertNotNull(response);
             assertEquals("401", response.code);
-            assertEquals("비밀번호 오류", response.message);
+            assertEquals("비밀번호 오류", response.data);
         }
     }
 
