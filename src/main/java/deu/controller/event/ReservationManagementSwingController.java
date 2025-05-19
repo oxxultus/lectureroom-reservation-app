@@ -286,24 +286,27 @@ public class ReservationManagementSwingController {
 
         // 예시 데이터: 실제로는 파일이나 서버에서 데이터를 가져와야 함
         String[][] dummyData = {
-                {"정보관", "9", "A01", "S2023001", "대기", "2025-05-10T13:00", "2025-05-10T15:00"},
-                {"정보관", "9", "A02", "S2023002", "완료", "2025-05-11T09:00", "2025-05-11T10:00"},
-                {"정보관", "9", "A03", "S2023003", "대기", "2025-05-11T10:00", "2025-05-11T11:00"},
-                {"정보관", "9", "A03", "S2023003", "대기", "2025-05-11T10:00", "2025-05-11T11:00"}
+                {"0","정보관", "9", "A01", "S2023001", "대기", "2025-05-19","MONDAY", "13:00", "15:00"},
+                {"1","정보관", "9", "A02", "S2023002", "완료", "2025-05-19","MONDAY", "09:00", "10:00"},
+                {"2","정보관", "9", "A03", "S2023003", "대기", "2025-05-19","MONDAY", "10:00", "11:00"},
+                {"3","정보관", "9", "A03", "S2023003", "대기", "2025-05-19","MONDAY", "10:00", "11:00"}
         };
 
         for (String[] data : dummyData) {
-            if ("대기".equals(data[4])) {
+            if ("대기".equals(data[5])) {
                 RoundReservationInformationButton btn = new RoundReservationInformationButton();
-                btn.setBuildingName(data[0]);
-                btn.setFloor(data[1]);
-                btn.setLectureRoom(data[2]);
-                btn.setNumber(data[3]);
-                btn.setStatus(data[4]);
-                btn.setStartTime(data[5]);
-                btn.setEndTime(data[6]);
+                btn.setId(data[0]);
+                btn.setBuildingName(data[1]);
+                btn.setFloor(data[2]);
+                btn.setLectureRoom(data[3]);
+                btn.setNumber(data[4]);
+                btn.setStatus(data[5]);
+                btn.setDate(data[6]);
+                btn.setDayOfTheWeek(data[7]);
+                btn.setStartTime(data[8]);
+                btn.setEndTime(data[9]);
 
-                btn.setText(data[0] + " / " + data[2] + " / " + data[5].substring(11, 16) + "~" + data[6].substring(11, 16));
+                btn.setText(data[1] + " / " + data[3] + " / " + data[8] + "~" + data[9]);
                 btn.setPreferredSize(new Dimension(112, 40));
                 btn.setBackground(Color.WHITE);
                 btn.setForeground(Color.BLACK);
