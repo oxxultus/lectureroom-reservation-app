@@ -23,7 +23,7 @@ public class LectureClientController {
 
             Object res = in.readObject();
             if (res instanceof BasicResponse r) {
-                System.out.println("서버 응답: " + r.data);
+                // System.out.println("서버 응답: " + r.data);
                 return r;
             }
         } catch (Exception e) {
