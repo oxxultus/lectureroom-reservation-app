@@ -572,7 +572,6 @@ public class Home extends javax.swing.JPanel {
         buildingField.setEditable(false);
         buildingField.setBackground(new java.awt.Color(255, 255, 255));
         buildingField.setForeground(new java.awt.Color(0, 0, 0));
-        buildingField.setFont(new java.awt.Font("Helvetica Neue", 0, 10)); // NOI18N
         buildingField.setRound(10);
         reservationInformationPanel.add(buildingField);
         buildingField.setBounds(50, 10, 120, 20);
@@ -638,7 +637,6 @@ public class Home extends javax.swing.JPanel {
         reservationUserNumberField.setEditable(false);
         reservationUserNumberField.setBackground(new java.awt.Color(255, 255, 255));
         reservationUserNumberField.setForeground(new java.awt.Color(0, 0, 0));
-        reservationUserNumberField.setFont(new java.awt.Font("Helvetica Neue", 0, 10)); // NOI18N
         reservationUserNumberField.setRound(10);
         reservationInformationPanel.add(reservationUserNumberField);
         reservationUserNumberField.setBounds(220, 40, 120, 20);

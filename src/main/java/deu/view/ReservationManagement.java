@@ -358,7 +358,6 @@ public class ReservationManagement extends javax.swing.JPanel {
         buildingField.setBackground(new java.awt.Color(255, 255, 255));
         buildingField.setForeground(new java.awt.Color(0, 0, 0));
         buildingField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        buildingField.setFont(new java.awt.Font("Helvetica Neue", 0, 11)); // NOI18N
         buildingField.setRound(10);
         reservationInformationPanel.add(buildingField);
         buildingField.setBounds(50, 10, 120, 20);
@@ -428,7 +427,6 @@ public class ReservationManagement extends javax.swing.JPanel {
         reservationTimeField.setForeground(new java.awt.Color(0, 0, 0));
         reservationTimeField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         reservationTimeField.setCaretColor(new java.awt.Color(0, 0, 0));
-        reservationTimeField.setFont(new java.awt.Font("Helvetica Neue", 0, 11)); // NOI18N
         reservationTimeField.setRound(10);
         reservationInformationPanel.add(reservationTimeField);
         reservationTimeField.setBounds(220, 40, 120, 20);
