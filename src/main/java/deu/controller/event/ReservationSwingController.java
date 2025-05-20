@@ -3,6 +3,7 @@ package deu.controller.event;
 import deu.controller.business.LectureClientController;
 import deu.model.dto.response.BasicResponse;
 import deu.model.entity.Lecture;
+import deu.model.entity.RoomReservation;
 import deu.view.Reservation;
 import deu.view.custom.ButtonRound;
 import deu.view.custom.TimeSlotButton;
@@ -14,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.util.List;
 import java.util.Arrays;
+import java.util.UUID;
 
 public class ReservationSwingController {
     private final Reservation view;
@@ -132,25 +134,28 @@ public class ReservationSwingController {
         }
     }
 
-    // 4. 캘린더에 예약 정보 갱신 하는 기능 - (5,6,7 호출)
+    // 4. 캘린더에 예약, 강의 정보 갱신하는 기능 - (5,6,7 호출)
     private void updateCalendarWithDummyData() {
         view.getCalendar().setVisible(false);
 
-        // 1. 서버에서 주간 강의 데이터 요청
-        Lecture[][] schedule = fetchWeeklyScheduleFromServer();
+        // 5. 강의 데이터 가져오기
+        Lecture[][] schedule = fetchWeeklyLectureSchedule();
         if (schedule == null) return;
 
-        // 2. 더미 텍스트 생성
-        String[][] dummySubjects = generateDummySubjects();
+        // 6. 예약 데이터 가져오기
+        RoomReservation[][] reservationSchedule = fetchWeeklyReservationSchedule();
 
-        // 3. 캘린더 버튼 구성
-        updateCalendarButtons(schedule, dummySubjects);
+        // 7. 교시별 라벨 생성 (ex: 09:00~10:00)
+        String[][] dummySubjects = generateTimeSlotLabels();
+
+        // 캘린더에 강의/예약 정보 적용
+        applyScheduleToCalendar(schedule, reservationSchedule, dummySubjects);
 
         view.getCalendar().setVisible(true);
     }
 
     // 5. 서버에서 주간 강의 데이터를 요청하여 반환
-    private Lecture[][] fetchWeeklyScheduleFromServer() {
+    private Lecture[][] fetchWeeklyLectureSchedule() {
         BasicResponse res = lectureClientController.returnLectureOfWeek(
                 view.getBuildingField().getText(),
                 view.getFloorField().getText(),
@@ -170,8 +175,25 @@ public class ReservationSwingController {
         return (Lecture[][]) res.data;
     }
 
-    // 6. 교시별 시간 문자열 생성
-    private String[][] generateDummySubjects(){
+    // 6. 서버로부터 주간 예약 스케줄 받아오기 TODO: 예약 정보를 서버로 부터 받아와야 한다.
+    private RoomReservation[][] fetchWeeklyReservationSchedule() {
+        /* 아래와 유사하게 받아오면 된다. 현제는 임시데이터가 들어 가 있다.
+            BasicResponse res = lectureClientController.returnLectureOfWeek(
+                    view.getBuildingField().getText(),
+                    view.getFloorField().getText(),
+                    view.getLectureRoomField().getText()
+            );
+         */
+        RoomReservation[][] grid = new RoomReservation[7][13];
+
+        grid[0][11] = createDummyReservation2("정보관", "2", "A01", "S2023001", "스터디 모임", "자료구조 복습 스터디", "2025-05-19", "MONDAY", "09:00", "10:00");
+        grid[0][12] = createDummyReservation2("정보관", "2", "A01", "S2023002", "회의", "프로젝트 회의", "2025-05-19", "MONDAY", "10:00", "11:00");
+        grid[1][12] = createDummyReservation2("정보관", "3", "B01", "S2023003", "연습", "발표 연습", "2025-05-20", "TUESDAY", "12:00", "13:00");
+        return grid;
+    }
+
+    // 7. 교시별 시간 문자열 생성
+    private String[][] generateTimeSlotLabels(){
         String[][] dummySubjects = new String[7][13];
         for (int j = 0; j < 7; j++) {
             for (int k = 0; k < 13; k++) {
@@ -183,45 +205,46 @@ public class ReservationSwingController {
         return dummySubjects;
     }
 
-    // 7. 스케줄 및 더미 텍스트를 기반으로 시간표 버튼 UI 갱신
-    private void updateCalendarButtons(Lecture[][] schedule, String[][] dummySubjects) {
+    // 8. 캘린더 버튼에 강의 및 예약 정보 반영
+    private void applyScheduleToCalendar(Lecture[][] schedule, RoomReservation[][] reservationSchedule, String[][] labels) {
         for (int day = 0; day < 7; day++) {
             for (int period = 0; period < 13; period++) {
                 String buttonName = "day" + day + "_" + period;
 
                 for (Component comp : view.getCalendar().getComponents()) {
                     if (comp instanceof TimeSlotButton dayBtn && buttonName.equals(comp.getName())) {
-
-                        // 기본 텍스트 설정
-                        dayBtn.setText(dummySubjects[day][period]);
+                        dayBtn.setText(labels[day][period]);
 
                         // 기존 리스너 제거
                         for (ActionListener al : dayBtn.getActionListeners()) {
                             dayBtn.removeActionListener(al);
                         }
 
-                        if (schedule[day][period] != null) { // 강의 데이터 삽입
-                            // 해당 칸이 강의로 예약되어 있음
+                        if (schedule[day][period] != null) {
+                            // 강의가 있는 경우
                             dayBtn.setBackground(new Color(100, 149, 237)); // 파란색
-                            // dayBtn.setText(schedule[day][period].getTitle());
                             dayBtn.setLecture(schedule[day][period]);
-                            dayBtn.setText(dayBtn.getLecture().getTitle());
+                            dayBtn.setText(schedule[day][period].getTitle());
+                            dayBtn.setEnabled(false);
+                        } else if (reservationSchedule != null && reservationSchedule[day][period] != null) {
+                            // 예약이 있는 경우
+                            dayBtn.setBackground(new Color(255, 165, 0)); // 주황색
+                            dayBtn.setRoomReservation(reservationSchedule[day][period]); // 예약 객체 전달
+                            dayBtn.setText(reservationSchedule[day][period].getTitle());
                             dayBtn.setEnabled(false);
                         } else {
-                            // 예약 가능
+                            // 비어있는 시간대
                             dayBtn.setBackground(null);
                             dayBtn.setEnabled(true);
                             dayBtn.addActionListener(ev -> {
                                 JButton source = (JButton) ev.getSource();
-                                String name = source.getName();
-                                view.getReservationTimeField().setText(name);
+                                view.getReservationTimeField().setText(source.getName());
 
-                                // 기존 선택된 버튼 초기화
                                 if (view.getSelectedCalendarButton() != null) {
                                     view.getSelectedCalendarButton().setBackground(null);
                                 }
 
-                                source.setBackground(new Color(255, 200, 0)); // 노란색
+                                source.setBackground(new Color(255, 200, 0));
                                 view.setSelectedCalendarButton(source);
                             });
                         }
@@ -233,7 +256,7 @@ public class ReservationSwingController {
 
     // =================================================================================================================
 
-    // 예약하는 버튼 기능
+    // 예약하는 버튼 기능 TODO: 서버랑 연결해야 한다.
     private void lectureRoomReservationButton(ActionEvent e){
 
         // 사용자 이름 가져오기
@@ -285,5 +308,25 @@ public class ReservationSwingController {
         }
 
         return List.of();
+    }
+
+    // 반복 제거를 위한 Reservation 생성 메서드 - 수정 금지 [ ! ] 테스트용
+    private RoomReservation createDummyReservation2(String building, String floor, String room,
+                                                    String userId, String title, String description,
+                                                    String date, String dayOfWeek, String start, String end) {
+        RoomReservation r = new RoomReservation();
+        r.setId(UUID.randomUUID().toString());
+        r.setBuildingName(building);
+        r.setFloor(floor);
+        r.setLectureRoom(room);
+        r.setNumber(userId);
+        r.setStatus("완료");
+        r.setTitle(title);
+        r.setDescription(description);
+        r.setDate(date);
+        r.setDayOfTheWeek(dayOfWeek);
+        r.setStartTime(start);
+        r.setEndTime(end);
+        return r;
     }
 }

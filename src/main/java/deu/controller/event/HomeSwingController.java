@@ -40,7 +40,7 @@ public class HomeSwingController {
 
     // 개인 별 주간 예약 시간표를 확인하는 기능 =================================================================================
 
-    // 로그인 사용자 예약 정보를 캘린더에 갱신 하는 기능
+    // 로그인 사용자 예약 정보를 캘린더에 갱신 하는 기능  TODO: 서버랑 연결하여 예약 객체를 바로 받아와야 한다.
     private void refreshUserReservationCalendar() {
         view.getCalendar().setVisible(false);
 
@@ -132,7 +132,7 @@ public class HomeSwingController {
 
     // =================================================================================================================
 
-    // 예약을 삭제하는 기능
+    // 예약을 삭제하는 기능  TODO: 서버랑 연결해야 한다.
     private void deleteReservation(ActionEvent e) {
         // 텍스트 필드에서 값 가져오는 부분
         String buildingName = view.getBuildingField().getText();
@@ -151,7 +151,7 @@ public class HomeSwingController {
         refreshUserReservationCalendar(); //myReservationList
     }
 
-    // 사용자의 모든 예약 내역 출력 하는 기능
+    // 사용자의 모든 예약 내역 출력 하는 기능  TODO: 서버랑 연결하여 예약 객체를 바로 받아와야 한다.
     private void refreshMyReservationList() {
         JPanel myReservationList = view.getMyReservationList();
 
@@ -347,7 +347,7 @@ public class HomeSwingController {
 
         return grid;
     }
-    // 테스트용 예약 생성 후 반환
+    // 테스트용 예약 생성자
     private RoomReservation createDummyReservation(String building, String floor, String room,
                                                    String userId, String title, String description,
                                                    String date, String dayOfWeek, String start, String end) {

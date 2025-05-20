@@ -19,6 +19,7 @@ import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public class ReservationManagementSwingController {
     private final ReservationManagement view;
@@ -142,16 +143,22 @@ public class ReservationManagementSwingController {
         }
     }
 
-    // 4. 캘린더에 예약, 강의 정보 갱신 하는 기능 - (5,6,7호출)
+    // 4. 캘린더에 예약, 강의 정보 갱신하는 기능 - (5,6,7 호출)
     private void updateCalendarWithDummyData() {
         view.getCalendar().setVisible(false);
 
+        // 5. 강의 데이터 가져오기
         Lecture[][] schedule = fetchWeeklyLectureSchedule();
         if (schedule == null) return;
 
+        // 6. 예약 데이터 가져오기
+        RoomReservation[][] reservationSchedule = fetchWeeklyReservationSchedule();
+
+        // 7. 교시별 라벨 생성 (ex: 09:00~10:00)
         String[][] dummySubjects = generateTimeSlotLabels();
 
-        applyScheduleToCalendar(schedule, dummySubjects);
+        // 캘린더에 강의/예약 정보 적용
+        applyScheduleToCalendar(schedule, reservationSchedule, dummySubjects);
 
         view.getCalendar().setVisible(true);
     }
@@ -177,7 +184,24 @@ public class ReservationManagementSwingController {
         return (Lecture[][]) res.data;
     }
 
-    // 6. 교시별 시간 문자열 생성
+    // 6. 서버로부터 주간 예약 스케줄 받아오기 TODO: 예약 정보를 서버로 부터 받아와야 한다.
+    private RoomReservation[][] fetchWeeklyReservationSchedule() {
+        /* 아래와 유사하게 받아오면 된다. 현제는 임시데이터가 들어 가 있다.
+            BasicResponse res = lectureClientController.returnLectureOfWeek(
+                    view.getBuildingField().getText(),
+                    view.getFloorField().getText(),
+                    view.getLectureRoomField().getText()
+            );
+         */
+        RoomReservation[][] grid = new RoomReservation[7][13];
+
+        grid[0][11] = createDummyReservation2("정보관", "2", "A01", "S2023001", "스터디 모임", "자료구조 복습 스터디", "2025-05-19", "MONDAY", "09:00", "10:00");
+        grid[0][12] = createDummyReservation2("정보관", "2", "A01", "S2023002", "회의", "프로젝트 회의", "2025-05-19", "MONDAY", "10:00", "11:00");
+        grid[1][12] = createDummyReservation2("정보관", "3", "B01", "S2023003", "연습", "발표 연습", "2025-05-20", "TUESDAY", "12:00", "13:00");
+        return grid;
+    }
+
+    // 7. 교시별 시간 문자열 생성
     private String[][] generateTimeSlotLabels() {
         String[][] labels = new String[7][13];
         for (int day = 0; day < 7; day++) {
@@ -190,8 +214,8 @@ public class ReservationManagementSwingController {
         return labels;
     }
 
-    // 7. 캘린더 버튼에 강의 및 예약 정보 반영 TODO: 예약 정보 반영하는 부분 추가 필요
-    private void applyScheduleToCalendar(Lecture[][] schedule, String[][] labels) {
+    // 8. 캘린더 버튼에 강의 및 예약 정보 반영
+    private void applyScheduleToCalendar(Lecture[][] schedule, RoomReservation[][] reservationSchedule, String[][] labels) {
         for (int day = 0; day < 7; day++) {
             for (int period = 0; period < 13; period++) {
                 String buttonName = "day" + day + "_" + period;
@@ -205,15 +229,20 @@ public class ReservationManagementSwingController {
                             dayBtn.removeActionListener(al);
                         }
 
-                        if (schedule[day][period] != null) { // 강의 데이터 삽입
+                        if (schedule[day][period] != null) {
                             // 강의가 있는 경우
-                            dayBtn.setBackground(new Color(100, 149, 237));
-                            // dayBtn.setText(schedule[day][period].getTitle());
+                            dayBtn.setBackground(new Color(100, 149, 237)); // 파란색
                             dayBtn.setLecture(schedule[day][period]);
-                            dayBtn.setText(dayBtn.getLecture().getTitle());
+                            dayBtn.setText(schedule[day][period].getTitle());
+                            dayBtn.setEnabled(false);
+                        } else if (reservationSchedule != null && reservationSchedule[day][period] != null) {
+                            // 예약이 있는 경우
+                            dayBtn.setBackground(new Color(255, 165, 0)); // 주황색
+                            dayBtn.setRoomReservation(reservationSchedule[day][period]); // 예약 객체 전달
+                            dayBtn.setText(reservationSchedule[day][period].getTitle());
                             dayBtn.setEnabled(false);
                         } else {
-                            // 비어있는 시간대인 경우
+                            // 비어있는 시간대
                             dayBtn.setBackground(null);
                             dayBtn.setEnabled(true);
                             dayBtn.addActionListener(ev -> {
@@ -234,7 +263,7 @@ public class ReservationManagementSwingController {
         }
     }
 
-    // 수정하기 버튼 기능
+    // 수정하기 버튼 기능  TODO: 서버랑 연결해야 한다.
     private void updateButton(ActionEvent e) {
 
         // 필드 값을 가져온다.
@@ -249,7 +278,7 @@ public class ReservationManagementSwingController {
         // TODO: 가져온 값을 바탕으로 컨트롤러를 호출하여 서버와 통신하여 수정 처리한다.
     }
 
-    // 삭제하기 버튼 기능
+    // 삭제하기 버튼 기능  TODO: 서버랑 연결해야 한다.
     private void deleteButton(ActionEvent e) {
 
         // 필드 값을 가져온다.
@@ -320,7 +349,7 @@ public class ReservationManagementSwingController {
         return dummyList;
     }
 
-    // 예약 대기 목록을 서버로 부터 받아오는 기능
+    // 예약 대기 목록을 서버로 부터 받아오는 기능  TODO: 서버로 부터 예약 대기 목록을 받아와야 한다.
     private List<RoundReservationInformationButton> getPendingReservations(List<RoomReservation> allRoomReservations) {
         List<RoundReservationInformationButton> result = new ArrayList<>();
 
@@ -457,6 +486,7 @@ public class ReservationManagementSwingController {
 
         return List.of();
     }
+
     // 반복 제거를 위한 Reservation 생성 메서드 - 수정 금지 [ ! ] 테스트용
     private RoomReservation createDummyReservation(String id, String buildingName, String floor,
                                                    String lectureRoom, String number, String status,
@@ -473,5 +503,23 @@ public class ReservationManagementSwingController {
         roomReservation.setStartTime(startTime);
         roomReservation.setEndTime(endTime);
         return roomReservation;
+    }
+    private RoomReservation createDummyReservation2(String building, String floor, String room,
+                                                   String userId, String title, String description,
+                                                   String date, String dayOfWeek, String start, String end) {
+        RoomReservation r = new RoomReservation();
+        r.setId(UUID.randomUUID().toString());
+        r.setBuildingName(building);
+        r.setFloor(floor);
+        r.setLectureRoom(room);
+        r.setNumber(userId);
+        r.setStatus("완료");
+        r.setTitle(title);
+        r.setDescription(description);
+        r.setDate(date);
+        r.setDayOfTheWeek(dayOfWeek);
+        r.setStartTime(start);
+        r.setEndTime(end);
+        return r;
     }
 }
