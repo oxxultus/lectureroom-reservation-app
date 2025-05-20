@@ -1,8 +1,6 @@
 package deu.controller.business;
 
-import deu.model.dto.request.data.user.LoginRequest;
-import deu.model.dto.request.data.user.LogoutRequest;
-import deu.model.dto.request.data.user.SignupRequest;
+import deu.model.dto.request.data.user.*;
 import deu.model.dto.request.command.UserCommandRequest;
 import deu.model.dto.response.BasicResponse;
 import deu.model.dto.response.CurrentResponse;
@@ -95,7 +93,7 @@ public class UserClientController {
         return null;
     }
 
-    // 동시 접속자 수 요충 컨트롤러
+    // 동시 접속자 수 요청 컨트롤러
     public CurrentResponse currentUserCounts() {
         try (
                 Socket socket = new Socket("localhost", 9999);
@@ -114,5 +112,26 @@ public class UserClientController {
             System.out.println("서버 통신 실패: " + e.getMessage());
         }
         return new CurrentResponse(-1);
+    }
+
+    // 사용자 이름 요청 컨트롤러
+    public BasicResponse findUserName(String number, String pw) {
+        try (
+                Socket socket = new Socket("localhost", 9999);
+                ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
+        ) {
+            FindUserNameRequest findUserNameRequest = new FindUserNameRequest(number, pw);
+            UserCommandRequest req = new UserCommandRequest("사용자 이름 반환", findUserNameRequest);
+            out.writeObject(req);
+
+            Object res = in.readObject();
+            if (res instanceof BasicResponse r) {
+                return r;
+            }
+        } catch (Exception e) {
+            System.out.println("서버 통신 실패: " + e.getMessage());
+        }
+        return null;
     }
 }

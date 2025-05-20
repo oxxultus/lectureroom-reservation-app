@@ -5,6 +5,7 @@ import deu.model.dto.response.BasicResponse;
 import deu.model.entity.Lecture;
 import deu.view.Reservation;
 import deu.view.custom.ButtonRound;
+import deu.view.custom.TimeSlotButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -189,8 +190,7 @@ public class ReservationSwingController {
                 String buttonName = "day" + day + "_" + period;
 
                 for (Component comp : view.getCalendar().getComponents()) {
-                    if (comp instanceof JButton && buttonName.equals(comp.getName())) {
-                        JButton dayBtn = (JButton) comp;
+                    if (comp instanceof TimeSlotButton dayBtn && buttonName.equals(comp.getName())) {
 
                         // 기본 텍스트 설정
                         dayBtn.setText(dummySubjects[day][period]);
@@ -200,10 +200,12 @@ public class ReservationSwingController {
                             dayBtn.removeActionListener(al);
                         }
 
-                        if (schedule[day][period] != null) {
+                        if (schedule[day][period] != null) { // 강의 데이터 삽입
                             // 해당 칸이 강의로 예약되어 있음
                             dayBtn.setBackground(new Color(100, 149, 237)); // 파란색
-                            dayBtn.setText(schedule[day][period].getTitle());
+                            // dayBtn.setText(schedule[day][period].getTitle());
+                            dayBtn.setLecture(schedule[day][period]);
+                            dayBtn.setText(dayBtn.getLecture().getTitle());
                             dayBtn.setEnabled(false);
                         } else {
                             // 예약 가능

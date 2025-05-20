@@ -2,8 +2,10 @@ package deu.controller.event;
 
 import deu.controller.business.UserClientController;
 import deu.model.dto.response.BasicResponse;
+import deu.model.entity.RoomReservation;
 import deu.view.*;
 import deu.view.custom.PanelRound;
+import deu.view.custom.TimeSlotButton;
 
 import javax.swing.*;
 import javax.swing.event.AncestorEvent;
@@ -11,11 +13,12 @@ import javax.swing.event.AncestorListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Optional;
+import java.util.UUID;
 
 public class HomeSwingController {
 
     private final Home view;
+    private final UserClientController userClientController = new UserClientController();
 
     public HomeSwingController(Home view) {
         this.view = view;
@@ -35,85 +38,99 @@ public class HomeSwingController {
         view.addUserProfileInitListner(createUserProfileInitListener());
     }
 
-    // 사용자 예약 정보를 캘린더에 갱신 하는 기능
+    // 개인 별 주간 예약 시간표를 확인하는 기능 =================================================================================
+
+    // 로그인 사용자 예약 정보를 캘린더에 갱신 하는 기능
     private void refreshUserReservationCalendar() {
-        // 현재 시각을 기준으로 날자를 계산하는 부분입니다. (편의를 위해 작성 해 두었습니다.)
-        java.time.LocalDate today = java.time.LocalDate.now();
-        java.time.format.DateTimeFormatter dayFormatter = java.time.format.DateTimeFormatter.ofPattern("MM-dd(E)");
+        view.getCalendar().setVisible(false);
 
-        // TODO: 해당 시간대에 예약이 되어 있는 경우 true로 표시 합니다. (인터페이스의 버튼 기능을 disable 하기 위함 입니다.)
-        // 예시 예약 데이터: [day][period]
-        boolean[][] isReserved = new boolean[7][13];
-        isReserved[2][0] = true; // 3일 후 1교시
-        isReserved[4][5] = true; // 5일 후 6교시
+        // 1. 더미 예약 정보 객체 생성 (7일 x 13교시) TODO: 서버에서 7x13 배열로 된 예약 객체를 바로 받아오면 된다. 단 당일 + 7 일의 형식으로 전달해 줘야 한다.
+        RoomReservation[][] weeklyRoomReservations = createDummyReservationGrid();
 
-        // TODO: 캘린더에 지정된 버튼의 이름은 day행_열 을 기준 으로 되어있습니다. (즉 개인의 예약 정보이기. 때문에 개인의 예약 정보만 가져와야 합니다.)
-        for (int day = 0; day < 7; day++) {
-            java.time.LocalDate targetDate = today.plusDays(day);
-            String dayText = targetDate.format(dayFormatter); // 예: "05-08(수)"
+        // 2. 시간 텍스트 더미 데이터 생성
+        String[][] dummySubjects = generateTimeSlots(); // ex: "09:00~10:00"
 
-            for (int period = 0; period < 13; period++) {
-                String buttonName = "day" + day + "_" + period;
-
-                for (Component comp : view.getCalendar().getComponents()) {
-                    if (comp instanceof JButton && buttonName.equals(comp.getName())) {
-                        JButton btn = (JButton) comp;
-
-                        // 리스너 초기화
-                        for (ActionListener al : btn.getActionListeners()) {
-                            btn.removeActionListener(al);
-                        }
-
-                        // TODO: 예약된 경우의 버튼 표시 입니다. (다른 인수(int 1,2,3 혹은 string 대기, 완료)등을 사용 하여 예약 대기, 완료 상태를 표시할 수 있도록 변경하는 것이 좋을 것 같습니다.)
-                        if (isReserved[day][period]) {
-                            //btn.setText(dayText + " / " + (period + 1) + "교시");
-                            btn.setText((period + 1) + "교시");
-                            btn.setBackground(Color.GREEN);
-                            btn.setEnabled(false);
-                        } else { // TODO: 예약이 안 된 경우의 버튼 표시 입니다.
-                            btn.setText((period + 1) + "교시");
-                            btn.setBackground(null);
-                            btn.setEnabled(true);
-
-                            // TODO: 각 시간별 버튼에 대한 기능을 넣는 부분입니다.
-                            btn.addActionListener(ev -> {
-                                JButton source = (JButton) ev.getSource();
-                                if (view.getSelectedCalendarButton() != null) {
-                                    view.getSelectedCalendarButton().setBackground(null);
-                                }
-                                source.setBackground(new Color(255, 200, 0));
-                                view.setSelectedCalendarButton(source);
-
-                                // 버튼 클릭 시 정보 출력
-                                // 버튼 이름에서 day와 period 정보 추출 (예: day2_0 → 2, 0)
-                                String buttonName2 = source.getName(); // 반드시 name이 지정돼 있어야 함 (지정되어 있습니다.)
-                                String[] tokens = buttonName.replace("day", "").split("_");
-                                int dayIndex = Integer.parseInt(tokens[0]);
-                                int periodIndex = Integer.parseInt(tokens[1]);
-
-                                // TODO: 선택된 데이터를 바탕으로 서버를 통해 데이터를 조회하여 가져와야 합니다.
-                                // 예시 데이터 (실제에선 파일 또는 서버에서 조회)
-                                String userNumber = "S2023001";
-                                String lectureRoom = "정보관 A01";
-                                String title = (dayIndex + 1) + "일차 / " + (periodIndex + 1) + "교시 예약";
-                                String description = "세부 설명 없음";
-
-                                // 텍스트 필드에 출력
-                                view.getBuildingField().setText("정보관");
-                                view.getFloorField().setText("9층");
-                                view.getReservationUserNumberField().setText("에약자 이름");
-                                view.getLectureRoomField().setText(lectureRoom);
-                                view.getTitleField().setText(title);
-                                view.getDescriptionField().setText(description);
-                            });
-                        }
-                    }
-                }
-            }
-        }
+        // 3. 캘린더 버튼 처리
+        updateCalendarButtons(weeklyRoomReservations, dummySubjects);
 
         view.getCalendar().setVisible(true);
     }
+
+    // 캘린더 버튼 처리 분리 메서드
+    private void updateCalendarButtons(RoomReservation[][] roomReservations, String[][] dummySubjects) {
+        for (int day = 0; day < 7; day++) {
+            for (int period = 0; period < 13; period++) {
+                updateSingleCalendarButton(day, period, roomReservations[day][period], dummySubjects[day][period]);
+            }
+        }
+    }
+
+    // 각 교시 별 버튼 처리
+    private void updateSingleCalendarButton(int day, int period, RoomReservation roomReservation, String labelText) {
+        String buttonName = "day" + day + "_" + period;
+
+        for (Component comp : view.getCalendar().getComponents()) {
+            if (comp instanceof TimeSlotButton btn && buttonName.equals(btn.getName())) {
+
+                // 리스너 제거
+                for (ActionListener al : btn.getActionListeners()) {
+                    btn.removeActionListener(al);
+                }
+
+                btn.setText(labelText);
+
+                if (roomReservation != null) {
+                    // btn.setBackground(Color.GREEN);
+                    btn.setEnabled(true);
+                    btn.setRoomReservation(roomReservation);
+                    btn.setText(btn.getRoomReservation().getTitle());
+                    setCalendarButtonClickListener(btn);
+                } else {
+                    btn.setBackground(null);
+                    btn.setEnabled(false);
+                    btn.setBackground(Color.LIGHT_GRAY);
+                }
+            }
+        }
+    }
+
+    // 버튼 클릭 이벤트 리스너 부여
+    private void setCalendarButtonClickListener(TimeSlotButton btn) {
+        btn.addActionListener(e -> {
+            TimeSlotButton source = (TimeSlotButton) e.getSource();
+            if (view.getSelectedCalendarButton() != null) {
+                view.getSelectedCalendarButton().setBackground(null);
+            }
+            source.setBackground(Color.GREEN);
+            view.setSelectedCalendarButton(source);
+
+            RoomReservation roomReservation = btn.getRoomReservation();
+
+            view.getBuildingField().setText(roomReservation.getBuildingName());
+            view.getFloorField().setText(roomReservation.getFloor());
+            view.getReservationUserNumberField().setText(roomReservation.getNumber());
+            view.getLectureRoomField().setText(roomReservation.getLectureRoom());
+            view.getTitleField().setText(roomReservation.getTitle());
+            view.getDescriptionField().setText(roomReservation.getDescription());
+        });
+    }
+
+    // 시간 텍스트 생성 ("09:00~10:00" 형식)
+    private String[][] generateTimeSlots() {
+        String[][] result = new String[7][13];
+        int startHour = 9;
+
+        for (int day = 0; day < 7; day++) {
+            for (int period = 0; period < 13; period++) {
+                int hour = startHour + period;
+                result[day][period] = String.format("%02d:00~%02d:00", hour, hour + 1);
+            }
+        }
+
+        return result;
+    }
+
+    // =================================================================================================================
 
     // 예약을 삭제하는 기능
     private void deleteReservation(ActionEvent e) {
@@ -125,7 +142,7 @@ public class HomeSwingController {
         String title = view.getTitleField().getText();
         String description = view.getDescriptionField().getText();
 
-        /**
+        /*
          * TODO: 해당 예약을 삭제하는 로직
          * - 삭제가 안될 시 처리가 필요합니다.
          */
@@ -186,8 +203,8 @@ public class HomeSwingController {
     private void refreshUserProfile(){
         String number = view.getUserNumber();
 
-        // TODO: 이름은 컨트롤러 호출해서 서버에서 해당 번호에 맞는 이름을 반환받는 메서드 필요합니다.
-        String name = "임시데이터";
+        BasicResponse responseName = userClientController.findUserName(view.getUserNumber(), view.getUserPassword());
+        String name  = (String) responseName.data;
 
         // 프로필 설정
         view.getProfileNumberField().setText("번호: " + view.getUserNumber());
@@ -309,6 +326,45 @@ public class HomeSwingController {
                 .mapToObj(c -> Character.toUpperCase((char) c)) // 대소문자 무시
                 .findFirst()
                 .ifPresent(ch -> view.getManegementMenu().setVisible(ch == 'M'));
+    }
+
+    // 추후 삭제 =========================================================================================================
+
+    // 테스트용 예약 객체를 7 x 13 배열 형태로 반환
+    private RoomReservation[][] createDummyReservationGrid() {
+        RoomReservation[][] grid = new RoomReservation[7][13];
+
+        grid[0][0] = createDummyReservation("정보관", "2", "A01", "S2023001", "스터디 모임", "자료구조 복습 스터디", "2025-05-19", "MONDAY", "09:00", "10:00");
+        grid[0][1] = createDummyReservation("정보관", "2", "A01", "S2023002", "회의", "프로젝트 회의", "2025-05-19", "MONDAY", "10:00", "11:00");
+        grid[1][3] = createDummyReservation("정보관", "3", "B01", "S2023003", "연습", "발표 연습", "2025-05-20", "TUESDAY", "12:00", "13:00");
+        grid[2][0] = createDummyReservation("정보관", "3", "B02", "S2023004", "스터디", "알고리즘 문제풀이", "2025-05-21", "WEDNESDAY", "09:00", "10:00");
+        grid[2][5] = createDummyReservation("정보관", "4", "C01", "S2023005", "스터디", "운영체제 스터디", "2025-05-21", "WEDNESDAY", "14:00", "15:00");
+        grid[3][2] = createDummyReservation("정보관", "5", "C02", "S2023006", "면접 준비", "모의 면접 및 피드백", "2025-05-22", "THURSDAY", "11:00", "12:00");
+        grid[4][5] = createDummyReservation("정보관", "4", "D01", "S2023007", "스터디", "DB 스터디", "2025-05-23", "FRIDAY", "14:00", "15:00");
+        grid[5][8] = createDummyReservation("정보관", "3", "D02", "S2023008", "프로젝트", "기말 프로젝트 작업", "2025-05-24", "SATURDAY", "17:00", "18:00");
+        grid[6][10] = createDummyReservation("정보관", "3", "E01", "S2023009", "학회 준비", "학회 발표 준비", "2025-05-25", "SUNDAY", "19:00", "20:00");
+        grid[6][11] = createDummyReservation("정보관", "3", "E01", "S2023010", "스터디", "캡스톤디자인 스터디", "2025-05-25", "SUNDAY", "20:00", "21:00");
+
+        return grid;
+    }
+    // 테스트용 예약 생성 후 반환
+    private RoomReservation createDummyReservation(String building, String floor, String room,
+                                                   String userId, String title, String description,
+                                                   String date, String dayOfWeek, String start, String end) {
+        RoomReservation r = new RoomReservation();
+        r.setId(UUID.randomUUID().toString());
+        r.setBuildingName(building);
+        r.setFloor(floor);
+        r.setLectureRoom(room);
+        r.setNumber(userId);
+        r.setStatus("대기");
+        r.setTitle(title);
+        r.setDescription(description);
+        r.setDate(date);
+        r.setDayOfTheWeek(dayOfWeek);
+        r.setStartTime(start);
+        r.setEndTime(end);
+        return r;
     }
 
 }

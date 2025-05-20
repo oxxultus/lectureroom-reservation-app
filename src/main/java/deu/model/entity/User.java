@@ -1,8 +1,11 @@
 package deu.model.entity;
 
+import lombok.Getter;
+
 import java.io.Serializable;
 
-public class User implements Serializable {
+@Getter
+public class User implements Serializable{
     public String number;
     public String password;
     public String name;

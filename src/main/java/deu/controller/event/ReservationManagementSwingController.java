@@ -3,9 +3,11 @@ package deu.controller.event;
 import deu.controller.business.LectureClientController;
 import deu.model.dto.response.BasicResponse;
 import deu.model.entity.Lecture;
+import deu.model.entity.RoomReservation;
 import deu.view.ReservationManagement;
 import deu.view.custom.ButtonRound;
 import deu.view.custom.RoundReservationInformationButton;
+import deu.view.custom.TimeSlotButton;
 
 import javax.swing.*;
 import javax.swing.event.AncestorEvent;
@@ -195,7 +197,7 @@ public class ReservationManagementSwingController {
                 String buttonName = "day" + day + "_" + period;
 
                 for (Component comp : view.getCalendar().getComponents()) {
-                    if (comp instanceof JButton dayBtn && buttonName.equals(comp.getName())) {
+                    if (comp instanceof TimeSlotButton dayBtn && buttonName.equals(comp.getName())) {
                         dayBtn.setText(labels[day][period]);
 
                         // 기존 리스너 제거
@@ -203,10 +205,12 @@ public class ReservationManagementSwingController {
                             dayBtn.removeActionListener(al);
                         }
 
-                        if (schedule[day][period] != null) {
+                        if (schedule[day][period] != null) { // 강의 데이터 삽입
                             // 강의가 있는 경우
                             dayBtn.setBackground(new Color(100, 149, 237));
-                            dayBtn.setText(schedule[day][period].getTitle());
+                            // dayBtn.setText(schedule[day][period].getTitle());
+                            dayBtn.setLecture(schedule[day][period]);
+                            dayBtn.setText(dayBtn.getLecture().getTitle());
                             dayBtn.setEnabled(false);
                         } else {
                             // 비어있는 시간대인 경우
@@ -267,21 +271,81 @@ public class ReservationManagementSwingController {
 
     // 예약 대기 목록을 갱신하는 기능
     private void reservationListPanelRefresh() {
-       JPanel reservationListPanel = view.getReservationList();
+        JPanel reservationListPanel = view.getReservationList();
 
-       reservationListPanel.removeAll();
-       reservationListPanel.setLayout(new GridLayout(0, 1, 0, 5)); // 세로 1열
+        reservationListPanel.removeAll();
+        reservationListPanel.setLayout(new GridLayout(0, 1, 0, 5)); // 세로 1열
 
-       List<RoundReservationInformationButton> pendingReservations = getPendingReservations();
+        // 전체 예약 리스트를 가져오는 과정 (예시)
+        List<RoomReservation> allRoomReservations = getAllReservationsFromServerOrFile();
 
-       for (RoundReservationInformationButton btn : pendingReservations) {
-           btn.addActionListener(e -> processReservationChoice(btn));
-           reservationListPanel.add(btn);
-       }
+        List<RoundReservationInformationButton> pendingReservations = getPendingReservations(allRoomReservations);
 
-       reservationListPanel.revalidate();
-       reservationListPanel.repaint();
-   }
+        for (RoundReservationInformationButton btn : pendingReservations) {
+            btn.addActionListener(e -> processReservationChoice(btn));
+            reservationListPanel.add(btn);
+        }
+
+        reservationListPanel.revalidate();
+        reservationListPanel.repaint();
+    }
+
+    // 임시로 전체 예약 리스트를 반환하는 메서드
+    private List<RoomReservation> getAllReservationsFromServerOrFile() {
+
+        // TODO: 해당 부분에서 서버로부터 강의 객체 리스트를 전달 받으면 된다.
+        List<RoomReservation> dummyList = new ArrayList<>();
+
+        dummyList.add(createDummyReservation("0", "정보관", "9", "A01", "S2023001", "대기", "2025-05-19", "MONDAY", "13:00", "15:00"));
+        dummyList.add(createDummyReservation("1", "정보관", "9", "A02", "S2023002", "완료", "2025-05-19", "MONDAY", "09:00", "10:00"));
+        dummyList.add(createDummyReservation("2", "정보관", "9", "A03", "S2023003", "대기", "2025-05-19", "MONDAY", "10:00", "11:00"));
+        dummyList.add(createDummyReservation("3", "정보관", "9", "A03", "S2023003", "대기", "2025-05-19", "MONDAY", "10:00", "11:00"));
+        dummyList.add(createDummyReservation("0", "정보관", "9", "A01", "S2023001", "대기", "2025-05-19", "MONDAY", "13:00", "15:00"));
+        dummyList.add(createDummyReservation("1", "정보관", "9", "A02", "S2023002", "완료", "2025-05-19", "MONDAY", "09:00", "10:00"));
+        dummyList.add(createDummyReservation("2", "정보관", "9", "A03", "S2023003", "대기", "2025-05-19", "MONDAY", "10:00", "11:00"));
+        dummyList.add(createDummyReservation("3", "정보관", "9", "A03", "S2023003", "대기", "2025-05-19", "MONDAY", "10:00", "11:00"));
+        dummyList.add(createDummyReservation("0", "정보관", "9", "A01", "S2023001", "대기", "2025-05-19", "MONDAY", "13:00", "15:00"));
+        dummyList.add(createDummyReservation("1", "정보관", "9", "A02", "S2023002", "완료", "2025-05-19", "MONDAY", "09:00", "10:00"));
+        dummyList.add(createDummyReservation("2", "정보관", "9", "A03", "S2023003", "대기", "2025-05-19", "MONDAY", "10:00", "11:00"));
+        dummyList.add(createDummyReservation("3", "정보관", "9", "A03", "S2023003", "대기", "2025-05-19", "MONDAY", "10:00", "11:00"));
+        dummyList.add(createDummyReservation("0", "정보관", "9", "A01", "S2023001", "대기", "2025-05-19", "MONDAY", "13:00", "15:00"));
+        dummyList.add(createDummyReservation("1", "정보관", "9", "A02", "S2023002", "완료", "2025-05-19", "MONDAY", "09:00", "10:00"));
+        dummyList.add(createDummyReservation("2", "정보관", "9", "A03", "S2023003", "대기", "2025-05-19", "MONDAY", "10:00", "11:00"));
+        dummyList.add(createDummyReservation("3", "정보관", "9", "A03", "S2023003", "대기", "2025-05-19", "MONDAY", "10:00", "11:00"));
+        dummyList.add(createDummyReservation("0", "정보관", "9", "A01", "S2023001", "대기", "2025-05-19", "MONDAY", "13:00", "15:00"));
+        dummyList.add(createDummyReservation("1", "정보관", "9", "A02", "S2023002", "완료", "2025-05-19", "MONDAY", "09:00", "10:00"));
+        dummyList.add(createDummyReservation("2", "정보관", "9", "A03", "S2023003", "대기", "2025-05-19", "MONDAY", "10:00", "11:00"));
+        dummyList.add(createDummyReservation("3", "정보관", "9", "A03", "S2023003", "대기", "2025-05-19", "MONDAY", "10:00", "11:00"));
+
+        return dummyList;
+    }
+
+    // 예약 대기 목록을 서버로 부터 받아오는 기능
+    private List<RoundReservationInformationButton> getPendingReservations(List<RoomReservation> allRoomReservations) {
+        List<RoundReservationInformationButton> result = new ArrayList<>();
+
+        for (RoomReservation roomReservation : allRoomReservations) {
+            if ("대기".equals(roomReservation.getStatus())) {
+                RoundReservationInformationButton btn = new RoundReservationInformationButton();
+                btn.setRoomReservation(roomReservation);
+                btn.setText(roomReservation.getBuildingName() + " / " +
+                        roomReservation.getLectureRoom() + " / " +
+                        roomReservation.getStartTime() + "~" + roomReservation.getEndTime());
+                btn.setPreferredSize(new Dimension(112, 40));
+                btn.setBackground(Color.WHITE);
+                btn.setForeground(Color.BLACK);
+                btn.setFont(new Font("SansSerif", Font.PLAIN, 12));
+                btn.setRoundTopLeft(10);
+                btn.setRoundTopRight(10);
+                btn.setRoundBottomLeft(10);
+                btn.setRoundBottomRight(10);
+
+                result.add(btn);
+            }
+        }
+
+        return result;
+    }
 
     // 예약 수락, 거절 팝업 인터페이스 기능
     private void processReservationChoice(RoundReservationInformationButton btn) {
@@ -318,50 +382,7 @@ public class ReservationManagementSwingController {
         reservationListPanelRefresh(); // 리스트 갱신
     }
 
-    // 서버 에서 예약 신청 내역 중 "대기" 인 내역을 버튼에 반영 해서 버튼 목록을 가져 오는 기능
-    private List<RoundReservationInformationButton> getPendingReservations() {
-        List<RoundReservationInformationButton> result = new ArrayList<>();
-
-        // 예시 데이터: 실제로는 파일이나 서버에서 데이터를 가져와야 함
-        String[][] dummyData = {
-                {"0","정보관", "9", "A01", "S2023001", "대기", "2025-05-19","MONDAY", "13:00", "15:00"},
-                {"1","정보관", "9", "A02", "S2023002", "완료", "2025-05-19","MONDAY", "09:00", "10:00"},
-                {"2","정보관", "9", "A03", "S2023003", "대기", "2025-05-19","MONDAY", "10:00", "11:00"},
-                {"3","정보관", "9", "A03", "S2023003", "대기", "2025-05-19","MONDAY", "10:00", "11:00"}
-        };
-
-        for (String[] data : dummyData) {
-            if ("대기".equals(data[5])) {
-                RoundReservationInformationButton btn = new RoundReservationInformationButton();
-                btn.setId(data[0]);
-                btn.setBuildingName(data[1]);
-                btn.setFloor(data[2]);
-                btn.setLectureRoom(data[3]);
-                btn.setNumber(data[4]);
-                btn.setStatus(data[5]);
-                btn.setDate(data[6]);
-                btn.setDayOfTheWeek(data[7]);
-                btn.setStartTime(data[8]);
-                btn.setEndTime(data[9]);
-
-                btn.setText(data[1] + " / " + data[3] + " / " + data[8] + "~" + data[9]);
-                btn.setPreferredSize(new Dimension(112, 40));
-                btn.setBackground(Color.WHITE);
-                btn.setForeground(Color.BLACK);
-                btn.setFont(new Font("SansSerif", Font.PLAIN, 12));
-                btn.setRoundTopLeft(10);
-                btn.setRoundTopRight(10);
-                btn.setRoundBottomLeft(10);
-                btn.setRoundBottomRight(10);
-
-                result.add(btn);
-            }
-        }
-
-        return result;
-    }
-
-    // 수정 안해도 되는 부분 ===========================================================================================
+    // 수정 안해도 되는 부분 ================================================================================================
 
     // 예약 목록의 새로고침 버튼 기능 - 수정 금지
     private void reservationListPanelRefreshButton(ActionEvent e) {
@@ -435,5 +456,22 @@ public class ReservationManagementSwingController {
         }
 
         return List.of();
+    }
+    // 반복 제거를 위한 Reservation 생성 메서드 - 수정 금지 [ ! ] 테스트용
+    private RoomReservation createDummyReservation(String id, String buildingName, String floor,
+                                                   String lectureRoom, String number, String status,
+                                                   String date, String dayOfWeek, String startTime, String endTime) {
+        RoomReservation roomReservation = new RoomReservation();
+        roomReservation.setId(id);
+        roomReservation.setBuildingName(buildingName);
+        roomReservation.setFloor(floor);
+        roomReservation.setLectureRoom(lectureRoom);
+        roomReservation.setNumber(number);
+        roomReservation.setStatus(status);
+        roomReservation.setDate(date);
+        roomReservation.setDayOfTheWeek(dayOfWeek);
+        roomReservation.setStartTime(startTime);
+        roomReservation.setEndTime(endTime);
+        return roomReservation;
     }
 }
