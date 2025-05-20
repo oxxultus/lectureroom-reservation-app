@@ -60,6 +60,9 @@ public class Auth extends javax.swing.JFrame {
         login_deuProjectDescription2 = new javax.swing.JLabel();
         login_githubLogo = new javax.swing.JLabel();
         login_githubLogoTitle = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         login_githubButton = new deu.view.custom.ButtonRound();
         login_SideBarLabel = new deu.view.custom.LabelRound();
         signup = new javax.swing.JPanel();
@@ -202,7 +205,7 @@ public class Auth extends javax.swing.JFrame {
         login_name1.setBackground(new java.awt.Color(255, 255, 255));
         login_name1.setFont(new java.awt.Font("Helvetica Neue", 0, 17)); // NOI18N
         login_name1.setForeground(new java.awt.Color(102, 102, 102));
-        login_name1.setText("강준화 - 파트");
+        login_name1.setText("강준화");
         login.add(login_name1);
         login_name1.setBounds(50, 130, 210, 23);
 
@@ -215,28 +218,28 @@ public class Auth extends javax.swing.JFrame {
         login_name2.setBackground(new java.awt.Color(255, 255, 255));
         login_name2.setFont(new java.awt.Font("Helvetica Neue", 0, 17)); // NOI18N
         login_name2.setForeground(new java.awt.Color(102, 102, 102));
-        login_name2.setText("김영진 - 파트");
+        login_name2.setText("김영진");
         login.add(login_name2);
         login_name2.setBounds(50, 180, 210, 23);
 
         login_name3.setBackground(new java.awt.Color(255, 255, 255));
         login_name3.setFont(new java.awt.Font("Helvetica Neue", 0, 17)); // NOI18N
         login_name3.setForeground(new java.awt.Color(102, 102, 102));
-        login_name3.setText("김원형 - 파트");
+        login_name3.setText("김원형");
         login.add(login_name3);
         login_name3.setBounds(50, 220, 210, 23);
 
         login_name4.setBackground(new java.awt.Color(255, 255, 255));
         login_name4.setFont(new java.awt.Font("Helvetica Neue", 0, 17)); // NOI18N
         login_name4.setForeground(new java.awt.Color(102, 102, 102));
-        login_name4.setText("이시연 - 파트");
+        login_name4.setText("이시연");
         login.add(login_name4);
         login_name4.setBounds(50, 260, 210, 23);
 
         login_name5.setBackground(new java.awt.Color(255, 255, 255));
         login_name5.setFont(new java.awt.Font("Helvetica Neue", 0, 17)); // NOI18N
         login_name5.setForeground(new java.awt.Color(102, 102, 102));
-        login_name5.setText("이건일 - 파트");
+        login_name5.setText("이건일");
         login.add(login_name5);
         login_name5.setBounds(50, 300, 210, 23);
 
@@ -265,6 +268,18 @@ public class Auth extends javax.swing.JFrame {
         login_githubLogoTitle.setText("LectureRoomReservationSystem");
         login.add(login_githubLogoTitle);
         login_githubLogoTitle.setBounds(80, 520, 170, 14);
+
+        jLabel1.setText("관리자 계정");
+        login.add(jLabel1);
+        jLabel1.setBounds(40, 370, 130, 20);
+
+        jLabel2.setText("Id: m-admin");
+        login.add(jLabel2);
+        jLabel2.setBounds(40, 390, 130, 20);
+
+        jLabel3.setText("password: admin");
+        login.add(jLabel3);
+        jLabel3.setBounds(40, 410, 130, 20);
 
         login_githubButton.setBackground(new java.awt.Color(204, 204, 204));
         login_githubButton.setForeground(new java.awt.Color(102, 102, 102));
@@ -613,6 +628,9 @@ public class Auth extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel login;
     private deu.view.custom.LabelRound login_SideBarLabel;
     private javax.swing.JLabel login_deuProjectDescription1;

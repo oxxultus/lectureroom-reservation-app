@@ -346,7 +346,7 @@ public class Home extends javax.swing.JPanel {
 
         logoutButton.setBackground(new java.awt.Color(221, 51, 65));
         logoutButton.setForeground(new java.awt.Color(255, 255, 255));
-        logoutButton.setText("로그아웃");
+        logoutButton.setText("종료");
         logoutButton.setFont(new java.awt.Font("Helvetica Neue", 0, 11)); // NOI18N
         logoutButton.setRoundBottomLeft(10);
         logoutButton.setRoundBottomRight(10);
@@ -396,6 +396,7 @@ public class Home extends javax.swing.JPanel {
         concurrentUsers.setRoundTopRight(10);
 
         commonMenuCurrentUser.setBackground(new java.awt.Color(204, 204, 204));
+        commonMenuCurrentUser.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         commonMenuCurrentUser.setForeground(new java.awt.Color(255, 255, 255));
         commonMenuCurrentUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         commonMenuCurrentUser.setText("0 명 접속중");
@@ -421,7 +422,7 @@ public class Home extends javax.swing.JPanel {
         concurrentUsersLayout.setVerticalGroup(
             concurrentUsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, concurrentUsersLayout.createSequentialGroup()
-                .addContainerGap(7, Short.MAX_VALUE)
+                .addContainerGap(9, Short.MAX_VALUE)
                 .addComponent(commonMenuCurrentUser)
                 .addContainerGap())
         );
@@ -674,6 +675,7 @@ public class Home extends javax.swing.JPanel {
         day0_0.setForeground(new java.awt.Color(0, 0, 0));
         day0_0.setBorderColor(java.awt.Color.darkGray);
         day0_0.setBorderPainted(true);
+        day0_0.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day0_0.setName("day0_0"); // NOI18N
         day0_0.setRoundBottomLeft(13);
         day0_0.setRoundBottomRight(13);
@@ -685,6 +687,7 @@ public class Home extends javax.swing.JPanel {
         day1_0.setForeground(new java.awt.Color(0, 0, 0));
         day1_0.setBorderColor(java.awt.Color.darkGray);
         day1_0.setBorderPainted(true);
+        day1_0.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day1_0.setName("day1_0"); // NOI18N
         day1_0.setRoundBottomLeft(13);
         day1_0.setRoundBottomRight(13);
@@ -696,6 +699,7 @@ public class Home extends javax.swing.JPanel {
         day2_0.setForeground(new java.awt.Color(0, 0, 0));
         day2_0.setBorderColor(java.awt.Color.darkGray);
         day2_0.setBorderPainted(true);
+        day2_0.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day2_0.setName("day2_0"); // NOI18N
         day2_0.setRoundBottomLeft(13);
         day2_0.setRoundBottomRight(13);
@@ -707,6 +711,7 @@ public class Home extends javax.swing.JPanel {
         day3_0.setForeground(new java.awt.Color(0, 0, 0));
         day3_0.setBorderColor(java.awt.Color.darkGray);
         day3_0.setBorderPainted(true);
+        day3_0.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day3_0.setName("day3_0"); // NOI18N
         day3_0.setRoundBottomLeft(13);
         day3_0.setRoundBottomRight(13);
@@ -718,6 +723,7 @@ public class Home extends javax.swing.JPanel {
         day4_0.setForeground(new java.awt.Color(0, 0, 0));
         day4_0.setBorderColor(java.awt.Color.darkGray);
         day4_0.setBorderPainted(true);
+        day4_0.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day4_0.setName("day4_0"); // NOI18N
         day4_0.setRoundBottomLeft(13);
         day4_0.setRoundBottomRight(13);
@@ -729,6 +735,7 @@ public class Home extends javax.swing.JPanel {
         day5_0.setForeground(new java.awt.Color(0, 0, 0));
         day5_0.setBorderColor(java.awt.Color.darkGray);
         day5_0.setBorderPainted(true);
+        day5_0.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day5_0.setName("day4_0"); // NOI18N
         day5_0.setRoundBottomLeft(13);
         day5_0.setRoundBottomRight(13);
@@ -740,6 +747,7 @@ public class Home extends javax.swing.JPanel {
         day6_0.setForeground(new java.awt.Color(0, 0, 0));
         day6_0.setBorderColor(java.awt.Color.darkGray);
         day6_0.setBorderPainted(true);
+        day6_0.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day6_0.setName("day6_0"); // NOI18N
         day6_0.setRoundBottomLeft(13);
         day6_0.setRoundBottomRight(13);
@@ -751,6 +759,7 @@ public class Home extends javax.swing.JPanel {
         day0_1.setForeground(new java.awt.Color(0, 0, 0));
         day0_1.setBorderColor(java.awt.Color.darkGray);
         day0_1.setBorderPainted(true);
+        day0_1.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day0_1.setName("day0_1"); // NOI18N
         day0_1.setRoundBottomLeft(13);
         day0_1.setRoundBottomRight(13);
@@ -762,6 +771,7 @@ public class Home extends javax.swing.JPanel {
         day1_1.setForeground(new java.awt.Color(0, 0, 0));
         day1_1.setBorderColor(java.awt.Color.darkGray);
         day1_1.setBorderPainted(true);
+        day1_1.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day1_1.setName("day1_1"); // NOI18N
         day1_1.setRoundBottomLeft(13);
         day1_1.setRoundBottomRight(13);
@@ -773,6 +783,7 @@ public class Home extends javax.swing.JPanel {
         day2_1.setForeground(new java.awt.Color(0, 0, 0));
         day2_1.setBorderColor(java.awt.Color.darkGray);
         day2_1.setBorderPainted(true);
+        day2_1.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day2_1.setName("day2_1"); // NOI18N
         day2_1.setRoundBottomLeft(13);
         day2_1.setRoundBottomRight(13);
@@ -784,6 +795,7 @@ public class Home extends javax.swing.JPanel {
         day3_1.setForeground(new java.awt.Color(0, 0, 0));
         day3_1.setBorderColor(java.awt.Color.darkGray);
         day3_1.setBorderPainted(true);
+        day3_1.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day3_1.setName("day3_1"); // NOI18N
         day3_1.setRoundBottomLeft(13);
         day3_1.setRoundBottomRight(13);
@@ -795,6 +807,7 @@ public class Home extends javax.swing.JPanel {
         day4_1.setForeground(new java.awt.Color(0, 0, 0));
         day4_1.setBorderColor(java.awt.Color.darkGray);
         day4_1.setBorderPainted(true);
+        day4_1.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day4_1.setName("day4_1"); // NOI18N
         day4_1.setRoundBottomLeft(13);
         day4_1.setRoundBottomRight(13);
@@ -806,6 +819,7 @@ public class Home extends javax.swing.JPanel {
         day5_1.setForeground(new java.awt.Color(0, 0, 0));
         day5_1.setBorderColor(java.awt.Color.darkGray);
         day5_1.setBorderPainted(true);
+        day5_1.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day5_1.setName("day5_1"); // NOI18N
         day5_1.setRoundBottomLeft(13);
         day5_1.setRoundBottomRight(13);
@@ -817,6 +831,7 @@ public class Home extends javax.swing.JPanel {
         day6_1.setForeground(new java.awt.Color(0, 0, 0));
         day6_1.setBorderColor(java.awt.Color.darkGray);
         day6_1.setBorderPainted(true);
+        day6_1.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day6_1.setName("day6_1"); // NOI18N
         day6_1.setRoundBottomLeft(13);
         day6_1.setRoundBottomRight(13);
@@ -828,6 +843,7 @@ public class Home extends javax.swing.JPanel {
         day0_2.setForeground(new java.awt.Color(0, 0, 0));
         day0_2.setBorderColor(java.awt.Color.darkGray);
         day0_2.setBorderPainted(true);
+        day0_2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day0_2.setName("day0_2"); // NOI18N
         day0_2.setRoundBottomLeft(13);
         day0_2.setRoundBottomRight(13);
@@ -839,6 +855,7 @@ public class Home extends javax.swing.JPanel {
         day1_2.setForeground(new java.awt.Color(0, 0, 0));
         day1_2.setBorderColor(java.awt.Color.darkGray);
         day1_2.setBorderPainted(true);
+        day1_2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day1_2.setName("day1_2"); // NOI18N
         day1_2.setRoundBottomLeft(13);
         day1_2.setRoundBottomRight(13);
@@ -850,6 +867,7 @@ public class Home extends javax.swing.JPanel {
         day2_2.setForeground(new java.awt.Color(0, 0, 0));
         day2_2.setBorderColor(java.awt.Color.darkGray);
         day2_2.setBorderPainted(true);
+        day2_2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day2_2.setName("day2_2"); // NOI18N
         day2_2.setRoundBottomLeft(13);
         day2_2.setRoundBottomRight(13);
@@ -861,6 +879,7 @@ public class Home extends javax.swing.JPanel {
         day3_2.setForeground(new java.awt.Color(0, 0, 0));
         day3_2.setBorderColor(java.awt.Color.darkGray);
         day3_2.setBorderPainted(true);
+        day3_2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day3_2.setName("day3_2"); // NOI18N
         day3_2.setRoundBottomLeft(13);
         day3_2.setRoundBottomRight(13);
@@ -872,6 +891,7 @@ public class Home extends javax.swing.JPanel {
         day4_2.setForeground(new java.awt.Color(0, 0, 0));
         day4_2.setBorderColor(java.awt.Color.darkGray);
         day4_2.setBorderPainted(true);
+        day4_2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day4_2.setName("day4_2"); // NOI18N
         day4_2.setRoundBottomLeft(13);
         day4_2.setRoundBottomRight(13);
@@ -883,6 +903,7 @@ public class Home extends javax.swing.JPanel {
         day5_2.setForeground(new java.awt.Color(0, 0, 0));
         day5_2.setBorderColor(java.awt.Color.darkGray);
         day5_2.setBorderPainted(true);
+        day5_2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day5_2.setName("day5_2"); // NOI18N
         day5_2.setRoundBottomLeft(13);
         day5_2.setRoundBottomRight(13);
@@ -894,6 +915,7 @@ public class Home extends javax.swing.JPanel {
         day6_2.setForeground(new java.awt.Color(0, 0, 0));
         day6_2.setBorderColor(java.awt.Color.darkGray);
         day6_2.setBorderPainted(true);
+        day6_2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day6_2.setName("day6_2"); // NOI18N
         day6_2.setRoundBottomLeft(13);
         day6_2.setRoundBottomRight(13);
@@ -905,6 +927,7 @@ public class Home extends javax.swing.JPanel {
         day0_3.setForeground(new java.awt.Color(0, 0, 0));
         day0_3.setBorderColor(java.awt.Color.darkGray);
         day0_3.setBorderPainted(true);
+        day0_3.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day0_3.setName("day0_3"); // NOI18N
         day0_3.setRoundBottomLeft(13);
         day0_3.setRoundBottomRight(13);
@@ -916,6 +939,7 @@ public class Home extends javax.swing.JPanel {
         day1_3.setForeground(new java.awt.Color(0, 0, 0));
         day1_3.setBorderColor(java.awt.Color.darkGray);
         day1_3.setBorderPainted(true);
+        day1_3.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day1_3.setName("day1_3"); // NOI18N
         day1_3.setRoundBottomLeft(13);
         day1_3.setRoundBottomRight(13);
@@ -927,6 +951,7 @@ public class Home extends javax.swing.JPanel {
         day2_3.setForeground(new java.awt.Color(0, 0, 0));
         day2_3.setBorderColor(java.awt.Color.darkGray);
         day2_3.setBorderPainted(true);
+        day2_3.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day2_3.setName("day2_3"); // NOI18N
         day2_3.setRoundBottomLeft(13);
         day2_3.setRoundBottomRight(13);
@@ -938,6 +963,7 @@ public class Home extends javax.swing.JPanel {
         day3_3.setForeground(new java.awt.Color(0, 0, 0));
         day3_3.setBorderColor(java.awt.Color.darkGray);
         day3_3.setBorderPainted(true);
+        day3_3.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day3_3.setName("day3_3"); // NOI18N
         day3_3.setRoundBottomLeft(13);
         day3_3.setRoundBottomRight(13);
@@ -949,6 +975,7 @@ public class Home extends javax.swing.JPanel {
         day4_3.setForeground(new java.awt.Color(0, 0, 0));
         day4_3.setBorderColor(java.awt.Color.darkGray);
         day4_3.setBorderPainted(true);
+        day4_3.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day4_3.setName("day4_3"); // NOI18N
         day4_3.setRoundBottomLeft(13);
         day4_3.setRoundBottomRight(13);
@@ -960,6 +987,7 @@ public class Home extends javax.swing.JPanel {
         day5_3.setForeground(new java.awt.Color(0, 0, 0));
         day5_3.setBorderColor(java.awt.Color.darkGray);
         day5_3.setBorderPainted(true);
+        day5_3.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day5_3.setName("day5_3"); // NOI18N
         day5_3.setRoundBottomLeft(13);
         day5_3.setRoundBottomRight(13);
@@ -971,6 +999,7 @@ public class Home extends javax.swing.JPanel {
         day6_3.setForeground(new java.awt.Color(0, 0, 0));
         day6_3.setBorderColor(java.awt.Color.darkGray);
         day6_3.setBorderPainted(true);
+        day6_3.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day6_3.setName("day6_3"); // NOI18N
         day6_3.setRoundBottomLeft(13);
         day6_3.setRoundBottomRight(13);
@@ -982,6 +1011,7 @@ public class Home extends javax.swing.JPanel {
         day0_4.setForeground(new java.awt.Color(0, 0, 0));
         day0_4.setBorderColor(java.awt.Color.darkGray);
         day0_4.setBorderPainted(true);
+        day0_4.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day0_4.setName("day0_4"); // NOI18N
         day0_4.setRoundBottomLeft(13);
         day0_4.setRoundBottomRight(13);
@@ -993,6 +1023,7 @@ public class Home extends javax.swing.JPanel {
         day1_4.setForeground(new java.awt.Color(0, 0, 0));
         day1_4.setBorderColor(java.awt.Color.darkGray);
         day1_4.setBorderPainted(true);
+        day1_4.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day1_4.setName("day1_4"); // NOI18N
         day1_4.setRoundBottomLeft(13);
         day1_4.setRoundBottomRight(13);
@@ -1004,6 +1035,7 @@ public class Home extends javax.swing.JPanel {
         day2_4.setForeground(new java.awt.Color(0, 0, 0));
         day2_4.setBorderColor(java.awt.Color.darkGray);
         day2_4.setBorderPainted(true);
+        day2_4.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day2_4.setName("day2_4"); // NOI18N
         day2_4.setRoundBottomLeft(13);
         day2_4.setRoundBottomRight(13);
@@ -1015,6 +1047,7 @@ public class Home extends javax.swing.JPanel {
         day3_4.setForeground(new java.awt.Color(0, 0, 0));
         day3_4.setBorderColor(java.awt.Color.darkGray);
         day3_4.setBorderPainted(true);
+        day3_4.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day3_4.setName("day3_4"); // NOI18N
         day3_4.setRoundBottomLeft(13);
         day3_4.setRoundBottomRight(13);
@@ -1026,6 +1059,7 @@ public class Home extends javax.swing.JPanel {
         day4_4.setForeground(new java.awt.Color(0, 0, 0));
         day4_4.setBorderColor(java.awt.Color.darkGray);
         day4_4.setBorderPainted(true);
+        day4_4.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day4_4.setName("day4_4"); // NOI18N
         day4_4.setRoundBottomLeft(13);
         day4_4.setRoundBottomRight(13);
@@ -1037,6 +1071,7 @@ public class Home extends javax.swing.JPanel {
         day5_4.setForeground(new java.awt.Color(0, 0, 0));
         day5_4.setBorderColor(java.awt.Color.darkGray);
         day5_4.setBorderPainted(true);
+        day5_4.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day5_4.setName("day5_4"); // NOI18N
         day5_4.setRoundBottomLeft(13);
         day5_4.setRoundBottomRight(13);
@@ -1048,6 +1083,7 @@ public class Home extends javax.swing.JPanel {
         day6_4.setForeground(new java.awt.Color(0, 0, 0));
         day6_4.setBorderColor(java.awt.Color.darkGray);
         day6_4.setBorderPainted(true);
+        day6_4.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day6_4.setName("day6_4"); // NOI18N
         day6_4.setRoundBottomLeft(13);
         day6_4.setRoundBottomRight(13);
@@ -1059,6 +1095,7 @@ public class Home extends javax.swing.JPanel {
         day0_5.setForeground(new java.awt.Color(0, 0, 0));
         day0_5.setBorderColor(java.awt.Color.darkGray);
         day0_5.setBorderPainted(true);
+        day0_5.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day0_5.setName("day0_5"); // NOI18N
         day0_5.setRoundBottomLeft(13);
         day0_5.setRoundBottomRight(13);
@@ -1070,6 +1107,7 @@ public class Home extends javax.swing.JPanel {
         day1_5.setForeground(new java.awt.Color(0, 0, 0));
         day1_5.setBorderColor(java.awt.Color.darkGray);
         day1_5.setBorderPainted(true);
+        day1_5.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day1_5.setName("day1_5"); // NOI18N
         day1_5.setRoundBottomLeft(13);
         day1_5.setRoundBottomRight(13);
@@ -1081,6 +1119,7 @@ public class Home extends javax.swing.JPanel {
         day2_5.setForeground(new java.awt.Color(0, 0, 0));
         day2_5.setBorderColor(java.awt.Color.darkGray);
         day2_5.setBorderPainted(true);
+        day2_5.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day2_5.setName("day2_5"); // NOI18N
         day2_5.setRoundBottomLeft(13);
         day2_5.setRoundBottomRight(13);
@@ -1092,6 +1131,7 @@ public class Home extends javax.swing.JPanel {
         day3_5.setForeground(new java.awt.Color(0, 0, 0));
         day3_5.setBorderColor(java.awt.Color.darkGray);
         day3_5.setBorderPainted(true);
+        day3_5.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day3_5.setName("day3_5"); // NOI18N
         day3_5.setRoundBottomLeft(13);
         day3_5.setRoundBottomRight(13);
@@ -1103,6 +1143,7 @@ public class Home extends javax.swing.JPanel {
         day4_5.setForeground(new java.awt.Color(0, 0, 0));
         day4_5.setBorderColor(java.awt.Color.darkGray);
         day4_5.setBorderPainted(true);
+        day4_5.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day4_5.setName("day4_5"); // NOI18N
         day4_5.setRoundBottomLeft(13);
         day4_5.setRoundBottomRight(13);
@@ -1114,6 +1155,7 @@ public class Home extends javax.swing.JPanel {
         day5_5.setForeground(new java.awt.Color(0, 0, 0));
         day5_5.setBorderColor(java.awt.Color.darkGray);
         day5_5.setBorderPainted(true);
+        day5_5.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day5_5.setName("day5_5"); // NOI18N
         day5_5.setRoundBottomLeft(13);
         day5_5.setRoundBottomRight(13);
@@ -1125,6 +1167,7 @@ public class Home extends javax.swing.JPanel {
         day6_5.setForeground(new java.awt.Color(0, 0, 0));
         day6_5.setBorderColor(java.awt.Color.darkGray);
         day6_5.setBorderPainted(true);
+        day6_5.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day6_5.setName("day6_5"); // NOI18N
         day6_5.setRoundBottomLeft(13);
         day6_5.setRoundBottomRight(13);
@@ -1136,6 +1179,7 @@ public class Home extends javax.swing.JPanel {
         day0_6.setForeground(new java.awt.Color(0, 0, 0));
         day0_6.setBorderColor(java.awt.Color.darkGray);
         day0_6.setBorderPainted(true);
+        day0_6.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day0_6.setName("day0_6"); // NOI18N
         day0_6.setOpaque(true);
         day0_6.setRoundBottomLeft(13);
@@ -1148,6 +1192,7 @@ public class Home extends javax.swing.JPanel {
         day1_6.setForeground(new java.awt.Color(0, 0, 0));
         day1_6.setBorderColor(java.awt.Color.darkGray);
         day1_6.setBorderPainted(true);
+        day1_6.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day1_6.setName("day1_6"); // NOI18N
         day1_6.setRoundBottomLeft(13);
         day1_6.setRoundBottomRight(13);
@@ -1159,6 +1204,7 @@ public class Home extends javax.swing.JPanel {
         day2_6.setForeground(new java.awt.Color(0, 0, 0));
         day2_6.setBorderColor(java.awt.Color.darkGray);
         day2_6.setBorderPainted(true);
+        day2_6.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day2_6.setName("day2_6"); // NOI18N
         day2_6.setRoundBottomLeft(13);
         day2_6.setRoundBottomRight(13);
@@ -1170,6 +1216,7 @@ public class Home extends javax.swing.JPanel {
         day3_6.setForeground(new java.awt.Color(0, 0, 0));
         day3_6.setBorderColor(java.awt.Color.darkGray);
         day3_6.setBorderPainted(true);
+        day3_6.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day3_6.setName("day3_6"); // NOI18N
         day3_6.setRoundBottomLeft(13);
         day3_6.setRoundBottomRight(13);
@@ -1181,6 +1228,7 @@ public class Home extends javax.swing.JPanel {
         day4_6.setForeground(new java.awt.Color(0, 0, 0));
         day4_6.setBorderColor(java.awt.Color.darkGray);
         day4_6.setBorderPainted(true);
+        day4_6.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day4_6.setName("day4_6"); // NOI18N
         day4_6.setRoundBottomLeft(13);
         day4_6.setRoundBottomRight(13);
@@ -1192,6 +1240,7 @@ public class Home extends javax.swing.JPanel {
         day5_6.setForeground(new java.awt.Color(0, 0, 0));
         day5_6.setBorderColor(java.awt.Color.darkGray);
         day5_6.setBorderPainted(true);
+        day5_6.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day5_6.setName("day5_6"); // NOI18N
         day5_6.setRoundBottomLeft(13);
         day5_6.setRoundBottomRight(13);
@@ -1203,6 +1252,7 @@ public class Home extends javax.swing.JPanel {
         day6_6.setForeground(new java.awt.Color(0, 0, 0));
         day6_6.setBorderColor(java.awt.Color.darkGray);
         day6_6.setBorderPainted(true);
+        day6_6.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day6_6.setName("day6_6"); // NOI18N
         day6_6.setRoundBottomLeft(13);
         day6_6.setRoundBottomRight(13);
@@ -1214,6 +1264,7 @@ public class Home extends javax.swing.JPanel {
         day0_7.setForeground(new java.awt.Color(0, 0, 0));
         day0_7.setBorderColor(java.awt.Color.darkGray);
         day0_7.setBorderPainted(true);
+        day0_7.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day0_7.setName("day0_7"); // NOI18N
         day0_7.setRoundBottomLeft(13);
         day0_7.setRoundBottomRight(13);
@@ -1225,6 +1276,7 @@ public class Home extends javax.swing.JPanel {
         day1_7.setForeground(new java.awt.Color(0, 0, 0));
         day1_7.setBorderColor(java.awt.Color.darkGray);
         day1_7.setBorderPainted(true);
+        day1_7.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day1_7.setName("day1_7"); // NOI18N
         day1_7.setRoundBottomLeft(13);
         day1_7.setRoundBottomRight(13);
@@ -1236,6 +1288,7 @@ public class Home extends javax.swing.JPanel {
         day2_7.setForeground(new java.awt.Color(0, 0, 0));
         day2_7.setBorderColor(java.awt.Color.darkGray);
         day2_7.setBorderPainted(true);
+        day2_7.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day2_7.setName("day2_7"); // NOI18N
         day2_7.setRoundBottomLeft(13);
         day2_7.setRoundBottomRight(13);
@@ -1247,6 +1300,7 @@ public class Home extends javax.swing.JPanel {
         day3_7.setForeground(new java.awt.Color(0, 0, 0));
         day3_7.setBorderColor(java.awt.Color.darkGray);
         day3_7.setBorderPainted(true);
+        day3_7.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day3_7.setName("day3_7"); // NOI18N
         day3_7.setRoundBottomLeft(13);
         day3_7.setRoundBottomRight(13);
@@ -1258,6 +1312,7 @@ public class Home extends javax.swing.JPanel {
         day4_7.setForeground(new java.awt.Color(0, 0, 0));
         day4_7.setBorderColor(java.awt.Color.darkGray);
         day4_7.setBorderPainted(true);
+        day4_7.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day4_7.setName("day4_7"); // NOI18N
         day4_7.setRoundBottomLeft(13);
         day4_7.setRoundBottomRight(13);
@@ -1269,6 +1324,7 @@ public class Home extends javax.swing.JPanel {
         day5_7.setForeground(new java.awt.Color(0, 0, 0));
         day5_7.setBorderColor(java.awt.Color.darkGray);
         day5_7.setBorderPainted(true);
+        day5_7.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day5_7.setName("day5_7"); // NOI18N
         day5_7.setRoundBottomLeft(13);
         day5_7.setRoundBottomRight(13);
@@ -1280,6 +1336,7 @@ public class Home extends javax.swing.JPanel {
         day6_7.setForeground(new java.awt.Color(0, 0, 0));
         day6_7.setBorderColor(java.awt.Color.darkGray);
         day6_7.setBorderPainted(true);
+        day6_7.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day6_7.setName("day6_7"); // NOI18N
         day6_7.setRoundBottomLeft(13);
         day6_7.setRoundBottomRight(13);
@@ -1291,6 +1348,7 @@ public class Home extends javax.swing.JPanel {
         day0_8.setForeground(new java.awt.Color(0, 0, 0));
         day0_8.setBorderColor(java.awt.Color.darkGray);
         day0_8.setBorderPainted(true);
+        day0_8.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day0_8.setName("day0_8"); // NOI18N
         day0_8.setRoundBottomLeft(13);
         day0_8.setRoundBottomRight(13);
@@ -1302,6 +1360,7 @@ public class Home extends javax.swing.JPanel {
         day1_8.setForeground(new java.awt.Color(0, 0, 0));
         day1_8.setBorderColor(java.awt.Color.darkGray);
         day1_8.setBorderPainted(true);
+        day1_8.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day1_8.setName("day1_8"); // NOI18N
         day1_8.setRoundBottomLeft(13);
         day1_8.setRoundBottomRight(13);
@@ -1313,6 +1372,7 @@ public class Home extends javax.swing.JPanel {
         day2_8.setForeground(new java.awt.Color(0, 0, 0));
         day2_8.setBorderColor(java.awt.Color.darkGray);
         day2_8.setBorderPainted(true);
+        day2_8.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day2_8.setName("day2_8"); // NOI18N
         day2_8.setRoundBottomLeft(13);
         day2_8.setRoundBottomRight(13);
@@ -1324,6 +1384,7 @@ public class Home extends javax.swing.JPanel {
         day3_8.setForeground(new java.awt.Color(0, 0, 0));
         day3_8.setBorderColor(java.awt.Color.darkGray);
         day3_8.setBorderPainted(true);
+        day3_8.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day3_8.setName("day3_8"); // NOI18N
         day3_8.setRoundBottomLeft(13);
         day3_8.setRoundBottomRight(13);
@@ -1335,6 +1396,7 @@ public class Home extends javax.swing.JPanel {
         day4_8.setForeground(new java.awt.Color(0, 0, 0));
         day4_8.setBorderColor(java.awt.Color.darkGray);
         day4_8.setBorderPainted(true);
+        day4_8.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day4_8.setName("day4_8"); // NOI18N
         day4_8.setRoundBottomLeft(13);
         day4_8.setRoundBottomRight(13);
@@ -1346,6 +1408,7 @@ public class Home extends javax.swing.JPanel {
         day5_8.setForeground(new java.awt.Color(0, 0, 0));
         day5_8.setBorderColor(java.awt.Color.darkGray);
         day5_8.setBorderPainted(true);
+        day5_8.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day5_8.setName("day5_8"); // NOI18N
         day5_8.setRoundBottomLeft(13);
         day5_8.setRoundBottomRight(13);
@@ -1357,6 +1420,7 @@ public class Home extends javax.swing.JPanel {
         day6_8.setForeground(new java.awt.Color(0, 0, 0));
         day6_8.setBorderColor(java.awt.Color.darkGray);
         day6_8.setBorderPainted(true);
+        day6_8.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day6_8.setName("day6_8"); // NOI18N
         day6_8.setRoundBottomLeft(13);
         day6_8.setRoundBottomRight(13);
@@ -1368,6 +1432,7 @@ public class Home extends javax.swing.JPanel {
         day0_9.setForeground(new java.awt.Color(0, 0, 0));
         day0_9.setBorderColor(java.awt.Color.darkGray);
         day0_9.setBorderPainted(true);
+        day0_9.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day0_9.setName("day0_9"); // NOI18N
         day0_9.setRoundBottomLeft(13);
         day0_9.setRoundBottomRight(13);
@@ -1379,6 +1444,7 @@ public class Home extends javax.swing.JPanel {
         day1_9.setForeground(new java.awt.Color(0, 0, 0));
         day1_9.setBorderColor(java.awt.Color.darkGray);
         day1_9.setBorderPainted(true);
+        day1_9.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day1_9.setName("day1_9"); // NOI18N
         day1_9.setRoundBottomLeft(13);
         day1_9.setRoundBottomRight(13);
@@ -1390,6 +1456,7 @@ public class Home extends javax.swing.JPanel {
         day2_9.setForeground(new java.awt.Color(0, 0, 0));
         day2_9.setBorderColor(java.awt.Color.darkGray);
         day2_9.setBorderPainted(true);
+        day2_9.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day2_9.setName("day2_9"); // NOI18N
         day2_9.setRoundBottomLeft(13);
         day2_9.setRoundBottomRight(13);
@@ -1401,6 +1468,7 @@ public class Home extends javax.swing.JPanel {
         day3_9.setForeground(new java.awt.Color(0, 0, 0));
         day3_9.setBorderColor(java.awt.Color.darkGray);
         day3_9.setBorderPainted(true);
+        day3_9.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day3_9.setName("day3_9"); // NOI18N
         day3_9.setRoundBottomLeft(13);
         day3_9.setRoundBottomRight(13);
@@ -1412,6 +1480,7 @@ public class Home extends javax.swing.JPanel {
         day4_9.setForeground(new java.awt.Color(0, 0, 0));
         day4_9.setBorderColor(java.awt.Color.darkGray);
         day4_9.setBorderPainted(true);
+        day4_9.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day4_9.setName("day4_9"); // NOI18N
         day4_9.setRoundBottomLeft(13);
         day4_9.setRoundBottomRight(13);
@@ -1423,6 +1492,7 @@ public class Home extends javax.swing.JPanel {
         day5_9.setForeground(new java.awt.Color(0, 0, 0));
         day5_9.setBorderColor(java.awt.Color.darkGray);
         day5_9.setBorderPainted(true);
+        day5_9.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day5_9.setName("day5_9"); // NOI18N
         day5_9.setRoundBottomLeft(13);
         day5_9.setRoundBottomRight(13);
@@ -1434,6 +1504,7 @@ public class Home extends javax.swing.JPanel {
         day6_9.setForeground(new java.awt.Color(0, 0, 0));
         day6_9.setBorderColor(java.awt.Color.darkGray);
         day6_9.setBorderPainted(true);
+        day6_9.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day6_9.setName("day6_9"); // NOI18N
         day6_9.setRoundBottomLeft(13);
         day6_9.setRoundBottomRight(13);
@@ -1445,6 +1516,7 @@ public class Home extends javax.swing.JPanel {
         day0_10.setForeground(new java.awt.Color(0, 0, 0));
         day0_10.setBorderColor(java.awt.Color.darkGray);
         day0_10.setBorderPainted(true);
+        day0_10.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day0_10.setName("day0_10"); // NOI18N
         day0_10.setRoundBottomLeft(13);
         day0_10.setRoundBottomRight(13);
@@ -1456,6 +1528,7 @@ public class Home extends javax.swing.JPanel {
         day1_10.setForeground(new java.awt.Color(0, 0, 0));
         day1_10.setBorderColor(java.awt.Color.darkGray);
         day1_10.setBorderPainted(true);
+        day1_10.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day1_10.setName("day1_10"); // NOI18N
         day1_10.setRoundBottomLeft(13);
         day1_10.setRoundBottomRight(13);
@@ -1467,6 +1540,7 @@ public class Home extends javax.swing.JPanel {
         day2_10.setForeground(new java.awt.Color(0, 0, 0));
         day2_10.setBorderColor(java.awt.Color.darkGray);
         day2_10.setBorderPainted(true);
+        day2_10.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day2_10.setName("day2_10"); // NOI18N
         day2_10.setRoundBottomLeft(13);
         day2_10.setRoundBottomRight(13);
@@ -1478,6 +1552,7 @@ public class Home extends javax.swing.JPanel {
         day3_10.setForeground(new java.awt.Color(0, 0, 0));
         day3_10.setBorderColor(java.awt.Color.darkGray);
         day3_10.setBorderPainted(true);
+        day3_10.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day3_10.setName("day3_10"); // NOI18N
         day3_10.setRoundBottomLeft(13);
         day3_10.setRoundBottomRight(13);
@@ -1489,6 +1564,7 @@ public class Home extends javax.swing.JPanel {
         day4_10.setForeground(new java.awt.Color(0, 0, 0));
         day4_10.setBorderColor(java.awt.Color.darkGray);
         day4_10.setBorderPainted(true);
+        day4_10.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day4_10.setName("day4_10"); // NOI18N
         day4_10.setRoundBottomLeft(13);
         day4_10.setRoundBottomRight(13);
@@ -1500,6 +1576,7 @@ public class Home extends javax.swing.JPanel {
         day5_10.setForeground(new java.awt.Color(0, 0, 0));
         day5_10.setBorderColor(java.awt.Color.darkGray);
         day5_10.setBorderPainted(true);
+        day5_10.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day5_10.setName("day5_10"); // NOI18N
         day5_10.setRoundBottomLeft(13);
         day5_10.setRoundBottomRight(13);
@@ -1511,6 +1588,7 @@ public class Home extends javax.swing.JPanel {
         day6_10.setForeground(new java.awt.Color(0, 0, 0));
         day6_10.setBorderColor(java.awt.Color.darkGray);
         day6_10.setBorderPainted(true);
+        day6_10.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day6_10.setName("day6_10"); // NOI18N
         day6_10.setRoundBottomLeft(13);
         day6_10.setRoundBottomRight(13);
@@ -1522,6 +1600,7 @@ public class Home extends javax.swing.JPanel {
         day0_11.setForeground(new java.awt.Color(0, 0, 0));
         day0_11.setBorderColor(java.awt.Color.darkGray);
         day0_11.setBorderPainted(true);
+        day0_11.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day0_11.setName("day0_11"); // NOI18N
         day0_11.setRoundBottomLeft(13);
         day0_11.setRoundBottomRight(13);
@@ -1533,6 +1612,7 @@ public class Home extends javax.swing.JPanel {
         day1_11.setForeground(new java.awt.Color(0, 0, 0));
         day1_11.setBorderColor(java.awt.Color.darkGray);
         day1_11.setBorderPainted(true);
+        day1_11.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day1_11.setName("day1_11"); // NOI18N
         day1_11.setRoundBottomLeft(13);
         day1_11.setRoundBottomRight(13);
@@ -1544,6 +1624,7 @@ public class Home extends javax.swing.JPanel {
         day2_11.setForeground(new java.awt.Color(0, 0, 0));
         day2_11.setBorderColor(java.awt.Color.darkGray);
         day2_11.setBorderPainted(true);
+        day2_11.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day2_11.setName("day2_11"); // NOI18N
         day2_11.setRoundBottomLeft(13);
         day2_11.setRoundBottomRight(13);
@@ -1555,6 +1636,7 @@ public class Home extends javax.swing.JPanel {
         day3_11.setForeground(new java.awt.Color(0, 0, 0));
         day3_11.setBorderColor(java.awt.Color.darkGray);
         day3_11.setBorderPainted(true);
+        day3_11.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day3_11.setName("day3_11"); // NOI18N
         day3_11.setRoundBottomLeft(13);
         day3_11.setRoundBottomRight(13);
@@ -1566,6 +1648,7 @@ public class Home extends javax.swing.JPanel {
         day4_11.setForeground(new java.awt.Color(0, 0, 0));
         day4_11.setBorderColor(java.awt.Color.darkGray);
         day4_11.setBorderPainted(true);
+        day4_11.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day4_11.setName("day4_11"); // NOI18N
         day4_11.setRoundBottomLeft(13);
         day4_11.setRoundBottomRight(13);
@@ -1577,6 +1660,7 @@ public class Home extends javax.swing.JPanel {
         day5_11.setForeground(new java.awt.Color(0, 0, 0));
         day5_11.setBorderColor(java.awt.Color.darkGray);
         day5_11.setBorderPainted(true);
+        day5_11.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day5_11.setName("day5_11"); // NOI18N
         day5_11.setRoundBottomLeft(13);
         day5_11.setRoundBottomRight(13);
@@ -1588,6 +1672,7 @@ public class Home extends javax.swing.JPanel {
         day6_11.setForeground(new java.awt.Color(0, 0, 0));
         day6_11.setBorderColor(java.awt.Color.darkGray);
         day6_11.setBorderPainted(true);
+        day6_11.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day6_11.setName("day6_11"); // NOI18N
         day6_11.setRoundBottomLeft(13);
         day6_11.setRoundBottomRight(13);
@@ -1599,6 +1684,7 @@ public class Home extends javax.swing.JPanel {
         day0_12.setForeground(new java.awt.Color(0, 0, 0));
         day0_12.setBorderColor(java.awt.Color.darkGray);
         day0_12.setBorderPainted(true);
+        day0_12.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day0_12.setName("day0_12"); // NOI18N
         day0_12.setRoundBottomLeft(13);
         day0_12.setRoundBottomRight(13);
@@ -1610,6 +1696,7 @@ public class Home extends javax.swing.JPanel {
         day1_12.setForeground(new java.awt.Color(0, 0, 0));
         day1_12.setBorderColor(java.awt.Color.darkGray);
         day1_12.setBorderPainted(true);
+        day1_12.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day1_12.setName("day1_12"); // NOI18N
         day1_12.setRoundBottomLeft(13);
         day1_12.setRoundBottomRight(13);
@@ -1621,6 +1708,7 @@ public class Home extends javax.swing.JPanel {
         day2_12.setForeground(new java.awt.Color(0, 0, 0));
         day2_12.setBorderColor(java.awt.Color.darkGray);
         day2_12.setBorderPainted(true);
+        day2_12.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day2_12.setName("day2_12"); // NOI18N
         day2_12.setRoundBottomLeft(13);
         day2_12.setRoundBottomRight(13);
@@ -1632,6 +1720,7 @@ public class Home extends javax.swing.JPanel {
         day3_12.setForeground(new java.awt.Color(0, 0, 0));
         day3_12.setBorderColor(java.awt.Color.darkGray);
         day3_12.setBorderPainted(true);
+        day3_12.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day3_12.setName("day3_12"); // NOI18N
         day3_12.setRoundBottomLeft(13);
         day3_12.setRoundBottomRight(13);
@@ -1643,6 +1732,7 @@ public class Home extends javax.swing.JPanel {
         day4_12.setForeground(new java.awt.Color(0, 0, 0));
         day4_12.setBorderColor(java.awt.Color.darkGray);
         day4_12.setBorderPainted(true);
+        day4_12.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day4_12.setName("day4_12"); // NOI18N
         day4_12.setRoundBottomLeft(13);
         day4_12.setRoundBottomRight(13);
@@ -1654,6 +1744,7 @@ public class Home extends javax.swing.JPanel {
         day5_12.setForeground(new java.awt.Color(0, 0, 0));
         day5_12.setBorderColor(java.awt.Color.darkGray);
         day5_12.setBorderPainted(true);
+        day5_12.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day5_12.setName("day5_12"); // NOI18N
         day5_12.setRoundBottomLeft(13);
         day5_12.setRoundBottomRight(13);
@@ -1665,6 +1756,7 @@ public class Home extends javax.swing.JPanel {
         day6_12.setForeground(new java.awt.Color(0, 0, 0));
         day6_12.setBorderColor(java.awt.Color.darkGray);
         day6_12.setBorderPainted(true);
+        day6_12.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         day6_12.setName("day6_12"); // NOI18N
         day6_12.setRoundBottomLeft(13);
         day6_12.setRoundBottomRight(13);
@@ -1882,6 +1974,18 @@ public class Home extends javax.swing.JPanel {
     public void addUserProfileInitListner(AncestorListener listener) {
         profilePanel.addAncestorListener(listener);
     }
+    
+    public JPanel getMenuPanel() {
+        return menu;
+    }
+
+    public JPanel getMainPanel() {
+        return main;
+    }
+
+    public JPanel getManagerMenuPanel() {
+        return managerMenu;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private deu.view.custom.ButtonRound LectureRoomReservationMenu;
@@ -2043,18 +2147,5 @@ public class Home extends javax.swing.JPanel {
     private javax.swing.JLabel titleLabel;
     private deu.view.custom.ButtonRound updateButton;
     private deu.view.custom.ButtonRound userManagementButton;
-
-    public JPanel getMenuPanel() {
-        return menu;
-    }
-
-    public JPanel getMainPanel() {
-        return main;
-    }
-
-    public JPanel getManagerMenuPanel() {
-        return managerMenu;
-    }
-
     // End of variables declaration//GEN-END:variables
 }

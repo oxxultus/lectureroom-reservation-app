@@ -147,7 +147,11 @@ public class ReservationSwingController {
         String[][] dummySubjects = new String[7][13];
         for (int j = 0; j < 7; j++) {
             for (int k = 0; k < 13; k++) {
-                dummySubjects[j][k] = (j + 1) + "-" + (k + 1);
+                int startHour = 9 + k;  // 첫 교시는 9시부터 시작
+                int endHour = startHour + 1;
+                String start = String.format("%02d:00", startHour);
+                String end = String.format("%02d:00", endHour);
+                dummySubjects[j][k] = start + " ~ " + end;
             }
         }
 
