@@ -937,7 +937,7 @@
                 <Property name="verticalGap" type="int" value="3"/>
               </Layout>
               <SubComponents>
-                <Component class="deu.view.custom.TimeSlotButton" name="day0_0">
+                <Component class="deu.view.custom.ButtonRound" name="day0_0">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -959,7 +959,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day1_0">
+                <Component class="deu.view.custom.ButtonRound" name="day1_0">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -981,7 +981,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day2_0">
+                <Component class="deu.view.custom.ButtonRound" name="day2_0">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1003,7 +1003,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day3_0">
+                <Component class="deu.view.custom.ButtonRound" name="day3_0">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1025,7 +1025,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day4_0">
+                <Component class="deu.view.custom.ButtonRound" name="day4_0">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1047,7 +1047,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day5_0">
+                <Component class="deu.view.custom.ButtonRound" name="day5_0">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1069,7 +1069,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day6_0">
+                <Component class="deu.view.custom.ButtonRound" name="day6_0">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1091,7 +1091,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day0_1">
+                <Component class="deu.view.custom.ButtonRound" name="day0_1">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1113,7 +1113,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day1_1">
+                <Component class="deu.view.custom.ButtonRound" name="day1_1">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1135,7 +1135,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day2_1">
+                <Component class="deu.view.custom.ButtonRound" name="day2_1">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1157,7 +1157,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day3_1">
+                <Component class="deu.view.custom.ButtonRound" name="day3_1">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1179,7 +1179,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day4_1">
+                <Component class="deu.view.custom.ButtonRound" name="day4_1">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1201,7 +1201,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day5_1">
+                <Component class="deu.view.custom.ButtonRound" name="day5_1">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1223,7 +1223,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day6_1">
+                <Component class="deu.view.custom.ButtonRound" name="day6_1">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1245,7 +1245,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day0_2">
+                <Component class="deu.view.custom.ButtonRound" name="day0_2">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1267,7 +1267,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day1_2">
+                <Component class="deu.view.custom.ButtonRound" name="day1_2">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1289,7 +1289,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day2_2">
+                <Component class="deu.view.custom.ButtonRound" name="day2_2">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1311,7 +1311,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day3_2">
+                <Component class="deu.view.custom.ButtonRound" name="day3_2">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1333,7 +1333,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day4_2">
+                <Component class="deu.view.custom.ButtonRound" name="day4_2">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1355,7 +1355,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day5_2">
+                <Component class="deu.view.custom.ButtonRound" name="day5_2">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1377,7 +1377,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day6_2">
+                <Component class="deu.view.custom.ButtonRound" name="day6_2">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1399,7 +1399,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day0_3">
+                <Component class="deu.view.custom.ButtonRound" name="day0_3">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1421,7 +1421,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day1_3">
+                <Component class="deu.view.custom.ButtonRound" name="day1_3">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1443,7 +1443,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day2_3">
+                <Component class="deu.view.custom.ButtonRound" name="day2_3">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1465,7 +1465,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day3_3">
+                <Component class="deu.view.custom.ButtonRound" name="day3_3">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1487,7 +1487,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day4_3">
+                <Component class="deu.view.custom.ButtonRound" name="day4_3">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1509,7 +1509,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day5_3">
+                <Component class="deu.view.custom.ButtonRound" name="day5_3">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1531,7 +1531,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day6_3">
+                <Component class="deu.view.custom.ButtonRound" name="day6_3">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1553,7 +1553,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day0_4">
+                <Component class="deu.view.custom.ButtonRound" name="day0_4">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1575,7 +1575,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day1_4">
+                <Component class="deu.view.custom.ButtonRound" name="day1_4">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1597,7 +1597,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day2_4">
+                <Component class="deu.view.custom.ButtonRound" name="day2_4">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1619,7 +1619,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day3_4">
+                <Component class="deu.view.custom.ButtonRound" name="day3_4">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1641,7 +1641,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day4_4">
+                <Component class="deu.view.custom.ButtonRound" name="day4_4">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1663,7 +1663,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day5_4">
+                <Component class="deu.view.custom.ButtonRound" name="day5_4">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1685,7 +1685,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day6_4">
+                <Component class="deu.view.custom.ButtonRound" name="day6_4">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1707,7 +1707,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day0_5">
+                <Component class="deu.view.custom.ButtonRound" name="day0_5">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1729,7 +1729,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day1_5">
+                <Component class="deu.view.custom.ButtonRound" name="day1_5">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1751,7 +1751,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day2_5">
+                <Component class="deu.view.custom.ButtonRound" name="day2_5">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1773,7 +1773,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day3_5">
+                <Component class="deu.view.custom.ButtonRound" name="day3_5">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1795,7 +1795,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day4_5">
+                <Component class="deu.view.custom.ButtonRound" name="day4_5">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1817,7 +1817,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day5_5">
+                <Component class="deu.view.custom.ButtonRound" name="day5_5">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1839,7 +1839,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day6_5">
+                <Component class="deu.view.custom.ButtonRound" name="day6_5">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1861,7 +1861,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day0_6">
+                <Component class="deu.view.custom.ButtonRound" name="day0_6">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1884,7 +1884,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day1_6">
+                <Component class="deu.view.custom.ButtonRound" name="day1_6">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1906,7 +1906,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day2_6">
+                <Component class="deu.view.custom.ButtonRound" name="day2_6">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1928,7 +1928,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day3_6">
+                <Component class="deu.view.custom.ButtonRound" name="day3_6">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1950,7 +1950,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day4_6">
+                <Component class="deu.view.custom.ButtonRound" name="day4_6">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1972,7 +1972,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day5_6">
+                <Component class="deu.view.custom.ButtonRound" name="day5_6">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -1994,7 +1994,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day6_6">
+                <Component class="deu.view.custom.ButtonRound" name="day6_6">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2016,7 +2016,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day0_7">
+                <Component class="deu.view.custom.ButtonRound" name="day0_7">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2038,7 +2038,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day1_7">
+                <Component class="deu.view.custom.ButtonRound" name="day1_7">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2060,7 +2060,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day2_7">
+                <Component class="deu.view.custom.ButtonRound" name="day2_7">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2082,7 +2082,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day3_7">
+                <Component class="deu.view.custom.ButtonRound" name="day3_7">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2104,7 +2104,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day4_7">
+                <Component class="deu.view.custom.ButtonRound" name="day4_7">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2126,7 +2126,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day5_7">
+                <Component class="deu.view.custom.ButtonRound" name="day5_7">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2148,7 +2148,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day6_7">
+                <Component class="deu.view.custom.ButtonRound" name="day6_7">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2170,7 +2170,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day0_8">
+                <Component class="deu.view.custom.ButtonRound" name="day0_8">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2192,7 +2192,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day1_8">
+                <Component class="deu.view.custom.ButtonRound" name="day1_8">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2214,7 +2214,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day2_8">
+                <Component class="deu.view.custom.ButtonRound" name="day2_8">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2236,7 +2236,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day3_8">
+                <Component class="deu.view.custom.ButtonRound" name="day3_8">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2258,7 +2258,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day4_8">
+                <Component class="deu.view.custom.ButtonRound" name="day4_8">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2280,7 +2280,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day5_8">
+                <Component class="deu.view.custom.ButtonRound" name="day5_8">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2302,7 +2302,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day6_8">
+                <Component class="deu.view.custom.ButtonRound" name="day6_8">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2324,7 +2324,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day0_9">
+                <Component class="deu.view.custom.ButtonRound" name="day0_9">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2346,7 +2346,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day1_9">
+                <Component class="deu.view.custom.ButtonRound" name="day1_9">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2368,7 +2368,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day2_9">
+                <Component class="deu.view.custom.ButtonRound" name="day2_9">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2390,7 +2390,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day3_9">
+                <Component class="deu.view.custom.ButtonRound" name="day3_9">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2412,7 +2412,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day4_9">
+                <Component class="deu.view.custom.ButtonRound" name="day4_9">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2434,7 +2434,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day5_9">
+                <Component class="deu.view.custom.ButtonRound" name="day5_9">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2456,7 +2456,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day6_9">
+                <Component class="deu.view.custom.ButtonRound" name="day6_9">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2478,7 +2478,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day0_10">
+                <Component class="deu.view.custom.ButtonRound" name="day0_10">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2500,7 +2500,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day1_10">
+                <Component class="deu.view.custom.ButtonRound" name="day1_10">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2522,7 +2522,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day2_10">
+                <Component class="deu.view.custom.ButtonRound" name="day2_10">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2544,7 +2544,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day3_10">
+                <Component class="deu.view.custom.ButtonRound" name="day3_10">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2566,7 +2566,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day4_10">
+                <Component class="deu.view.custom.ButtonRound" name="day4_10">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2588,7 +2588,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day5_10">
+                <Component class="deu.view.custom.ButtonRound" name="day5_10">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2610,7 +2610,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day6_10">
+                <Component class="deu.view.custom.ButtonRound" name="day6_10">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2632,7 +2632,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day0_11">
+                <Component class="deu.view.custom.ButtonRound" name="day0_11">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2654,7 +2654,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day1_11">
+                <Component class="deu.view.custom.ButtonRound" name="day1_11">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2676,7 +2676,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day2_11">
+                <Component class="deu.view.custom.ButtonRound" name="day2_11">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2698,7 +2698,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day3_11">
+                <Component class="deu.view.custom.ButtonRound" name="day3_11">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2720,7 +2720,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day4_11">
+                <Component class="deu.view.custom.ButtonRound" name="day4_11">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2742,7 +2742,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day5_11">
+                <Component class="deu.view.custom.ButtonRound" name="day5_11">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2764,7 +2764,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day6_11">
+                <Component class="deu.view.custom.ButtonRound" name="day6_11">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2786,7 +2786,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day0_12">
+                <Component class="deu.view.custom.ButtonRound" name="day0_12">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2808,7 +2808,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day1_12">
+                <Component class="deu.view.custom.ButtonRound" name="day1_12">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2830,7 +2830,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day2_12">
+                <Component class="deu.view.custom.ButtonRound" name="day2_12">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2852,7 +2852,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day3_12">
+                <Component class="deu.view.custom.ButtonRound" name="day3_12">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2874,7 +2874,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day4_12">
+                <Component class="deu.view.custom.ButtonRound" name="day4_12">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2896,7 +2896,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day5_12">
+                <Component class="deu.view.custom.ButtonRound" name="day5_12">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
@@ -2918,7 +2918,7 @@
                     <Property name="roundTopRight" type="int" value="13"/>
                   </Properties>
                 </Component>
-                <Component class="deu.view.custom.TimeSlotButton" name="day6_12">
+                <Component class="deu.view.custom.ButtonRound" name="day6_12">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f6" green="f5" red="f5" type="rgb"/>
