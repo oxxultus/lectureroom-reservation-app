@@ -1,5 +1,8 @@
 package deu.controller.event;
 
+import deu.controller.business.LectureClientController;
+import deu.model.dto.response.BasicResponse;
+import deu.model.entity.Lecture;
 import deu.view.ReservationManagement;
 import deu.view.custom.ButtonRound;
 import deu.view.custom.RoundReservationInformationButton;
@@ -17,6 +20,7 @@ import java.util.List;
 
 public class ReservationManagementSwingController {
     private final ReservationManagement view;
+    private final LectureClientController lectureClientController = new LectureClientController();
 
     public ReservationManagementSwingController(ReservationManagement view) {
         this.view = view;
@@ -34,46 +38,48 @@ public class ReservationManagementSwingController {
     private void handleBuildingSelection(ItemEvent e) {
         if (e.getStateChange() != ItemEvent.SELECTED) return;
 
-        // 초기화
-        view.getBuildingField().setText("");
-        view.getFloorField().setText("");
-        view.getFloorButtonPanel().removeAll();
-        view.getLectureRoomList().removeAll();
-        view.getCalendar().setVisible(false);
-        view.clearSelectedButtons();
+        // UI 초기화
+        clearSelectionUI();
 
+        // 선택된 건물 설정
         String selectedBuilding = (String) view.getSelectedBuilding();
         view.getBuildingField().setText(selectedBuilding);
 
-        // TODO: 해당 부분도 언젠가는 동적으로 변경하는 것이 좋을 것 같지만 이번 프로젝트에서는 변경하지 않겠습니다.
+        // 정보관이 아닌 경우: 종료
         if (!"정보관".equals(selectedBuilding)) {
             view.getFloorButtonPanel().revalidate();
             view.getFloorButtonPanel().repaint();
             view.getLectureRoomList().revalidate();
             view.getLectureRoomList().repaint();
-
             view.getFloorDisplayField().setText("");
 
             clearReservationFieldData();
             return;
         }
 
-        // TODO: 해당 건물의 층 정보를 가져와서 해당 층의 강의실 리스트를 출력하고 해당 강의실 클릭 시 시간표에 해당 강의실의 빈 시각 정보가 나타나는 기능 입니다.
+        // 정보관일 경우: 1~9층 층 버튼 추가
+        addFloorButtons(selectedBuilding);
+    }
+    // 층 버튼 추가 메서드
+    private void addFloorButtons(String buildingName) {
+        // buildingName으로 기준으로 층 정보 가져온다.
+        // 최대 층 = 컨트롤러 호출 -> 파일읽기 -> 값 전달받아 사용
         for (int i = 1; i <= 9; i++) {
             final int currentFloor = i;
             ButtonRound floorBtn = view.createStyledButton(String.valueOf(currentFloor), 45, 45);
             floorBtn.setBackground(view.FLOOR_DEFAULT_COLOR);
             floorBtn.setForeground(Color.BLACK);
 
-            // TODO: 층 버튼이 가지는 기능을 추가하는 부분입니다.
             floorBtn.addActionListener(ev -> {
                 view.getCalendar().setVisible(false);
 
+                // 기존 선택 해제
                 if (view.getSelectedFloorButton() != null) {
                     view.getSelectedFloorButton().setBackground(view.FLOOR_DEFAULT_COLOR);
                     view.getSelectedFloorButton().setForeground(Color.BLACK);
                 }
 
+                // 선택 설정
                 floorBtn.setBackground(view.FLOOR_SELECTED_COLOR);
                 floorBtn.setForeground(Color.WHITE);
                 view.setSelectedFloorButton(floorBtn);
@@ -84,38 +90,9 @@ public class ReservationManagementSwingController {
                 view.getLectureRoomList().removeAll();
                 view.setSelectedRoomButton(null);
 
-                clearReservationFieldData(); // 입력 패널 초기화
+                clearReservationFieldData(); // 입력 초기화
 
-                // TODO: 선택된 층이 9층일 경우 해당 층의 강의실 정보를 가져와 버튼으로 생성하고 해당 버튼의 기능을 추가하는 부분입니다.
-                if ("9".equals(floorBtn.getText())) {
-                    for (String room : getDynamicRoomNames()) {
-                        ButtonRound roomBtn = view.createStyledButton(room, 100, 30);
-                        roomBtn.setBackground(view.FLOOR_DEFAULT_COLOR);
-                        roomBtn.setForeground(Color.BLACK);
-
-                        // TODO: 강의실 버튼이 가지는 기능을 추가하는 부분입니다.
-                        roomBtn.addActionListener(roomEv -> {
-                            view.getCalendar().setVisible(false);
-
-                            if (view.getSelectedRoomButton() != null) {
-                                view.getSelectedRoomButton().setBackground(view.FLOOR_DEFAULT_COLOR);
-                                view.getSelectedRoomButton().setForeground(Color.BLACK);
-                            }
-
-                            roomBtn.setBackground(view.ROOM_SELECTED_COLOR);
-                            roomBtn.setForeground(Color.WHITE);
-
-                            clearReservationFieldData(); // 입력 패널 초기화
-
-                            view.setSelectedRoomButton(roomBtn);
-
-                            // TODO: 해당 강의실의 시간표정보를 가져와 갱신하는 부분입니다. (transfer_data => 강의실이름)
-                            updateCalendarWithDummyData(room);
-                        });
-
-                        view.getLectureRoomList().add(roomBtn);
-                    }
-                }
+                addLectureRoomButtons(buildingName, floorBtn.getText()); // 층별 강의실 버튼 동적 생성
 
                 view.getLectureRoomList().revalidate();
                 view.getLectureRoomList().repaint();
@@ -128,20 +105,75 @@ public class ReservationManagementSwingController {
         view.getFloorButtonPanel().repaint();
     }
 
-    // 캘린더에 클릭 시 각 강의실의 정보를 갱신 하는 기능
-    private void updateCalendarWithDummyData(String room) {
-        view.getCalendar().setVisible(false);
-        view.getLectureRoomField().setText(room);
+    // 특정 층에 해당하는 강의실 버튼들을 동적으로 생성하여 UI에 추가하는 메서드
+    private void addLectureRoomButtons(String buildingName, String floor) {
+        // 9층만 강의실 버튼을 표시하도록 처리
+        if (!"9".equals(floor)) return;
 
-        // TODO: 각 캘린더의 시간대 별 버튼에 부여된 이름으로 버튼의 객체를 가져오기 위한 임시 변수(각 버튼은 "day행_열" 형식으로 이름이 지정되어 있습니다.)
+        for (String room : getDynamicRoomNames(buildingName, floor)) {
+            ButtonRound roomBtn = view.createStyledButton(room, 100, 30);
+            roomBtn.setBackground(view.FLOOR_DEFAULT_COLOR);
+            roomBtn.setForeground(Color.BLACK);
+
+            roomBtn.addActionListener(roomEv -> {
+                view.getCalendar().setVisible(false);
+
+                if (view.getSelectedRoomButton() != null) {
+                    view.getSelectedRoomButton().setBackground(view.FLOOR_DEFAULT_COLOR);
+                    view.getSelectedRoomButton().setForeground(Color.BLACK);
+                }
+
+                roomBtn.setBackground(view.ROOM_SELECTED_COLOR);
+                roomBtn.setForeground(Color.WHITE);
+                clearReservationFieldData(); // 입력 패널 초기화
+
+                view.setSelectedRoomButton(roomBtn);
+                view.getLectureRoomField().setText(room);
+
+                updateCalendarWithDummyData();
+            });
+
+            view.getLectureRoomList().add(roomBtn);
+        }
+    }
+
+    // 캘린더에 예약 정보 갱신 하는 기능 - 강의 정보 불러오는 기능 추가 완료 - TODO: 메서드 분리 작업 필요
+    private void updateCalendarWithDummyData() {
+        view.getCalendar().setVisible(false);
+
+        // 1. 서버에서 주간 강의 일정 요청
+        BasicResponse res = lectureClientController.returnLectureOfWeek(
+                view.getBuildingField().getText(),
+                view.getFloorField().getText(),
+                view.getLectureRoomField().getText()
+        );
+
+        // 2. 실패 시 알림 후 종료
+        if (res == null) {
+            JOptionPane.showMessageDialog(null, "서버 응답이 없습니다.");
+            return;
+        }
+
+        if (!"200".equals(res.code) || !(res.data instanceof Lecture[][])) {
+            JOptionPane.showMessageDialog(null, "강의 데이터를 불러오지 못했습니다: " + res.data);
+            return;
+        }
+
+        Lecture[][] schedule = (Lecture[][]) res.data;
+
+        // 3. 더미 텍스트 초기화
         String[][] dummySubjects = new String[7][13];
         for (int j = 0; j < 7; j++) {
             for (int k = 0; k < 13; k++) {
-                dummySubjects[j][k] = (j + 1) + "-" + (k + 1);
+                int startHour = 9 + k;  // 첫 교시는 9시부터 시작
+                int endHour = startHour + 1;
+                String start = String.format("%02d:00", startHour);
+                String end = String.format("%02d:00", endHour);
+                dummySubjects[j][k] = start + " ~ " + end;
             }
         }
 
-        // TODO: 각 시간대 별로 예약 내역에 따른 색상을 지정하는 부분입니다.(예: 예약대기중(RED), 예약완료(BLUE))
+        // 4. 버튼에 강의 스케줄 반영
         for (int day = 0; day < 7; day++) {
             for (int period = 0; period < 13; period++) {
                 String buttonName = "day" + day + "_" + period;
@@ -151,40 +183,52 @@ public class ReservationManagementSwingController {
                         JButton dayBtn = (JButton) comp;
                         dayBtn.setText(dummySubjects[day][period]);
 
-                        // TODO: 해당 방식 처럼 특정 시간대의 색상을 변경하는 것이 가능합니다.
-                        // TODO: 또한 예약된 시간대인 경우 버튼을 비 활성화 하는 것도 가능합니다.
-                        if ("day2_0".equals(buttonName)) {
-                            dayBtn.setBackground(Color.GREEN);
-                            dayBtn.setEnabled(false);
-                        } else {
-                            dayBtn.setBackground(null);
-                        }
-
-                        // TODO: 해당 부분에서 기존의 버튼에 지정된 기능을 초기화 합니다.(오류 방지를 위해)
+                        // 기존 리스너 제거
                         for (ActionListener al : dayBtn.getActionListeners()) {
                             dayBtn.removeActionListener(al);
                         }
 
-                        // TODO: 해당 부분에서 모든 버튼의 공통적인 기능을 추가합니다.
-                        dayBtn.addActionListener(ev -> {
-                            JButton source = (JButton) ev.getSource();
-                            String name = source.getName();
-                            view.getReservationTimeField().setText(name);
+                        if (schedule[day][period] != null) {
+                            // 예약된 강의가 있는 경우
+                            dayBtn.setBackground(new Color(100, 149, 237)); // 파란색
+                            dayBtn.setText(schedule[day][period].getTitle());
+                            dayBtn.setEnabled(false);
+                        } else {
+                            // 예약 가능한 경우
+                            dayBtn.setBackground(null);
+                            dayBtn.setEnabled(true);
+                            dayBtn.addActionListener(ev -> {
+                                JButton source = (JButton) ev.getSource();
+                                String name = source.getName();
+                                view.getReservationTimeField().setText(name);
 
-                            if (view.getSelectedCalendarButton() != null) {
-                                view.getSelectedCalendarButton().setBackground(null);
-                            }
+                                // 이전 선택 버튼 색상 원복
+                                if (view.getSelectedCalendarButton() != null) {
+                                    view.getSelectedCalendarButton().setBackground(null);
+                                }
 
-                            // TODO: 버튼 선택시 변경될 색상을 지정 합니다.
-                            source.setBackground(new Color(255, 200, 0));
-                            view.setSelectedCalendarButton(source);
-                        });
+                                // 현재 선택 버튼 표시
+                                source.setBackground(new Color(255, 200, 0)); // 노란색
+                                view.setSelectedCalendarButton(source);
+                            });
+                        }
                     }
                 }
             }
         }
 
         view.getCalendar().setVisible(true);
+    }
+
+    // 건물에 따른 강의실 정보 가져오는 기능
+    private List<String> getDynamicRoomNames(String building, String floor) {
+        if(building.equals("정보관")){
+            if(floor.equals("9")){
+                return Arrays.asList("911", "912", "913", "914", "915", "916", "918");
+            }
+        }
+
+        return List.of();
     }
 
     // 수정하기 버튼 기능
@@ -218,13 +262,6 @@ public class ReservationManagementSwingController {
 
         // 필드 초기화
         clearReservationFieldData();
-    }
-
-    // 건물에 따른 강의실 정보 가져오는 기능
-    private List<String> getDynamicRoomNames() {
-
-        // TODO: 건물과 해당 층/건물에 따라 다르게 리턴 해야 합니다.
-        return Arrays.asList("R101", "R102", "R103");
     }
 
     // 예약 목록을 갱신하는 기능
@@ -377,5 +414,15 @@ public class ReservationManagementSwingController {
         // view.getReservationTimeField().setText("");
         // view.getBuildingField().setText("");
         // view.getFloorField().setText("");
+    }
+    // 선택 UI 초기화 메서드 - 수정 금지
+    private void clearSelectionUI() {
+        // 초기화
+        view.getBuildingField().setText("");
+        view.getFloorField().setText("");
+        view.getFloorButtonPanel().removeAll();
+        view.getLectureRoomList().removeAll();
+        view.getCalendar().setVisible(false);
+        view.clearSelectedButtons();
     }
 }

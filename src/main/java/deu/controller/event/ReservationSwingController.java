@@ -51,6 +51,7 @@ public class ReservationSwingController {
         // 정보관일 경우: 1~9층 층 버튼 추가
         addFloorButtons(selectedBuilding);
     }
+
     // 층 버튼 추가 메서드
     private void addFloorButtons(String buildingName) {
         // buildingName으로 기준으로 층 정보 가져온다.
