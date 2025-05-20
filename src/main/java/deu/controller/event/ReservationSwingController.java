@@ -26,7 +26,9 @@ public class ReservationSwingController {
         view.addReservationButtionListener(this::lectureRoomReservationButton);
     }
 
-    // 건물과 층을 선택 하는 기능
+    // 건물, 층, 강의실을 동적으로 추가하고 해당 강의실의 강의 시간표와 예약 시간표를 가져온다.==============================================
+
+    // 1. 건물과 층을 선택 하는 기능 - (2 호출)
     private void handleBuildingSelection(ItemEvent e) {
         if (e.getStateChange() != ItemEvent.SELECTED) return;
 
@@ -34,7 +36,7 @@ public class ReservationSwingController {
         clearSelectionUI();
 
         // 선택된 건물 설정
-        String selectedBuilding = (String) view.getSelectedBuilding();
+        String selectedBuilding = view.getSelectedBuilding();
         view.getBuildingField().setText(selectedBuilding);
 
         // 정보관이 아닌 경우: 종료
@@ -52,13 +54,13 @@ public class ReservationSwingController {
         addFloorButtons(selectedBuilding);
     }
 
-    // 층 버튼 추가 메서드
+    // 2. 층 버튼 생성해서 UI에 추가하는 메서드 - (3 호출)
     private void addFloorButtons(String buildingName) {
         // buildingName으로 기준으로 층 정보 가져온다.
         // 최대 층 = 컨트롤러 호출 -> 파일읽기 -> 값 전달받아 사용
         for (int i = 1; i <= 9; i++) {
-            final int currentFloor = i;
-            ButtonRound floorBtn = view.createStyledButton(String.valueOf(currentFloor), 45, 45);
+            // final int currentFloor = i;
+            ButtonRound floorBtn = view.createStyledButton(String.valueOf(i), 45, 45);
             floorBtn.setBackground(view.FLOOR_DEFAULT_COLOR);
             floorBtn.setForeground(Color.BLACK);
 
@@ -97,7 +99,7 @@ public class ReservationSwingController {
         view.getFloorButtonPanel().repaint();
     }
 
-    // 특정 층에 해당하는 강의실 버튼들을 동적으로 생성하여 UI에 추가하는 메서드
+    // 3. 특정 층에 해당하는 강의실 버튼들을 동적으로 생성하여 UI에 추가하는 메서드 - (4 호출)
     private void addLectureRoomButtons(String buildingName, String floor) {
         // 9층만 강의실 버튼을 표시하도록 처리
         if (!"9".equals(floor)) return;
@@ -129,43 +131,59 @@ public class ReservationSwingController {
         }
     }
 
-    // 캘린더에 예약 정보 갱신 하는 기능 - 강의 정보 불러오는 기능 추가 완료 - TODO: 메서드 분리 작업 필요
+    // 4. 캘린더에 예약 정보 갱신 하는 기능 - (5,6,7 호출)
     private void updateCalendarWithDummyData() {
         view.getCalendar().setVisible(false);
 
-        // 1. 서버에서 주간 강의 일정 요청
+        // 1. 서버에서 주간 강의 데이터 요청
+        Lecture[][] schedule = fetchWeeklyScheduleFromServer();
+        if (schedule == null) return;
+
+        // 2. 더미 텍스트 생성
+        String[][] dummySubjects = generateDummySubjects();
+
+        // 3. 캘린더 버튼 구성
+        updateCalendarButtons(schedule, dummySubjects);
+
+        view.getCalendar().setVisible(true);
+    }
+
+    // 5. 서버에서 주간 강의 데이터를 요청하여 반환
+    private Lecture[][] fetchWeeklyScheduleFromServer() {
         BasicResponse res = lectureClientController.returnLectureOfWeek(
                 view.getBuildingField().getText(),
                 view.getFloorField().getText(),
                 view.getLectureRoomField().getText()
         );
 
-        // 2. 실패 시 알림 후 종료
         if (res == null) {
             JOptionPane.showMessageDialog(null, "서버 응답이 없습니다.");
-            return;
+            return null;
         }
 
         if (!"200".equals(res.code) || !(res.data instanceof Lecture[][])) {
             JOptionPane.showMessageDialog(null, "강의 데이터를 불러오지 못했습니다: " + res.data);
-            return;
+            return null;
         }
 
-        Lecture[][] schedule = (Lecture[][]) res.data;
+        return (Lecture[][]) res.data;
+    }
 
-        // 3. 더미 텍스트 초기화
+    // 6. 교시별 시간 문자열 생성
+    private String[][] generateDummySubjects(){
         String[][] dummySubjects = new String[7][13];
         for (int j = 0; j < 7; j++) {
             for (int k = 0; k < 13; k++) {
-                int startHour = 9 + k;  // 첫 교시는 9시부터 시작
+                int startHour = 9 + k;
                 int endHour = startHour + 1;
-                String start = String.format("%02d:00", startHour);
-                String end = String.format("%02d:00", endHour);
-                dummySubjects[j][k] = start + " ~ " + end;
+                dummySubjects[j][k] = String.format("%02d:00 ~ %02d:00", startHour, endHour);
             }
         }
+        return dummySubjects;
+    }
 
-        // 4. 버튼에 강의 스케줄 반영
+    // 7. 스케줄 및 더미 텍스트를 기반으로 시간표 버튼 UI 갱신
+    private void updateCalendarButtons(Lecture[][] schedule, String[][] dummySubjects) {
         for (int day = 0; day < 7; day++) {
             for (int period = 0; period < 13; period++) {
                 String buttonName = "day" + day + "_" + period;
@@ -173,6 +191,8 @@ public class ReservationSwingController {
                 for (Component comp : view.getCalendar().getComponents()) {
                     if (comp instanceof JButton && buttonName.equals(comp.getName())) {
                         JButton dayBtn = (JButton) comp;
+
+                        // 기본 텍스트 설정
                         dayBtn.setText(dummySubjects[day][period]);
 
                         // 기존 리스너 제거
@@ -181,12 +201,12 @@ public class ReservationSwingController {
                         }
 
                         if (schedule[day][period] != null) {
-                            // 예약된 강의가 있는 경우
+                            // 해당 칸이 강의로 예약되어 있음
                             dayBtn.setBackground(new Color(100, 149, 237)); // 파란색
                             dayBtn.setText(schedule[day][period].getTitle());
                             dayBtn.setEnabled(false);
                         } else {
-                            // 예약 가능한 경우
+                            // 예약 가능
                             dayBtn.setBackground(null);
                             dayBtn.setEnabled(true);
                             dayBtn.addActionListener(ev -> {
@@ -194,12 +214,11 @@ public class ReservationSwingController {
                                 String name = source.getName();
                                 view.getReservationTimeField().setText(name);
 
-                                // 이전 선택 버튼 색상 원복
+                                // 기존 선택된 버튼 초기화
                                 if (view.getSelectedCalendarButton() != null) {
                                     view.getSelectedCalendarButton().setBackground(null);
                                 }
 
-                                // 현재 선택 버튼 표시
                                 source.setBackground(new Color(255, 200, 0)); // 노란색
                                 view.setSelectedCalendarButton(source);
                             });
@@ -208,9 +227,9 @@ public class ReservationSwingController {
                 }
             }
         }
-
-        view.getCalendar().setVisible(true);
     }
+
+    // =================================================================================================================
 
     // 예약하는 버튼 기능
     private void lectureRoomReservationButton(ActionEvent e){
@@ -225,7 +244,7 @@ public class ReservationSwingController {
         String title = view.getTitleField().getText();
         String description = view.getDescriptionField().getText();
 
-        /**
+        /*
          * TODO: 예약 컨트롤러를 호출해서 해당 데이터로 예약 정보 저장하기
          * - 예약 성공, 실패 시 처리도 추가 해야 합니다.
          */
@@ -235,18 +254,7 @@ public class ReservationSwingController {
         refreshReservationWriteDataField();
     }
 
-    // 건물에 따른 강의실 정보 가져오는 기능
-    private List<String> getDynamicRoomNames(String building, String floor) {
-        if(building.equals("정보관")){
-            if(floor.equals("9")){
-                return Arrays.asList("911", "912", "913", "914", "915", "916", "918");
-            }
-        }
-
-        return List.of();
-    }
-
-    // 수정 안해도 되는 부분 ===========================================================================================
+    // 수정 안해도 되는 부분 ================================================================================================
 
     // 필드 갱신하는 기능 - 수정 금지
     private void refreshReservationWriteDataField(){
@@ -264,5 +272,16 @@ public class ReservationSwingController {
         view.getLectureRoomList().removeAll();
         view.getCalendar().setVisible(false);
         view.clearSelectedButtons();
+    }
+
+    // 건물에 따른 강의실 정보 가져오는 기능( 추후 파일에서 정보를 읽어오는 형태로 변경 예정) - 수정 금지
+    private List<String> getDynamicRoomNames(String building, String floor) {
+        if(building.equals("정보관")){
+            if(floor.equals("9")){
+                return Arrays.asList("911", "912", "913", "914", "915", "916", "918");
+            }
+        }
+
+        return List.of();
     }
 }
