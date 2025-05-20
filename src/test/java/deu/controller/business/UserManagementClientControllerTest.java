@@ -4,6 +4,7 @@ import deu.model.dto.request.command.UserManagementCommandRequest;
 import deu.model.dto.request.data.user.*;
 import deu.model.dto.response.BasicResponse;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.ObjectInputStream;
@@ -44,6 +45,7 @@ public class UserManagementClientControllerTest {
         mockServerThread.start();
     }
 
+    @DisplayName("사용자 수정 요청 시 정상 응답 코드 확인")
     @Test
     void testUpdateUser() {
         UserManagementClientController client = new UserManagementClientController();
@@ -52,6 +54,7 @@ public class UserManagementClientControllerTest {
         assertEquals("200", res.code);
     }
 
+    @DisplayName("사용자 삭제 요청 시 정상 응답 코드 확인")
     @Test
     void testDeleteUser() {
         UserManagementClientController client = new UserManagementClientController();
@@ -60,6 +63,7 @@ public class UserManagementClientControllerTest {
         assertEquals("200", res.code);
     }
 
+    @DisplayName("단일 사용자 조회 요청 시 정상 응답 코드 확인")
     @Test
     void testFindUser() {
         UserManagementClientController client = new UserManagementClientController();
@@ -68,6 +72,7 @@ public class UserManagementClientControllerTest {
         assertEquals("200", res.code);
     }
 
+    @DisplayName("전체 사용자 조회 요청 시 정상 응답 코드 확인")
     @Test
     void testFindAllUsers() {
         UserManagementClientController client = new UserManagementClientController();

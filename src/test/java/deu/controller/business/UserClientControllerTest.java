@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import deu.model.dto.response.BasicResponse;
 import deu.model.dto.response.CurrentResponse;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 
@@ -15,6 +16,7 @@ import static org.mockito.Mockito.*;
 
 public class UserClientControllerTest {
 
+    @DisplayName("로그인 성공 시 응답 코드 200 확인")
     @Test
     void login_success_response_200() throws Exception {
         BasicResponse mockResponse = new BasicResponse("200", "로그인 성공");
@@ -34,6 +36,7 @@ public class UserClientControllerTest {
         }
     }
 
+    @DisplayName("로그인 실패 시 응답 코드 401 확인")
     @Test
     void login_invalid_password_response_401() throws Exception {
         BasicResponse mockResponse = new BasicResponse("401", "비밀번호 오류");
@@ -53,6 +56,7 @@ public class UserClientControllerTest {
         }
     }
 
+    @DisplayName("회원가입 성공 시 응답 코드 200 확인")
     @Test
     void signup_success_response_200() throws Exception {
         BasicResponse mockResponse = new BasicResponse("200", "회원가입 성공");
@@ -71,6 +75,7 @@ public class UserClientControllerTest {
         }
     }
 
+    @DisplayName("로그아웃 성공 시 응답 코드 200 확인")
     @Test
     void logout_success_response_200() throws Exception {
         BasicResponse mockResponse = new BasicResponse("200", "로그아웃 성공");
@@ -89,6 +94,7 @@ public class UserClientControllerTest {
         }
     }
 
+    @DisplayName("현재 접속자 수 정상 반환 여부 확인")
     @Test
     void currentUserCounts_success() throws Exception {
         CurrentResponse mockResponse = new CurrentResponse(5);
@@ -107,6 +113,7 @@ public class UserClientControllerTest {
         }
     }
 
+    @DisplayName("서버 예외 발생 시 -1 반환 여부 확인")
     @Test
     void currentUserCounts_serverError_returnsMinusOne() {
         try (
