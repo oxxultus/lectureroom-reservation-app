@@ -5,6 +5,7 @@ import deu.config.ConfigLoader;
 import deu.model.dto.request.command.LectureCommandRequest;
 import deu.model.dto.request.data.lecture.LectureRequest;
 import deu.model.dto.response.BasicResponse;
+import lombok.Getter;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -13,18 +14,15 @@ import java.net.Socket;
 public class LectureClientController {
 
     // 설정파일 불러오기
-    Config config = ConfigLoader.load();
+    Config config = ConfigLoader.getConfig();
     String host = config.server.host;
     int port = config.server.port;
 
     // Singleton 인스턴스
+    @Getter
     private static final LectureClientController instance = new LectureClientController();
 
     private LectureClientController() {}
-
-    public static LectureClientController getInstance() {
-        return instance;
-    }
 
     // 주간 강의 정보 요청 컨트롤러
     public BasicResponse returnLectureOfWeek(String building, String floor, String lectureroom) {

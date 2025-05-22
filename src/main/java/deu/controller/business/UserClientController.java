@@ -6,6 +6,7 @@ import deu.model.dto.request.data.user.*;
 import deu.model.dto.request.command.UserCommandRequest;
 import deu.model.dto.response.BasicResponse;
 import deu.model.dto.response.CurrentResponse;
+import lombok.Getter;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -14,18 +15,15 @@ import java.net.Socket;
 public class UserClientController {
 
     // 설정파일 불러오기
-    Config config = ConfigLoader.load();
+    Config config = ConfigLoader.getConfig();
     String host = config.server.host;
     int port = config.server.port;
 
     // Singleton 인스턴스
+    @Getter
     private static final UserClientController instance = new UserClientController();
 
     private UserClientController() {}
-
-    public static UserClientController getInstance() {
-        return instance;
-    }
 
     // 로그인 요청 컨트롤러
     public BasicResponse login(String number, String pw) {

@@ -5,6 +5,7 @@ import deu.config.ConfigLoader;
 import deu.model.dto.request.command.UserManagementCommandRequest;
 import deu.model.dto.request.data.user.*;
 import deu.model.dto.response.BasicResponse;
+import lombok.Getter;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -13,18 +14,15 @@ import java.net.Socket;
 public class UserManagementClientController {
 
     // 설정파일 불러오기
-    Config config = ConfigLoader.load();
+    Config config = ConfigLoader.getConfig();
     String host = config.server.host;
     int port = config.server.port;
 
     // Singleton 인스턴스
+    @Getter
     private static final UserManagementClientController instance = new UserManagementClientController();
 
     private UserManagementClientController() {}
-
-    public static UserManagementClientController getInstance() {
-        return instance;
-    }
 
     // 사용자 정보 수정 처리
     public BasicResponse updateUser(String number, String password, String name, String major) {
