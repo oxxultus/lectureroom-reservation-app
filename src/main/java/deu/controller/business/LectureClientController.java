@@ -1,5 +1,7 @@
 package deu.controller.business;
 
+import deu.config.Config;
+import deu.config.ConfigLoader;
 import deu.model.dto.request.command.LectureCommandRequest;
 import deu.model.dto.request.data.lecture.LectureRequest;
 import deu.model.dto.response.BasicResponse;
@@ -9,6 +11,11 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class LectureClientController {
+
+    // 설정파일 불러오기
+    Config config = ConfigLoader.load();
+    String host = config.server.host;
+    int port = config.server.port;
 
     // Singleton 인스턴스
     private static final LectureClientController instance = new LectureClientController();
@@ -22,7 +29,7 @@ public class LectureClientController {
     // 주간 강의 정보 요청 컨트롤러
     public BasicResponse returnLectureOfWeek(String building, String floor, String lectureroom) {
         try (
-                Socket socket = new Socket("localhost", 9999);
+                Socket socket = new Socket(host, port);
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
         ) {

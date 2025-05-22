@@ -1,5 +1,7 @@
 package deu.controller.business;
 
+import deu.config.Config;
+import deu.config.ConfigLoader;
 import deu.model.dto.request.command.UserManagementCommandRequest;
 import deu.model.dto.request.data.user.*;
 import deu.model.dto.response.BasicResponse;
@@ -9,6 +11,11 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class UserManagementClientController {
+
+    // 설정파일 불러오기
+    Config config = ConfigLoader.load();
+    String host = config.server.host;
+    int port = config.server.port;
 
     // Singleton 인스턴스
     private static final UserManagementClientController instance = new UserManagementClientController();
@@ -22,7 +29,7 @@ public class UserManagementClientController {
     // 사용자 정보 수정 처리
     public BasicResponse updateUser(String number, String password, String name, String major) {
         try (
-                Socket socket = new Socket("localhost", 9999);
+                Socket socket = new Socket(host, port);
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
         ) {
@@ -43,7 +50,7 @@ public class UserManagementClientController {
     // 사용자 삭제 처리
     public BasicResponse deleteUser(String number) {
         try (
-                Socket socket = new Socket("localhost", 9999);
+                Socket socket = new Socket(host, port);
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
         ) {
@@ -64,7 +71,7 @@ public class UserManagementClientController {
     // 사용자 단일 조회 처리
     public BasicResponse findUser(String number) {
         try (
-                Socket socket = new Socket("localhost", 9999);
+                Socket socket = new Socket(host, port);
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
         ) {
@@ -85,7 +92,7 @@ public class UserManagementClientController {
     // 전체 사용자 목록 조회 처리
     public BasicResponse findAllUsers() {
         try (
-                Socket socket = new Socket("localhost", 9999);
+                Socket socket = new Socket(host, port);
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
         ) {

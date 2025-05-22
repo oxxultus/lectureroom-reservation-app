@@ -1,5 +1,7 @@
 package deu.controller.business;
 
+import deu.config.Config;
+import deu.config.ConfigLoader;
 import deu.model.dto.request.data.user.*;
 import deu.model.dto.request.command.UserCommandRequest;
 import deu.model.dto.response.BasicResponse;
@@ -10,6 +12,11 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class UserClientController {
+
+    // 설정파일 불러오기
+    Config config = ConfigLoader.load();
+    String host = config.server.host;
+    int port = config.server.port;
 
     // Singleton 인스턴스
     private static final UserClientController instance = new UserClientController();
@@ -23,7 +30,7 @@ public class UserClientController {
     // 로그인 요청 컨트롤러
     public BasicResponse login(String number, String pw) {
         try (
-                Socket socket = new Socket("113.198.245.095", 9999);
+                Socket socket = new Socket(host, port);
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
         ) {
@@ -53,7 +60,7 @@ public class UserClientController {
     // 회원가입 요청 컨트롤러
     public BasicResponse signup(String number, String pw, String name, String major) {
         try (
-                Socket socket = new Socket("localhost", 9999);
+                Socket socket = new Socket(host, port);
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
         ) {
@@ -79,7 +86,7 @@ public class UserClientController {
     // 로그아웃 요청 컨트롤러
     public BasicResponse logout(String number, String pw) {
         try (
-                Socket socket = new Socket("localhost", 9999);
+                Socket socket = new Socket(host, port);
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
         ) {
@@ -105,7 +112,7 @@ public class UserClientController {
     // 동시 접속자 수 요청 컨트롤러
     public CurrentResponse currentUserCounts() {
         try (
-                Socket socket = new Socket("localhost", 9999);
+                Socket socket = new Socket(host, port);
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
         ) {
@@ -126,7 +133,7 @@ public class UserClientController {
     // 사용자 이름 요청 컨트롤러
     public BasicResponse findUserName(String number, String pw) {
         try (
-                Socket socket = new Socket("localhost", 9999);
+                Socket socket = new Socket(host, port);
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
         ) {
