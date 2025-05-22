@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 // 해당 테스트는 서버가 켜져 있어야지만 작동 가능한 테스트 입니다.
 class LectureClientControllerTest {
 
-    private final LectureClientController controller = new LectureClientController();
+    private final LectureClientController controller =  LectureClientController.getInstance();
 
     @DisplayName("서버로부터 강의실 주간 데이터를 정상적으로 수신하는지 검증")
     @Test

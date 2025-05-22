@@ -48,7 +48,7 @@ public class UserManagementClientControllerTest {
     @DisplayName("사용자 수정 요청 시 정상 응답 코드 확인")
     @Test
     void testUpdateUser() {
-        UserManagementClientController client = new UserManagementClientController();
+        UserManagementClientController client = UserManagementClientController.getInstance();
         BasicResponse res = client.updateUser("s123", "pw", "홍길동", "소프트웨어");
         assertNotNull(res);
         assertEquals("200", res.code);
@@ -57,7 +57,7 @@ public class UserManagementClientControllerTest {
     @DisplayName("사용자 삭제 요청 시 정상 응답 코드 확인")
     @Test
     void testDeleteUser() {
-        UserManagementClientController client = new UserManagementClientController();
+        UserManagementClientController client = UserManagementClientController.getInstance();
         BasicResponse res = client.deleteUser("s123");
         assertNotNull(res);
         assertEquals("200", res.code);
@@ -66,7 +66,7 @@ public class UserManagementClientControllerTest {
     @DisplayName("단일 사용자 조회 요청 시 정상 응답 코드 확인")
     @Test
     void testFindUser() {
-        UserManagementClientController client = new UserManagementClientController();
+        UserManagementClientController client = UserManagementClientController.getInstance();
         BasicResponse res = client.findUser("s123");
         assertNotNull(res);
         assertEquals("200", res.code);
@@ -75,7 +75,7 @@ public class UserManagementClientControllerTest {
     @DisplayName("전체 사용자 조회 요청 시 정상 응답 코드 확인")
     @Test
     void testFindAllUsers() {
-        UserManagementClientController client = new UserManagementClientController();
+        UserManagementClientController client = UserManagementClientController.getInstance();
         BasicResponse res = client.findAllUsers();
         assertNotNull(res);
         assertEquals("200", res.code);

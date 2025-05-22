@@ -27,7 +27,7 @@ public class UserClientControllerTest {
                 MockedConstruction<ObjectInputStream> mockedIn = mockConstruction(ObjectInputStream.class,
                         (mock, context) -> when(mock.readObject()).thenReturn(mockResponse))
         ) {
-            UserClientController controller = new UserClientController();
+            UserClientController controller = UserClientController.getInstance();
             BasicResponse response = controller.login("S2023001", "pass123");
 
             assertNotNull(response);
@@ -47,7 +47,7 @@ public class UserClientControllerTest {
                 MockedConstruction<ObjectInputStream> mockedIn = mockConstruction(ObjectInputStream.class,
                         (mock, context) -> when(mock.readObject()).thenReturn(mockResponse))
         ) {
-            UserClientController controller = new UserClientController();
+            UserClientController controller = UserClientController.getInstance();
             BasicResponse response = controller.login("S2023001", "wrongpw");
 
             assertNotNull(response);
@@ -67,7 +67,7 @@ public class UserClientControllerTest {
                 MockedConstruction<ObjectInputStream> mockedIn = mockConstruction(ObjectInputStream.class,
                         (mock, context) -> when(mock.readObject()).thenReturn(mockResponse))
         ) {
-            UserClientController controller = new UserClientController();
+            UserClientController controller = UserClientController.getInstance();
             BasicResponse response = controller.signup("S2023001", "pw", "홍길동", "컴공");
 
             assertNotNull(response);
@@ -86,7 +86,7 @@ public class UserClientControllerTest {
                 MockedConstruction<ObjectInputStream> mockedIn = mockConstruction(ObjectInputStream.class,
                         (mock, context) -> when(mock.readObject()).thenReturn(mockResponse))
         ) {
-            UserClientController controller = new UserClientController();
+            UserClientController controller = UserClientController.getInstance();
             BasicResponse response = controller.logout("S2023001", "pw");
 
             assertNotNull(response);
@@ -105,7 +105,7 @@ public class UserClientControllerTest {
                 MockedConstruction<ObjectInputStream> mockedIn = mockConstruction(ObjectInputStream.class,
                         (mock, context) -> when(mock.readObject()).thenReturn(mockResponse))
         ) {
-            UserClientController controller = new UserClientController();
+            UserClientController controller = UserClientController.getInstance();
             CurrentResponse response = controller.currentUserCounts();
 
             assertNotNull(response);
@@ -120,7 +120,7 @@ public class UserClientControllerTest {
                 MockedConstruction<Socket> mockedSocket = mockConstruction(Socket.class,
                         (mock, context) -> { throw new RuntimeException("서버 다운"); })
         ) {
-            UserClientController controller = new UserClientController();
+            UserClientController controller = UserClientController.getInstance();
             CurrentResponse response = controller.currentUserCounts();
 
             assertNotNull(response);
