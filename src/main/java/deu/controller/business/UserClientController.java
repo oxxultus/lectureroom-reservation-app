@@ -11,10 +11,19 @@ import java.net.Socket;
 
 public class UserClientController {
 
+    // Singleton 인스턴스
+    private static final UserClientController instance = new UserClientController();
+
+    private UserClientController() {}
+
+    public static UserClientController getInstance() {
+        return instance;
+    }
+
     // 로그인 요청 컨트롤러
     public BasicResponse login(String number, String pw) {
         try (
-                Socket socket = new Socket("localhost", 9999);
+                Socket socket = new Socket("113.198.245.095", 9999);
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
         ) {

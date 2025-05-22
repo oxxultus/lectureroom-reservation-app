@@ -18,10 +18,11 @@ import java.util.UUID;
 public class HomeSwingController {
 
     private final Home view;
-    private final UserClientController userClientController = new UserClientController();
+    private final UserClientController userClientController;
 
     public HomeSwingController(Home view) {
         this.view = view;
+        userClientController = UserClientController.getInstance();
 
         // 이벤트 연결
         view.addLogoutListener(this::handleLogout);
@@ -260,7 +261,7 @@ public class HomeSwingController {
     // 로그아웃 버튼 기능 - 수정 금지
     private void handleLogout(ActionEvent e) {
         Auth frame = (Auth) SwingUtilities.getWindowAncestor(view);
-        BasicResponse result = new UserClientController().logout(view.getUserNumber(), view.getUserPassword());
+        BasicResponse result = userClientController.logout(view.getUserNumber(), view.getUserPassword());
 
         if (result.code.equals("200") && frame != null) {
             CardLayout layout = (CardLayout) frame.getContentPane().getLayout();

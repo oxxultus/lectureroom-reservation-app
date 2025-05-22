@@ -10,6 +10,15 @@ import java.net.Socket;
 
 public class LectureClientController {
 
+    // Singleton 인스턴스
+    private static final LectureClientController instance = new LectureClientController();
+
+    private LectureClientController() {}
+
+    public static LectureClientController getInstance() {
+        return instance;
+    }
+
     // 주간 강의 정보 요청 컨트롤러
     public BasicResponse returnLectureOfWeek(String building, String floor, String lectureroom) {
         try (

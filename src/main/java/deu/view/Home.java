@@ -4,6 +4,7 @@
  */
 package deu.view;
 
+import deu.controller.business.LectureClientController;
 import deu.controller.business.UserClientController;
 import deu.view.custom.ButtonRound;
 import lombok.Getter;
@@ -1914,7 +1915,7 @@ public class Home extends javax.swing.JPanel {
 
     private void managerMenuCurrentUserAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_managerMenuCurrentUserAncestorAdded
         Timer userCountTimer = new Timer(3000, e -> {
-            int currentUserCount = new UserClientController().currentUserCounts().currentUserCount;
+            int currentUserCount = UserClientController.getInstance().currentUserCounts().currentUserCount;
             managerMenuCurrentUser.setText(currentUserCount + " 명 접속중");
         });
         userCountTimer.start();
@@ -1922,7 +1923,7 @@ public class Home extends javax.swing.JPanel {
 
     private void commonMenuCurrentUserAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_commonMenuCurrentUserAncestorAdded
         Timer userCountTimer = new Timer(3000, e -> {
-            int currentUserCount = new UserClientController().currentUserCounts().currentUserCount;
+            int currentUserCount = UserClientController.getInstance().currentUserCounts().currentUserCount;
             commonMenuCurrentUser.setText(currentUserCount + " 명 접속중");
         });
         userCountTimer.start();

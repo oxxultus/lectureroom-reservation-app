@@ -19,10 +19,11 @@ import java.util.UUID;
 
 public class ReservationSwingController {
     private final Reservation view;
-    private final LectureClientController lectureClientController = new LectureClientController();
+    private final LectureClientController lectureClientController;
 
     public ReservationSwingController(Reservation view) {
         this.view = view;
+        this.lectureClientController = LectureClientController.getInstance();
 
         // 이벤트 연결
         view.addBuildingSelectionListener(this::handleBuildingSelection);

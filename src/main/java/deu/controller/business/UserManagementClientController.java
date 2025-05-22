@@ -10,6 +10,15 @@ import java.net.Socket;
 
 public class UserManagementClientController {
 
+    // Singleton 인스턴스
+    private static final UserManagementClientController instance = new UserManagementClientController();
+
+    private UserManagementClientController() {}
+
+    public static UserManagementClientController getInstance() {
+        return instance;
+    }
+
     // 사용자 정보 수정 처리
     public BasicResponse updateUser(String number, String password, String name, String major) {
         try (

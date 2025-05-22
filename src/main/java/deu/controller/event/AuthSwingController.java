@@ -12,7 +12,7 @@ public class AuthSwingController {
 
     public AuthSwingController(Auth view) {
         this.view = view;
-        this.userController = new UserClientController();
+        this.userController = UserClientController.getInstance();
 
         // 이벤트 연결
         view.addLoginListener(this::handleLogin);

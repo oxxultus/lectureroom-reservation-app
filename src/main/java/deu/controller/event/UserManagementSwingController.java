@@ -22,7 +22,7 @@ public class UserManagementSwingController {
 
     public UserManagementSwingController(UserManagement view) {
         this.view = view;
-        this.userManagementController = new UserManagementClientController();
+        this.userManagementController = UserManagementClientController.getInstance();
 
         // 이벤트 연결
         this.view.updateButtonListener(this::updateUserdata);
