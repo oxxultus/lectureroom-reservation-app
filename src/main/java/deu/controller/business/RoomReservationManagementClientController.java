@@ -4,6 +4,7 @@ import deu.config.Config;
 import deu.config.ConfigLoader;
 import deu.model.dto.request.command.LectureCommandRequest;
 import deu.model.dto.request.command.ReservationCommandRequest;
+import deu.model.dto.request.command.ReservationManagementCommandRequest;
 import deu.model.dto.request.data.lecture.LectureRequest;
 import deu.model.dto.request.data.reservation.RoomReservationRequest;
 import deu.model.dto.response.BasicResponse;
@@ -26,16 +27,16 @@ public class RoomReservationManagementClientController {
     private static final RoomReservationManagementClientController instance = new RoomReservationManagementClientController();
 
     private RoomReservationManagementClientController() {}
+
     // 예약 수정
-    public BasicResponse ModifyRoomReservation(RoomReservation roomReservation) {
+    public BasicResponse modifyRoomReservation(RoomReservation roomReservation) {
         try (
                 Socket socket = new Socket(host, port);
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
         ) {
-            // LectureRequest lectureRequest = new LectureRequest(building, floor, lectureroom);
-            // LectureCommandRequest req = new LectureCommandRequest("주간 강의 조회", lectureRequest);
-            // out.writeObject(req);
+            ReservationManagementCommandRequest req = new ReservationManagementCommandRequest("예약 수정", roomReservation);
+            out.writeObject(req);
 
             Object res = in.readObject();
             if (res instanceof BasicResponse r) {
@@ -49,15 +50,14 @@ public class RoomReservationManagementClientController {
     }
 
     // 관리자 예약 삭제
-    public BasicResponse DeleteRoomReservation(String id) {
+    public BasicResponse deleteRoomReservation(String roomReservationId) {
         try (
                 Socket socket = new Socket(host, port);
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
         ) {
-            // LectureRequest lectureRequest = new LectureRequest(building, floor, lectureroom);
-            // LectureCommandRequest req = new LectureCommandRequest("주간 강의 조회", lectureRequest);
-            //  out.writeObject(req);
+            ReservationManagementCommandRequest req = new ReservationManagementCommandRequest("예약 삭제", roomReservationId);
+            out.writeObject(req);
 
             Object res = in.readObject();
             if (res instanceof BasicResponse r) {
@@ -71,15 +71,14 @@ public class RoomReservationManagementClientController {
     }
 
     // 예약 상태가 "대기" 인 모든 예약 내역 반환
-    public BasicResponse FindAllRoomReservation(String id) {
+    public BasicResponse findAllRoomReservation(String roomReservationId) {
         try (
                 Socket socket = new Socket(host, port);
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
         ) {
-            // LectureRequest lectureRequest = new LectureRequest(building, floor, lectureroom);
-            // LectureCommandRequest req = new LectureCommandRequest("주간 강의 조회", lectureRequest);
-            //  out.writeObject(req);
+            ReservationManagementCommandRequest req = new ReservationManagementCommandRequest("예약 대기 전체 조회", roomReservationId);
+            out.writeObject(req);
 
             Object res = in.readObject();
             if (res instanceof BasicResponse r) {
@@ -93,15 +92,14 @@ public class RoomReservationManagementClientController {
     }
 
     // 예약 상태 변경 "대기 -> 완료"
-    public BasicResponse ChangeRoomReservationStatus(String id) {
+    public BasicResponse changeRoomReservationStatus(String roomReservationId) {
         try (
                 Socket socket = new Socket(host, port);
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
         ) {
-            // LectureRequest lectureRequest = new LectureRequest(building, floor, lectureroom);
-            // LectureCommandRequest req = new LectureCommandRequest("주간 강의 조회", lectureRequest);
-            //  out.writeObject(req);
+            ReservationManagementCommandRequest req = new ReservationManagementCommandRequest("예약 상태 변경", roomReservationId);
+            out.writeObject(req);
 
             Object res = in.readObject();
             if (res instanceof BasicResponse r) {
