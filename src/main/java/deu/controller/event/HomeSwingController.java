@@ -1,5 +1,7 @@
 package deu.controller.event;
 
+import deu.controller.business.RoomReservationClientController;
+import deu.controller.business.RoomReservationManagementClientController;
 import deu.controller.business.UserClientController;
 import deu.model.dto.response.BasicResponse;
 import deu.model.entity.RoomReservation;
@@ -19,10 +21,14 @@ public class HomeSwingController {
 
     private final Home view;
     private final UserClientController userClientController;
+    private final RoomReservationManagementClientController roomReservationManagementClientController;
+    private final RoomReservationClientController roomReservationClientController;
 
     public HomeSwingController(Home view) {
         this.view = view;
-        userClientController = UserClientController.getInstance();
+        this.userClientController = UserClientController.getInstance();
+        this.roomReservationManagementClientController = RoomReservationManagementClientController.getInstance();
+        this.roomReservationClientController = RoomReservationClientController.getInstance();
 
         // 이벤트 연결
         view.addLogoutListener(this::handleLogout);

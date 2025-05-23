@@ -1,6 +1,8 @@
 package deu.controller.event;
 
 import deu.controller.business.LectureClientController;
+import deu.controller.business.RoomReservationClientController;
+import deu.controller.business.RoomReservationManagementClientController;
 import deu.model.dto.response.BasicResponse;
 import deu.model.entity.Lecture;
 import deu.model.entity.RoomReservation;
@@ -20,10 +22,14 @@ import java.util.UUID;
 public class ReservationSwingController {
     private final Reservation view;
     private final LectureClientController lectureClientController;
+    private final RoomReservationManagementClientController roomReservationManagementClientController;
+    private final RoomReservationClientController roomReservationClientController;
 
     public ReservationSwingController(Reservation view) {
         this.view = view;
         this.lectureClientController = LectureClientController.getInstance();
+        this.roomReservationManagementClientController = RoomReservationManagementClientController.getInstance();
+        this.roomReservationClientController = RoomReservationClientController.getInstance();
 
         // 이벤트 연결
         view.addBuildingSelectionListener(this::handleBuildingSelection);
@@ -186,6 +192,7 @@ public class ReservationSwingController {
             );
          */
         RoomReservation[][] grid = new RoomReservation[7][13];
+
 
         grid[0][11] = createDummyReservation2("정보관", "2", "A01", "S2023001", "스터디 모임", "자료구조 복습 스터디", "2025-05-19", "MONDAY", "09:00", "10:00");
         grid[0][12] = createDummyReservation2("정보관", "2", "A01", "S2023002", "회의", "프로젝트 회의", "2025-05-19", "MONDAY", "10:00", "11:00");

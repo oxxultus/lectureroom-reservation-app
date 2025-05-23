@@ -1,6 +1,8 @@
 package deu.controller.event;
 
 import deu.controller.business.LectureClientController;
+import deu.controller.business.RoomReservationManagementClientController;
+import deu.controller.business.RoomReservationClientController;
 import deu.model.dto.response.BasicResponse;
 import deu.model.entity.Lecture;
 import deu.model.entity.RoomReservation;
@@ -24,10 +26,14 @@ import java.util.UUID;
 public class ReservationManagementSwingController {
     private final ReservationManagement view;
     private final LectureClientController lectureClientController;
+    private final RoomReservationManagementClientController roomReservationManagementClientController;
+    private final RoomReservationClientController roomReservationClientController;
 
     public ReservationManagementSwingController(ReservationManagement view) {
         this.view = view;
         this.lectureClientController = LectureClientController.getInstance();
+        this.roomReservationManagementClientController = RoomReservationManagementClientController.getInstance();
+        this.roomReservationClientController = RoomReservationClientController.getInstance();
 
         // 이벤트 연결
         view.addBuildingSelectionListener(this::handleBuildingSelection);
