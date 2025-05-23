@@ -97,7 +97,28 @@ public class RoomReservationClientController {
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
         ) {
-            ReservationCommandRequest req = new ReservationCommandRequest("사용자 예약 조회", number);
+            ReservationCommandRequest req = new ReservationCommandRequest("사용자 예약 배열 조회", number);
+            out.writeObject(req);
+
+            Object res = in.readObject();
+            if (res instanceof BasicResponse r) {
+                // System.out.println("서버 응답: " + r.data);
+                return r;
+            }
+        } catch (Exception e) {
+            System.out.println("서버 통신 실패: " + e.getMessage());
+        }
+        return null;
+    }
+
+    // 개인별 예약 단순 조회
+    public BasicResponse userRoomReservationList(String number) {
+        try (
+                Socket socket = new Socket(host, port);
+                ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
+        ) {
+            ReservationCommandRequest req = new ReservationCommandRequest("사용자 예약 리스트 조회", number);
             out.writeObject(req);
 
             Object res = in.readObject();
@@ -121,7 +142,7 @@ public class RoomReservationClientController {
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
         ) {
             RoomReservationRequest roomReservationRequest = new RoomReservationRequest(building, floor, lectureroom);
-            ReservationCommandRequest req = new ReservationCommandRequest("강의실 예약 조회", roomReservationRequest);
+            ReservationCommandRequest req = new ReservationCommandRequest("강의실 예약 배열 조회", roomReservationRequest);
             out.writeObject(req);
 
             Object res = in.readObject();
