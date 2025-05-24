@@ -331,12 +331,19 @@ public class HomeSwingController {
                     int count = Math.min(reservations.size(), 5);
                     for (int i = 0; i < count; i++) {
                         RoomReservation res = reservations.get(i);
-                        String date = res.getDate();
-                        String room = res.getLectureRoom();
-                        String startTime = res.getStartTime();
 
-                        String periodText = timeToPeriod(startTime) + "교시";
-                        String labelText = date + " / " + room + " / " + periodText;
+                        String date = res.getDate();               // yyyy-MM-dd
+                        String dayOfWeek = res.getDayOfTheWeek();  // 예: "SATURDAY"
+                        String building = res.getBuildingName();   // 예: "정보관"
+                        String floor = res.getFloor();             // 예: "9"
+                        String room = res.getLectureRoom();        // 예: "912"
+                        String startTime = res.getStartTime();     // 예: "11:00"
+                        String endTime = res.getEndTime();         // 예: "12:00"
+                        String status = res.getStatus();           // "대기" or "승인"
+
+                        String labelText = "<html>[ " + date + " / " + dayOfWeek + " ]<br>"
+                                + building + "-" + floor + "층 / " + room + " / " + startTime + "~" + endTime
+                                + "</html>";
 
                         PanelRound round = new PanelRound();
                         round.setLayout(new BorderLayout());
@@ -344,7 +351,17 @@ public class HomeSwingController {
                         round.setRoundTopRight(10);
                         round.setRoundBottomLeft(10);
                         round.setRoundBottomRight(10);
-                        round.setBackground(new Color(20, 90, 170));
+
+                        // 상태에 따라 색상 지정
+                        Color bgColor;
+                        if ("대기".equals(status)) {
+                            bgColor = new Color(241, 196, 15); // 주황
+                        } else if ("승인".equals(status)) {
+                            bgColor = new Color(20, 112, 61);  // 초록
+                        } else {
+                            bgColor = new Color(100, 149, 237); // 기본 연파랑
+                        }
+                        round.setBackground(bgColor);
 
                         JLabel label = new JLabel(labelText, SwingConstants.CENTER);
                         label.setFont(new Font("SansSerif", Font.PLAIN, 14));
