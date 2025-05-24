@@ -35,6 +35,7 @@ public class HomeSwingController {
         view.addReservationManagementListener(this::showReservationManagement);
         view.addCommonMenuListener(this::showCommonMenu);
         view.addDeleteReservationListner(this::deleteReservation);
+        view.addSupportButtonListner(this::handleSupport);
 
         view.addMyReservationListInitListener(createMyReservationListInitListener());
         view.addUserReservationCalendarInitListener(createUserReservationCalendarInitListener());
@@ -457,6 +458,22 @@ public class HomeSwingController {
             @Override
             public void ancestorMoved(AncestorEvent event) {}
         };
+    }
+    // 도움말 버튼 기능 - 수정 금지
+    private void handleSupport(ActionEvent e) {
+        String message = """
+        📌 사용 안내
+
+        - '강의실 예약' 탭에서 원하는 건물·층·강의실 시간대를 선택한 후 신청 가능합니다.
+        - 예약 신청 시 즉시 확정되지 않으며, 대기 상태(노란색)로 등록됩니다.
+        - 예약이 승인되면 상태가 초록색으로 변경됩니다.
+        - "내 예약정보" 탭에서 현재 예약 상태를 확인할 수 있습니다.
+        - 로그인 화면의 환경설정(config) 버튼을 통해 서버 IP 및 포트를 설정할 수 있습니다.
+
+        문제가 발생하면 관리자에게 문의하세요.
+        """;
+
+        JOptionPane.showMessageDialog(view, message, "도움말", JOptionPane.INFORMATION_MESSAGE);
     }
     // 로그아웃 버튼 기능 - 수정 금지
     private void handleLogout(ActionEvent e) {

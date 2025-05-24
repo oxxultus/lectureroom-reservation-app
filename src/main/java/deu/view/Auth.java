@@ -83,23 +83,19 @@ public class Auth extends javax.swing.JFrame {
         signup_loginLogo = new javax.swing.JLabel();
         signup_deuProjectLogo = new javax.swing.JLabel();
         signup_deuProjectTitle = new javax.swing.JLabel();
-        signup_team1 = new javax.swing.JLabel();
-        signup_name1 = new javax.swing.JLabel();
-        signup_team2 = new javax.swing.JLabel();
-        signup_name2 = new javax.swing.JLabel();
-        signup_name3 = new javax.swing.JLabel();
-        signup_name4 = new javax.swing.JLabel();
-        signup_name5 = new javax.swing.JLabel();
-        signup_deuProjectDescription1 = new javax.swing.JLabel();
-        signup_deuProjectDescription2 = new javax.swing.JLabel();
-        signup_githubLogo = new javax.swing.JLabel();
-        signup_githubLogoTitle = new javax.swing.JLabel();
-        signup_githubButton = new deu.view.custom.ButtonRound();
+        teamPanel4 = new deu.view.custom.PanelRound();
+        login_name6 = new javax.swing.JLabel();
+        login_name7 = new javax.swing.JLabel();
+        teamPanel5 = new deu.view.custom.PanelRound();
+        login_githubLogo1 = new javax.swing.JLabel();
+        signup_githubServerButton = new deu.view.custom.ButtonRound();
+        signup_githubClientButton = new deu.view.custom.ButtonRound();
         signup_signupSideBarLabel = new deu.view.custom.LabelRound();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("강의실 예약 프로그램");
         setMinimumSize(new java.awt.Dimension(1100, 600));
+        setPreferredSize(new java.awt.Dimension(1100, 630));
         setResizable(false);
         setSize(new java.awt.Dimension(1100, 630));
         getContentPane().setLayout(new java.awt.CardLayout());
@@ -231,7 +227,7 @@ public class Auth extends javax.swing.JFrame {
         login_githubClientButton.setBounds(70, 38, 170, 20);
 
         login.add(teamPanel1);
-        teamPanel1.setBounds(10, 490, 250, 70);
+        teamPanel1.setBounds(10, 520, 250, 70);
 
         teamPanel.setBackground(new java.awt.Color(249, 249, 251));
         teamPanel.setBorderColor(java.awt.Color.black);
@@ -250,15 +246,15 @@ public class Auth extends javax.swing.JFrame {
         login_name3.setBounds(0, 10, 250, 40);
 
         login_name4.setBackground(new java.awt.Color(255, 255, 255));
-        login_name4.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        login_name4.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
         login_name4.setForeground(new java.awt.Color(102, 102, 102));
         login_name4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         login_name4.setText("<html>강준화 20212998<br>김영진 20213000<br>김원형 20212973<br>이시연 20223046<br>이건일 20233928</html>");
         teamPanel.add(login_name4);
-        login_name4.setBounds(0, 50, 250, 110);
+        login_name4.setBounds(0, 40, 250, 150);
 
         login.add(teamPanel);
-        teamPanel.setBounds(10, 320, 250, 160);
+        teamPanel.setBounds(10, 320, 250, 190);
 
         teamPanel2.setBackground(new java.awt.Color(249, 249, 251));
         teamPanel2.setBorderColor(java.awt.Color.black);
@@ -340,7 +336,7 @@ public class Auth extends javax.swing.JFrame {
 
         login_SideBarLabel.setBackground(new java.awt.Color(249, 249, 251));
         login.add(login_SideBarLabel);
-        login_SideBarLabel.setBounds(0, 0, 270, 570);
+        login_SideBarLabel.setBounds(0, 0, 270, 630);
 
         getContentPane().add(login, "login");
 
@@ -447,89 +443,69 @@ public class Auth extends javax.swing.JFrame {
         signup.add(signup_deuProjectTitle);
         signup_deuProjectTitle.setBounds(70, 35, 160, 20);
 
-        signup_team1.setBackground(new java.awt.Color(255, 255, 255));
-        signup_team1.setForeground(new java.awt.Color(102, 102, 102));
-        signup_team1.setText("팀장");
-        signup.add(signup_team1);
-        signup_team1.setBounds(30, 110, 22, 17);
+        teamPanel4.setBackground(new java.awt.Color(249, 249, 251));
+        teamPanel4.setBorderColor(java.awt.Color.black);
+        teamPanel4.setRoundBottomLeft(10);
+        teamPanel4.setRoundBottomRight(10);
+        teamPanel4.setRoundTopLeft(10);
+        teamPanel4.setRoundTopRight(10);
+        teamPanel4.setLayout(null);
 
-        signup_name1.setBackground(new java.awt.Color(255, 255, 255));
-        signup_name1.setFont(new java.awt.Font("Helvetica Neue", 0, 17)); // NOI18N
-        signup_name1.setForeground(new java.awt.Color(102, 102, 102));
-        signup_name1.setText("강준화 - 파트");
-        signup.add(signup_name1);
-        signup_name1.setBounds(50, 130, 210, 23);
+        login_name6.setBackground(new java.awt.Color(255, 255, 255));
+        login_name6.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
+        login_name6.setForeground(new java.awt.Color(102, 102, 102));
+        login_name6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        login_name6.setText("2분반 4조");
+        teamPanel4.add(login_name6);
+        login_name6.setBounds(0, 10, 250, 70);
 
-        signup_team2.setBackground(new java.awt.Color(255, 255, 255));
-        signup_team2.setForeground(new java.awt.Color(102, 102, 102));
-        signup_team2.setText("팀원");
-        signup.add(signup_team2);
-        signup_team2.setBounds(30, 160, 22, 17);
+        login_name7.setBackground(new java.awt.Color(255, 255, 255));
+        login_name7.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
+        login_name7.setForeground(new java.awt.Color(102, 102, 102));
+        login_name7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        login_name7.setText("<html>강준화 20212998<br><br><br>김영진 20213000<br><br><br>김원형 20212973<br><br><br>이시연 20223046<br><br><br>이건일 20233928</html>");
+        teamPanel4.add(login_name7);
+        login_name7.setBounds(0, 40, 250, 390);
 
-        signup_name2.setBackground(new java.awt.Color(255, 255, 255));
-        signup_name2.setFont(new java.awt.Font("Helvetica Neue", 0, 17)); // NOI18N
-        signup_name2.setForeground(new java.awt.Color(102, 102, 102));
-        signup_name2.setText("김영진 - 파트");
-        signup.add(signup_name2);
-        signup_name2.setBounds(50, 180, 210, 23);
+        signup.add(teamPanel4);
+        teamPanel4.setBounds(10, 80, 250, 430);
 
-        signup_name3.setBackground(new java.awt.Color(255, 255, 255));
-        signup_name3.setFont(new java.awt.Font("Helvetica Neue", 0, 17)); // NOI18N
-        signup_name3.setForeground(new java.awt.Color(102, 102, 102));
-        signup_name3.setText("김원형 - 파트");
-        signup.add(signup_name3);
-        signup_name3.setBounds(50, 220, 210, 23);
+        teamPanel5.setBackground(new java.awt.Color(249, 249, 251));
+        teamPanel5.setBorderColor(java.awt.Color.black);
+        teamPanel5.setRoundBottomLeft(10);
+        teamPanel5.setRoundBottomRight(10);
+        teamPanel5.setRoundTopLeft(10);
+        teamPanel5.setRoundTopRight(10);
+        teamPanel5.setLayout(null);
 
-        signup_name4.setBackground(new java.awt.Color(255, 255, 255));
-        signup_name4.setFont(new java.awt.Font("Helvetica Neue", 0, 17)); // NOI18N
-        signup_name4.setForeground(new java.awt.Color(102, 102, 102));
-        signup_name4.setText("이시연 - 파트");
-        signup.add(signup_name4);
-        signup_name4.setBounds(50, 260, 210, 23);
+        login_githubLogo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images-new/logo/github.png"))); // NOI18N
+        teamPanel5.add(login_githubLogo1);
+        login_githubLogo1.setBounds(10, 10, 50, 50);
 
-        signup_name5.setBackground(new java.awt.Color(255, 255, 255));
-        signup_name5.setFont(new java.awt.Font("Helvetica Neue", 0, 17)); // NOI18N
-        signup_name5.setForeground(new java.awt.Color(102, 102, 102));
-        signup_name5.setText("이건일 - 파트");
-        signup.add(signup_name5);
-        signup_name5.setBounds(50, 300, 210, 23);
+        signup_githubServerButton.setBackground(new java.awt.Color(60, 63, 65));
+        signup_githubServerButton.setForeground(new java.awt.Color(255, 255, 255));
+        signup_githubServerButton.setText("서버 리포지토리 링크");
+        signup_githubServerButton.setToolTipText("");
+        signup_githubServerButton.setRoundBottomLeft(10);
+        signup_githubServerButton.setRoundBottomRight(10);
+        signup_githubServerButton.setRoundTopLeft(10);
+        signup_githubServerButton.setRoundTopRight(10);
+        teamPanel5.add(signup_githubServerButton);
+        signup_githubServerButton.setBounds(70, 12, 170, 20);
 
-        signup_deuProjectDescription1.setBackground(new java.awt.Color(204, 204, 204));
-        signup_deuProjectDescription1.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        signup_deuProjectDescription1.setForeground(new java.awt.Color(102, 102, 102));
-        signup_deuProjectDescription1.setText("소프트웨어 공학 시간에 진행하는 자바로 구현 한 ");
-        signup.add(signup_deuProjectDescription1);
-        signup_deuProjectDescription1.setBounds(20, 460, 230, 20);
+        signup_githubClientButton.setBackground(new java.awt.Color(60, 63, 65));
+        signup_githubClientButton.setForeground(new java.awt.Color(255, 255, 255));
+        signup_githubClientButton.setText("클라이언트 리포지토리 링크");
+        signup_githubClientButton.setToolTipText("");
+        signup_githubClientButton.setRoundBottomLeft(10);
+        signup_githubClientButton.setRoundBottomRight(10);
+        signup_githubClientButton.setRoundTopLeft(10);
+        signup_githubClientButton.setRoundTopRight(10);
+        teamPanel5.add(signup_githubClientButton);
+        signup_githubClientButton.setBounds(70, 38, 170, 20);
 
-        signup_deuProjectDescription2.setBackground(new java.awt.Color(204, 204, 204));
-        signup_deuProjectDescription2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        signup_deuProjectDescription2.setForeground(new java.awt.Color(102, 102, 102));
-        signup_deuProjectDescription2.setText("빈 강의실 예약 프로그램 만들기 프로젝트 입니다.");
-        signup.add(signup_deuProjectDescription2);
-        signup_deuProjectDescription2.setBounds(20, 480, 230, 20);
-
-        signup_githubLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images-new/logo/github.png"))); // NOI18N
-        signup.add(signup_githubLogo);
-        signup_githubLogo.setBounds(23, 512, 48, 50);
-
-        signup_githubLogoTitle.setBackground(new java.awt.Color(255, 255, 255));
-        signup_githubLogoTitle.setFont(new java.awt.Font("Helvetica Neue", 0, 11)); // NOI18N
-        signup_githubLogoTitle.setForeground(new java.awt.Color(0, 0, 0));
-        signup_githubLogoTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        signup_githubLogoTitle.setText("LectureRoomReservationSystem");
-        signup.add(signup_githubLogoTitle);
-        signup_githubLogoTitle.setBounds(80, 520, 170, 14);
-
-        signup_githubButton.setBackground(new java.awt.Color(204, 204, 204));
-        signup_githubButton.setForeground(new java.awt.Color(104, 104, 104));
-        signup_githubButton.setText("이동하기");
-        signup_githubButton.setToolTipText("");
-        signup_githubButton.setRoundBottomLeft(10);
-        signup_githubButton.setRoundBottomRight(10);
-        signup_githubButton.setRoundTopLeft(10);
-        signup_githubButton.setRoundTopRight(10);
-        signup.add(signup_githubButton);
-        signup_githubButton.setBounds(80, 540, 170, 20);
+        signup.add(teamPanel5);
+        teamPanel5.setBounds(10, 520, 250, 70);
 
         signup_signupSideBarLabel.setBackground(new java.awt.Color(249, 249, 251));
         signup_signupSideBarLabel.setForeground(new java.awt.Color(249, 249, 251));
@@ -558,9 +534,11 @@ public class Auth extends javax.swing.JFrame {
 
     public void addGithubServerButtonListener(ActionListener listener) {
         login_githubServerButton.addActionListener(listener);
+        signup_githubServerButton.addActionListener(listener);
     }
     public void addGithubClientButtonListener(ActionListener listener) {
         login_githubClientButton.addActionListener(listener);
+        signup_githubClientButton.addActionListener(listener);
     }
     public void addSaveConfigButtonListener(ActionListener listener) {
         saveConfigButton.addActionListener(listener);
@@ -704,6 +682,7 @@ public class Auth extends javax.swing.JFrame {
     private javax.swing.JLabel login_forgotPassword;
     private deu.view.custom.ButtonRound login_githubClientButton;
     private javax.swing.JLabel login_githubLogo;
+    private javax.swing.JLabel login_githubLogo1;
     private deu.view.custom.ButtonRound login_githubServerButton;
     private deu.view.custom.ButtonRound login_loginButton;
     private javax.swing.JLabel login_loginDescription;
@@ -716,24 +695,18 @@ public class Auth extends javax.swing.JFrame {
     private javax.swing.JLabel login_name2;
     private javax.swing.JLabel login_name3;
     private javax.swing.JLabel login_name4;
+    private javax.swing.JLabel login_name6;
+    private javax.swing.JLabel login_name7;
     private deu.view.custom.ButtonRound login_signupButton;
     private deu.view.custom.TextFieldRound portField;
     private deu.view.custom.ButtonRound saveConfigButton;
     private javax.swing.JPanel signup;
-    private javax.swing.JLabel signup_deuProjectDescription1;
-    private javax.swing.JLabel signup_deuProjectDescription2;
     private javax.swing.JLabel signup_deuProjectLogo;
     private javax.swing.JLabel signup_deuProjectTitle;
-    private deu.view.custom.ButtonRound signup_githubButton;
-    private javax.swing.JLabel signup_githubLogo;
-    private javax.swing.JLabel signup_githubLogoTitle;
+    private deu.view.custom.ButtonRound signup_githubClientButton;
+    private deu.view.custom.ButtonRound signup_githubServerButton;
     private javax.swing.JLabel signup_loginLogo;
     private javax.swing.JLabel signup_loginNumberLabel;
-    private javax.swing.JLabel signup_name1;
-    private javax.swing.JLabel signup_name2;
-    private javax.swing.JLabel signup_name3;
-    private javax.swing.JLabel signup_name4;
-    private javax.swing.JLabel signup_name5;
     private deu.view.custom.ButtonRound signup_signupButton;
     private javax.swing.JLabel signup_signupDescription;
     private deu.view.custom.TextFieldRound signup_signupMajorField;
@@ -745,11 +718,11 @@ public class Auth extends javax.swing.JFrame {
     private javax.swing.JLabel signup_signupPasswordLabel;
     private deu.view.custom.LabelRound signup_signupSideBarLabel;
     private javax.swing.JLabel signup_signupTitle;
-    private javax.swing.JLabel signup_team1;
-    private javax.swing.JLabel signup_team2;
     private deu.view.custom.ButtonRound signup_undoButton;
     private deu.view.custom.PanelRound teamPanel;
     private deu.view.custom.PanelRound teamPanel1;
     private deu.view.custom.PanelRound teamPanel2;
+    private deu.view.custom.PanelRound teamPanel4;
+    private deu.view.custom.PanelRound teamPanel5;
     // End of variables declaration//GEN-END:variables
 }

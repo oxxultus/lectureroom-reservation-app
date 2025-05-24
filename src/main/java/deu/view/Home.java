@@ -122,6 +122,7 @@ public class Home extends javax.swing.JPanel {
         deuLogo = new javax.swing.JLabel();
         concurrentUsers = new deu.view.custom.PanelRound();
         commonMenuCurrentUser = new javax.swing.JLabel();
+        supportButton = new deu.view.custom.ButtonRound();
         main = new javax.swing.JPanel();
         profilePanel = new deu.view.custom.PanelRound();
         profileImageField = new deu.view.custom.LabelRound();
@@ -448,6 +449,16 @@ public class Home extends javax.swing.JPanel {
 
         menu.add(concurrentUsers);
         concurrentUsers.setBounds(902, 10, 110, 30);
+
+        supportButton.setBackground(new java.awt.Color(20, 90, 170));
+        supportButton.setForeground(new java.awt.Color(255, 255, 255));
+        supportButton.setText("도움말");
+        supportButton.setRoundBottomLeft(10);
+        supportButton.setRoundBottomRight(10);
+        supportButton.setRoundTopLeft(10);
+        supportButton.setRoundTopRight(10);
+        menu.add(supportButton);
+        supportButton.setBounds(812, 10, 80, 30);
 
         add(menu, java.awt.BorderLayout.PAGE_START);
 
@@ -1969,6 +1980,9 @@ public class Home extends javax.swing.JPanel {
     public void addDeleteReservationListner(ActionListener listener){
         cancelButton.addActionListener(listener);
     }
+    public void addSupportButtonListner(ActionListener listener){
+        supportButton.addActionListener(listener);
+    }
 
     // 생성 리스너
     public void addUserReservationCalendarInitListener(AncestorListener listener) {
@@ -2136,6 +2150,7 @@ public class Home extends javax.swing.JPanel {
     private javax.swing.JLabel reservationTotalCountTitle;
     private deu.view.custom.TextFieldRound reservationUniqueNumberField;
     private javax.swing.JLabel reservationUserNumberLabel;
+    private deu.view.custom.ButtonRound supportButton;
     private javax.swing.JLabel time0;
     private javax.swing.JLabel time1;
     private javax.swing.JLabel time10;
