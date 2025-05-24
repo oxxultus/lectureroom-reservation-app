@@ -96,29 +96,44 @@ public class HomeSwingController {
                 btn.setOpaque(true);
                 btn.setContentAreaFilled(true);
                 btn.setForeground(Color.BLACK);
+                btn.setLecture(null); // 강의는 이 메서드에서 사용되지 않음
 
                 if (roomReservation != null) {
                     btn.setEnabled(true);
                     btn.setRoomReservation(roomReservation);
                     btn.setText(roomReservation.getTitle());
 
-                    // 선택된 예약 버튼이면 파란색, 아니면 초록색
+                    // 상태에 따른 색상
+                    Color baseColor;
+                    String status = roomReservation.getStatus();
+                    if ("대기".equals(status)) {
+                        baseColor = new Color(241, 196, 15); // 노란색
+                    } else if ("승인".equals(status)) {
+                        baseColor = new Color(20, 112, 61); // 초록색
+                    } else {
+                        baseColor = Color.LIGHT_GRAY; // 기타
+                    }
+
+                    btn.setOriginalBackground(baseColor);
+
+                    // 선택된 버튼 강조
                     TimeSlotButton selected = (TimeSlotButton) view.getSelectedCalendarButton();
                     if (selected != null &&
                             selected.getRoomReservation() != null &&
                             selected.getRoomReservation().getId().equals(roomReservation.getId())) {
-                        btn.setBackground(new Color(0, 120, 215, 180)); // 반투명 파란색 (0~255, 255은 불투명)
+                        btn.setBackground(new Color(0, 120, 215, 180)); // 파란색 강조
                     } else {
-                        btn.setBackground(Color.GREEN); // 일반 예약
+                        btn.setBackground(baseColor); // 상태별 색상
                     }
 
                     setCalendarButtonClickListener(btn);
 
                 } else {
-                    // 예약이 없는 경우
+                    // 예약 없는 경우
                     btn.setRoomReservation(null);
                     btn.setEnabled(false);
-                    btn.setBackground(Color.WHITE); // 비어 있는 칸
+                    btn.setBackground(Color.WHITE);
+                    btn.setOriginalBackground(Color.WHITE);
                 }
             }
         }
@@ -130,19 +145,62 @@ public class HomeSwingController {
             TimeSlotButton source = (TimeSlotButton) e.getSource();
             TimeSlotButton prev = (TimeSlotButton) view.getSelectedCalendarButton();
 
-            // 이전 선택된 버튼이 있다면 색상 복원
-            if (prev != null && prev != source) {
-                Color original = prev.getOriginalBackground();
-                prev.setBackground(original != null ? original : Color.WHITE); // fallback 색상
+            // 토글 기능: 동일 버튼을 다시 클릭하면 선택 해제
+            if (prev == source) {
+                if (source.getOriginalBackground() != null) {
+                    source.setBackground(source.getOriginalBackground());
+                } else {
+                    RoomReservation r = source.getRoomReservation();
+                    if (r != null) {
+                        String status = r.getStatus();
+                        if ("승인".equals(status)) {
+                            source.setBackground(new Color(20, 112, 61));
+                        } else if ("대기".equals(status)) {
+                            source.setBackground(new Color(241, 196, 15));
+                        } else {
+                            source.setBackground(Color.LIGHT_GRAY);
+                        }
+                    } else {
+                        source.setBackground(Color.WHITE);
+                    }
+                }
+
+                view.setSelectedCalendarButton(null);
+                source.repaint();
+
+                // 예약 필드 초기화
+                view.getBuildingField().setText("");
+                view.getFloorField().setText("");
+                view.getReservationUniqueNumberField().setText("");
+                view.getLectureRoomField().setText("");
+                view.getTitleField().setText("");
+                view.getDescriptionField().setText("");
+                return;
+            }
+
+            // 이전 선택된 버튼 색상 복원
+            if (prev != null) {
+                if (prev.getOriginalBackground() != null) {
+                    prev.setBackground(prev.getOriginalBackground());
+                } else {
+                    RoomReservation r = prev.getRoomReservation();
+                    if (r != null) {
+                        String status = r.getStatus();
+                        if ("승인".equals(status)) {
+                            prev.setBackground(new Color(20, 112, 61));
+                        } else if ("대기".equals(status)) {
+                            prev.setBackground(new Color(241, 196, 15));
+                        } else {
+                            prev.setBackground(Color.LIGHT_GRAY);
+                        }
+                    } else {
+                        prev.setBackground(Color.WHITE);
+                    }
+                }
                 prev.repaint();
             }
 
-            // 현재 버튼의 원래 색 저장 (최초 클릭 시만)
-            if (source.getOriginalBackground() == null) {
-                source.setOriginalBackground(source.getBackground());
-            }
-
-            // 현재 선택된 버튼 색상 지정
+            // 선택된 버튼 강조
             source.setOpaque(true);
             source.setContentAreaFilled(true);
             source.setBackground(Color.RED);
@@ -150,14 +208,16 @@ public class HomeSwingController {
 
             view.setSelectedCalendarButton(source);
 
-            // 선택된 버튼의 예약 정보 필드에 반영
+            // 예약 정보 표시
             RoomReservation r = source.getRoomReservation();
-            view.getBuildingField().setText(r.getBuildingName());
-            view.getFloorField().setText(r.getFloor());
-            view.getReservationUniqueNumberField().setText(r.getId());
-            view.getLectureRoomField().setText(r.getLectureRoom());
-            view.getTitleField().setText(r.getTitle());
-            view.getDescriptionField().setText(r.getDescription());
+            if (r != null) {
+                view.getBuildingField().setText(r.getBuildingName());
+                view.getFloorField().setText(r.getFloor());
+                view.getReservationUniqueNumberField().setText(r.getId());
+                view.getLectureRoomField().setText(r.getLectureRoom());
+                view.getTitleField().setText(r.getTitle());
+                view.getDescriptionField().setText(r.getDescription());
+            }
         });
     }
 

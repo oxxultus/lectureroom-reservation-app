@@ -389,16 +389,23 @@ public class ReservationSwingController {
                 try {
                     BasicResponse response = get();
 
-                    if ("409".equals(response.code)) {
-                        JOptionPane.showMessageDialog(null, response.data, "예약 중복 오류", JOptionPane.WARNING_MESSAGE);
-                    } else if ("200".equals(response.code)) {
-                        JOptionPane.showMessageDialog(null, response.data, "예약 완료", JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(null, response.data, "예기치 못한 오류 발생", JOptionPane.ERROR_MESSAGE);
+                    switch (response.code) {
+                        case "200" -> {
+                            JOptionPane.showMessageDialog(null, response.data, "예약 완료", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        case "409" -> {
+                            JOptionPane.showMessageDialog(null, response.data, "예약 중복 오류", JOptionPane.WARNING_MESSAGE);
+                        }
+                        case "403" -> {
+                            JOptionPane.showMessageDialog(null, response.data, "예약 제한 초과", JOptionPane.WARNING_MESSAGE);
+                        }
+                        default -> {
+                            JOptionPane.showMessageDialog(null, response.data, "서버 오류 또는 예외", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
 
                     refreshReservationWriteDataFieldForCalendar();
-                    updateCalendarWithDummyData(); // 혹은 updateCalendarAsync()
+                    updateCalendarWithDummyData(); // 또는 updateCalendarAsync()
 
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "예약 요청 처리 중 예외 발생: " + ex.getMessage(), "오류", JOptionPane.ERROR_MESSAGE);
