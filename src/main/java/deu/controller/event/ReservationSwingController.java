@@ -143,7 +143,10 @@ public class ReservationSwingController {
 
     // 4. 캘린더에 예약, 강의 정보 갱신하는 기능 - (5,6,7 호출) TODO: 확인 완료 + SwingWorker
     private void updateCalendarWithDummyData() {
+        System.out.println("[DEBUG] updateCalendarWithDummyData() 시작");
+
         view.getCalendar().setVisible(false);
+        System.out.println("[DEBUG] 캘린더 비활성화 완료");
 
         SwingWorker<Void, Void> worker = new SwingWorker<>() {
             Lecture[][] schedule;
@@ -152,69 +155,126 @@ public class ReservationSwingController {
 
             @Override
             protected Void doInBackground() {
+                System.out.println("[DEBUG] SwingWorker.doInBackground() 진입");
+
                 // 5. 강의 데이터 가져오기
                 schedule = fetchWeeklyLectureSchedule();
+                System.out.println("[DEBUG] 강의 스케줄 수신: " + (schedule != null ? "성공" : "실패"));
+
                 if (schedule == null) return null;
 
                 // 6. 예약 데이터 가져오기
                 reservationSchedule = fetchWeeklyReservationSchedule();
+                System.out.println("[DEBUG] 예약 스케줄 수신: " + (reservationSchedule != null ? "성공" : "실패"));
 
-                // 7. 교시별 라벨 생성
+                // 7. 라벨 생성
                 timeLabels = generateTimeSlotLabels();
+                System.out.println("[DEBUG] 시간 라벨 생성 완료");
 
                 return null;
             }
 
             @Override
             protected void done() {
+                System.out.println("[DEBUG] SwingWorker.done() 진입");
+
                 if (schedule != null && reservationSchedule != null && timeLabels != null) {
+                    System.out.println("[DEBUG] 캘린더 데이터 완전 → applyScheduleToCalendar 호출");
+
+                    view.setSelectedCalendarButton(null); // 선택 초기화
                     applyScheduleToCalendar(schedule, reservationSchedule, timeLabels);
-                    view.getCalendar().setVisible(true);
+
+                    SwingUtilities.invokeLater(() -> {
+                        view.getCalendar().setVisible(true);
+                        System.out.println("[DEBUG] 캘린더 다시 보이도록 설정 완료");
+                    });
                 } else {
+                    System.out.println("[ERROR] 캘린더 데이터가 일부 null → 로딩 실패");
                     JOptionPane.showMessageDialog(null, "캘린더 데이터를 불러오지 못했습니다.", "오류", JOptionPane.WARNING_MESSAGE);
                 }
             }
         };
 
-        worker.execute(); // 비동기 실행 시작
+        worker.execute();
+        System.out.println("[DEBUG] SwingWorker 실행 완료");
     }
 
     // 5. 서버에서 주간 강의 데이터를 요청하여 반환
     private Lecture[][] fetchWeeklyLectureSchedule() {
-        BasicResponse res = lectureClientController.returnLectureOfWeek(
-                view.getBuildingField().getText(),
-                view.getFloorField().getText(),
-                view.getLectureRoomField().getText()
-        );
+        String building = view.getBuildingField().getText();
+        String floor = view.getFloorField().getText();
+        String lectureRoom = view.getLectureRoomField().getText();
+
+        System.out.println("[DEBUG] fetchWeeklyLectureSchedule() 시작");
+        System.out.println("[DEBUG] 요청 정보 → 건물: " + building + ", 층: " + floor + ", 강의실: " + lectureRoom);
+
+        BasicResponse res = lectureClientController.returnLectureOfWeek(building, floor, lectureRoom);
 
         if (res == null) {
+            System.out.println("[ERROR] 서버 응답이 null");
             JOptionPane.showMessageDialog(null, "서버 응답이 없습니다.");
             return null;
         }
 
-        if (!"200".equals(res.code) || !(res.data instanceof Lecture[][])) {
+        System.out.println("[DEBUG] 서버 응답 코드: " + res.code);
+        System.out.println("[DEBUG] 응답 데이터 타입: " + (res.data != null ? res.data.getClass().getName() : "null"));
+
+        if (!"200".equals(res.code)) {
+            System.out.println("[WARN] 응답 코드가 200이 아님 → " + res.code);
             JOptionPane.showMessageDialog(null, "강의 데이터를 불러오지 못했습니다: " + res.data);
             return null;
         }
 
-        return (Lecture[][]) res.data;
+        if (!(res.data instanceof Lecture[][])) {
+            System.out.println("[ERROR] 응답 데이터가 Lecture[][] 타입이 아님");
+            JOptionPane.showMessageDialog(null, "강의 데이터 형식 오류: " + res.data);
+            return null;
+        }
+
+        Lecture[][] result = (Lecture[][]) res.data;
+        System.out.println("[DEBUG] 강의 데이터 수신 완료 → 배열 크기: " + result.length + "일 × " +
+                (result.length > 0 ? result[0].length : "0") + "교시");
+        System.out.println("[DEBUG] fetchWeeklyLectureSchedule() 종료");
+
+        return result;
     }
 
     // 6. 서버로부터 주간 예약 스케줄 받아오기
     private RoomReservation[][] fetchWeeklyReservationSchedule() {
+        System.out.println("[DEBUG] fetchWeeklyReservationSchedule 시작");
+
         RoomReservation[][] grid = new RoomReservation[7][13];
 
+        String building = view.getBuildingField().getText();
+        String floor = view.getFloorField().getText();
+        String room = view.getLectureRoomField().getText();
+
+        System.out.println("[DEBUG] 요청 정보 → 건물: " + building + ", 층: " + floor + ", 강의실: " + room);
+
         BasicResponse res = roomReservationClientController.weekRoomReservationByLectureroom(
-                view.getBuildingField().getText(),
-                view.getFloorField().getText(),
-                view.getLectureRoomField().getText()
+                building, floor, room
         );
-        if(!res.code.equals("200")){
-            System.out.println("예약된 정보가 존재하지 않습니다.");
-        }else{
-            grid = (RoomReservation[][]) res.data;
+
+        System.out.println("[DEBUG] 서버 응답 코드: " + (res != null ? res.code : "null"));
+
+        if (res == null) {
+            System.out.println("[ERROR] 서버 응답이 null입니다.");
+            return grid;
         }
 
+        if (!res.code.equals("200")) {
+            System.out.println("[WARN] 예약된 정보가 존재하지 않습니다. → " + res.data);
+        } else {
+            try {
+                grid = (RoomReservation[][]) res.data;
+                System.out.println("[DEBUG] 예약 데이터 수신 완료");
+            } catch (Exception e) {
+                System.out.println("[ERROR] 데이터 파싱 중 오류 발생: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+        System.out.println("[DEBUG] fetchWeeklyReservationSchedule 종료");
         return grid;
     }
 
@@ -376,6 +436,7 @@ public class ReservationSwingController {
                 building, floor, lectureRoom, title, description,
                 reservationDate, dayOfWeekStr, startTime, endTime, userNumber
         );
+        System.out.println(title + " | " +description);
 
         // 비동기 실행
         SwingWorker<BasicResponse, Void> worker = new SwingWorker<>() {

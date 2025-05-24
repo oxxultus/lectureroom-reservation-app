@@ -116,6 +116,8 @@ public class UserClientController {
         ) {
             UserCommandRequest req = new UserCommandRequest("동시접속자", null);
             out.writeObject(req);
+            out.flush();
+            socket.shutdownOutput();
 
             Object res = in.readObject();
             if (res instanceof CurrentResponse r) {

@@ -26,6 +26,7 @@ public class Home extends javax.swing.JPanel {
     @Getter
     private static Home instance;
     private JFrame reservationListFrame;
+    private Timer managerUserCountTimer;
 
     private String userNumber;
     private String userPassword;
@@ -1951,6 +1952,7 @@ public class Home extends javax.swing.JPanel {
         logoutButton.addActionListener(listener);
         logoutButton1.addActionListener(listener);
     }
+
     // 버튼 리스너
     public void addReservationMenuListener(ActionListener listener) {
         LectureRoomReservationMenu.addActionListener(listener);
@@ -1998,11 +2000,9 @@ public class Home extends javax.swing.JPanel {
     public JPanel getMenuPanel() {
         return menu;
     }
-
     public JPanel getMainPanel() {
         return main;
     }
-
     public JPanel getManagerMenuPanel() {
         return managerMenu;
     }

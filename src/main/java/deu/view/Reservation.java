@@ -325,6 +325,7 @@ public class Reservation extends javax.swing.JPanel {
         buildingField.setForeground(new java.awt.Color(0, 0, 0));
         buildingField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         buildingField.setRound(10);
+        buildingField.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         reservationInformationPanel.add(buildingField);
         buildingField.setBounds(50, 10, 120, 20);
 
@@ -339,6 +340,7 @@ public class Reservation extends javax.swing.JPanel {
         floorField.setForeground(new java.awt.Color(0, 0, 0));
         floorField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         floorField.setRound(10);
+        floorField.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         reservationInformationPanel.add(floorField);
         floorField.setBounds(50, 40, 50, 20);
 
@@ -353,6 +355,7 @@ public class Reservation extends javax.swing.JPanel {
         lectureRoomField.setForeground(new java.awt.Color(0, 0, 0));
         lectureRoomField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         lectureRoomField.setRound(10);
+        lectureRoomField.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         reservationInformationPanel.add(lectureRoomField);
         lectureRoomField.setBounds(220, 10, 160, 20);
 
@@ -366,6 +369,7 @@ public class Reservation extends javax.swing.JPanel {
         titleField.setForeground(new java.awt.Color(0, 0, 0));
         titleField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         titleField.setRound(10);
+        titleField.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         reservationInformationPanel.add(titleField);
         titleField.setBounds(420, 10, 290, 20);
 
@@ -394,6 +398,7 @@ public class Reservation extends javax.swing.JPanel {
         reservationTimeField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         reservationTimeField.setCaretColor(new java.awt.Color(0, 0, 0));
         reservationTimeField.setRound(10);
+        reservationTimeField.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         reservationInformationPanel.add(reservationTimeField);
         reservationTimeField.setBounds(280, 40, 100, 20);
 
@@ -420,6 +425,7 @@ public class Reservation extends javax.swing.JPanel {
         reservationDateField.setForeground(new java.awt.Color(0, 0, 0));
         reservationDateField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         reservationDateField.setRound(10);
+        reservationDateField.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         reservationInformationPanel.add(reservationDateField);
         reservationDateField.setBounds(140, 40, 100, 20);
 

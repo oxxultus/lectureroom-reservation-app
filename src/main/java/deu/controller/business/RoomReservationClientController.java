@@ -36,16 +36,19 @@ public class RoomReservationClientController {
         ) {
             ReservationCommandRequest req = new ReservationCommandRequest("예약 요청", roomReservationRequest);
             out.writeObject(req);
+            out.flush(); // OK
 
             Object res = in.readObject();
             if (res instanceof BasicResponse r) {
-                // System.out.println("서버 응답: " + r.data);
                 return r;
+            } else {
+                return new BasicResponse("500", "예기치 않은 서버 응답");
             }
+
         } catch (Exception e) {
-            System.out.println("서버 통신 실패: " + e.getMessage());
+            e.printStackTrace();
+            return new BasicResponse("500", "예약 처리 중 통신 오류: " + e.getMessage());
         }
-        return null;
     }
 
     // 예약 수정 - TODO: 현 프로젝트에선 사용안함
@@ -57,6 +60,7 @@ public class RoomReservationClientController {
         ) {
             ReservationCommandRequest req = new ReservationCommandRequest("예약 수정", roomReservation);
             out.writeObject(req);
+            out.flush();
 
             Object res = in.readObject();
             if (res instanceof BasicResponse r) {
@@ -145,10 +149,12 @@ public class RoomReservationClientController {
             RoomReservationLocationRequest roomReservationRequest = new RoomReservationLocationRequest(building, floor, lectureroom);
             ReservationCommandRequest req = new ReservationCommandRequest("강의실 예약 배열 조회", roomReservationRequest);
             out.writeObject(req);
+            out.flush();
+            socket.shutdownOutput();
 
             Object res = in.readObject();
             if (res instanceof BasicResponse r) {
-                // System.out.println("서버 응답: " + r.data);
+                System.out.println("[예약클라이언트컨트롤러][강의실 예약 배열 조회] 서버 응답: " + r.data);
                 return r;
             }
         } catch (Exception e) {
