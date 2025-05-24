@@ -585,4 +585,11 @@ public class ReservationSwingController {
 
         return true;
     }
+    // 안전한 text 연산 추가
+    private String safeText(String text) {
+        if (text != null && text.matches("^[가-힣\\s]+$")) {
+            return text + " "; // 한글-only 문자열일 경우 공백 추가
+        }
+        return text;
+    }
 }
