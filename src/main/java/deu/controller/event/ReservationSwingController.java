@@ -2,7 +2,6 @@ package deu.controller.event;
 
 import deu.controller.business.LectureClientController;
 import deu.controller.business.RoomReservationClientController;
-import deu.controller.business.RoomReservationManagementClientController;
 import deu.model.dto.request.data.reservation.RoomReservationRequest;
 import deu.model.dto.response.BasicResponse;
 import deu.model.entity.Lecture;
@@ -21,7 +20,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Arrays;
-import java.util.Objects;
 
 public class ReservationSwingController {
     private final Reservation view;
@@ -143,7 +141,7 @@ public class ReservationSwingController {
         }
     }
 
-    // 4. 캘린더에 예약, 강의 정보 갱신하는 기능 - (5,6,7 호출) TODO: + SwingWorker
+    // 4. 캘린더에 예약, 강의 정보 갱신하는 기능 - (5,6,7 호출) TODO: 확인 완료 + SwingWorker
     private void updateCalendarWithDummyData() {
         view.getCalendar().setVisible(false);
 
@@ -459,7 +457,7 @@ public class ReservationSwingController {
             // 시간 계산
             LocalTime startTime = LocalTime.of(9 + periodIndex, 0);
             LocalTime endTime = startTime.plusHours(1);
-            String timeStr = startTime.toString() + "~" + endTime.toString(); // HH:mm ~ HH:mm
+            String timeStr = startTime + "~" + endTime.toString(); // HH:mm ~ HH:mm
 
             return new String[]{dateStr, timeStr};
         }

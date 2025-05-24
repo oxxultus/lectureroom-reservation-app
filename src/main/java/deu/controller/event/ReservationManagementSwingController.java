@@ -58,7 +58,7 @@ public class ReservationManagementSwingController {
         clearSelectionUI();
 
         // 선택된 건물 설정
-        String selectedBuilding = (String) view.getSelectedBuilding();
+        String selectedBuilding = view.getSelectedBuilding();
         view.getBuildingField().setText(selectedBuilding);
 
         // 정보관이 아닌 경우: 종료
@@ -82,8 +82,7 @@ public class ReservationManagementSwingController {
         // buildingName으로 기준으로 층 정보 가져온다.
         // 최대 층 = 컨트롤러 호출 -> 파일읽기 -> 값 전달받아 사용
         for (int i = 1; i <= 9; i++) {
-            final int currentFloor = i;
-            ButtonRound floorBtn = view.createStyledButton(String.valueOf(currentFloor), 45, 45);
+            ButtonRound floorBtn = view.createStyledButton(String.valueOf(i), 45, 45);
             floorBtn.setBackground(view.FLOOR_DEFAULT_COLOR);
             floorBtn.setForeground(Color.BLACK);
 
@@ -540,9 +539,9 @@ public class ReservationManagementSwingController {
         };
 
         worker.execute();
-    }  // TODO: 서버랑 연결해야 한다. + SwingWorker
+    }
 
-    // 예약 리스트를 반환하는 메서드 TODO: 서버로 부터 예약 대기 목록을 받아와야 한다.
+    // 예약 리스트를 반환하는 메서드 TODO: 확인 완료 + SwingWorker
     @SuppressWarnings("unchecked")
     private List<RoomReservation> getAllReservationsFromServerOrFile() {
         BasicResponse response = roomReservationManagementClientController.findAllRoomReservation();
@@ -716,7 +715,7 @@ public class ReservationManagementSwingController {
             // 시간 계산
             LocalTime startTime = LocalTime.of(9 + periodIndex, 0);
             LocalTime endTime = startTime.plusHours(1);
-            String timeStr = startTime.toString() + "~" + endTime.toString(); // HH:mm ~ HH:mm
+            String timeStr = startTime + "~" + endTime.toString(); // HH:mm ~ HH:mm
 
             return new String[]{dateStr, timeStr};
         }
