@@ -271,7 +271,7 @@ public class Home extends javax.swing.JPanel {
 
         logoutButton1.setBackground(new java.awt.Color(221, 51, 65));
         logoutButton1.setForeground(new java.awt.Color(255, 255, 255));
-        logoutButton1.setText("로그아웃");
+        logoutButton1.setText("종료");
         logoutButton1.setFont(new java.awt.Font("Helvetica Neue", 0, 11)); // NOI18N
         logoutButton1.setRoundBottomLeft(10);
         logoutButton1.setRoundBottomRight(10);
@@ -662,7 +662,7 @@ public class Home extends javax.swing.JPanel {
 
         cancelButton.setBackground(new java.awt.Color(51, 51, 51));
         cancelButton.setForeground(new java.awt.Color(255, 255, 255));
-        cancelButton.setText(" 예약취소");
+        cancelButton.setText("<html>예약<br>취소</html>");
         cancelButton.setBorderColor(null);
         cancelButton.setRoundBottomLeft(10);
         cancelButton.setRoundBottomRight(10);

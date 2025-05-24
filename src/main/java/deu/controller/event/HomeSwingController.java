@@ -1,13 +1,11 @@
 package deu.controller.event;
 
 import deu.controller.business.RoomReservationClientController;
-import deu.controller.business.RoomReservationManagementClientController;
 import deu.controller.business.UserClientController;
 import deu.model.dto.response.BasicResponse;
 import deu.model.entity.RoomReservation;
 import deu.view.*;
 import deu.view.custom.PanelRound;
-import deu.view.custom.RoundReservationInformationButton;
 import deu.view.custom.TimeSlotButton;
 
 import javax.swing.*;
@@ -16,19 +14,16 @@ import javax.swing.event.AncestorListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.UUID;
 
 public class HomeSwingController {
 
     private final Home view;
     private final UserClientController userClientController;
-    private final RoomReservationManagementClientController roomReservationManagementClientController;
     private final RoomReservationClientController roomReservationClientController;
 
     public HomeSwingController(Home view) {
         this.view = view;
         this.userClientController = UserClientController.getInstance();
-        this.roomReservationManagementClientController = RoomReservationManagementClientController.getInstance();
         this.roomReservationClientController = RoomReservationClientController.getInstance();
 
         // 이벤트 연결
@@ -375,15 +370,29 @@ public class HomeSwingController {
     }
 
     // 사용자 프로필 정보를 갱신 하는 기능
-    private void refreshUserProfile(){
-        String number = view.getUserNumber();
+    private void refreshUserProfile() {
+        SwingWorker<BasicResponse, Void> worker = new SwingWorker<>() {
+            @Override
+            protected BasicResponse doInBackground() {
+                return userClientController.findUserName(view.getUserNumber(), view.getUserPassword());
+            }
 
-        BasicResponse responseName = userClientController.findUserName(view.getUserNumber(), view.getUserPassword());
-        String name  = (String) responseName.data;
+            @Override
+            protected void done() {
+                try {
+                    BasicResponse response = get();
+                    String name = (String) response.data;
 
-        // 프로필 설정
-        view.getProfileNumberField().setText("번호: " + view.getUserNumber());
-        view.getProfileNameField().setText(name);
+                    // 프로필 설정
+                    view.getProfileNumberField().setText("번호: " + view.getUserNumber());
+                    view.getProfileNameField().setText(name);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(view, "프로필 정보를 불러오는 중 오류 발생: " + e.getMessage(), "오류", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        };
+
+        worker.execute();
     }
 
     // 수정 안해도 되는 부분 ===========================================================================================

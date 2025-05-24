@@ -420,7 +420,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&#xc18c;&#xd504;&#xd2b8;&#xc6e8;&#xc5b4; &#xacf5;&#xd559; &#xc2dc;&#xac04;&#xc5d0; &#xc9c4;&#xd589;&#xd558;&#xb294;&#xc790;&#xbc14;&#xb85c; &#xad6c;&#xd604; &#xd55c; "/>
+            <Property name="text" type="java.lang.String" value="&#xc18c;&#xd504;&#xd2b8;&#xc6e8;&#xc5b4; &#xacf5;&#xd559; &#xac15;&#xc758;&#xc5d0; &#xc9c4;&#xd589;&#xd558;&#xb294; &#xc790;&#xbc14;&#xb85c; &#xad6c;&#xd604; &#xd558;&#xb294;"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -455,7 +455,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="23" y="512" width="50" height="50"/>
+              <AbsoluteConstraints x="20" y="530" width="50" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -475,7 +475,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="80" y="520" width="170" height="-1"/>
+              <AbsoluteConstraints x="20" y="510" width="230" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -509,7 +509,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="deu.view.custom.ButtonRound" name="login_githubButton">
+        <Component class="deu.view.custom.ButtonRound" name="login_githubServerButton">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -517,7 +517,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&#xc774;&#xb3d9;&#xd558;&#xae30;"/>
+            <Property name="text" type="java.lang.String" value="&#xc11c;&#xbc84; &#xc800;&#xc7a5;&#xc18c;"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="roundBottomLeft" type="int" value="10"/>
             <Property name="roundBottomRight" type="int" value="10"/>
@@ -526,7 +526,28 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="80" y="540" width="170" height="20"/>
+              <AbsoluteConstraints x="80" y="532" width="170" height="20"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="deu.view.custom.ButtonRound" name="login_githubClientButton">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cc" green="cc" red="cc" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="66" red="66" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&#xd074;&#xb77c;&#xc774;&#xc5b8;&#xd2b8; &#xb9ac;&#xd3ec;&#xc9c0;&#xd1a0;&#xb9ac;"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
+            <Property name="roundBottomLeft" type="int" value="10"/>
+            <Property name="roundBottomRight" type="int" value="10"/>
+            <Property name="roundTopLeft" type="int" value="10"/>
+            <Property name="roundTopRight" type="int" value="10"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="80" y="558" width="170" height="20"/>
             </Constraint>
           </Constraints>
         </Component>

@@ -63,7 +63,8 @@ public class Auth extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        login_githubButton = new deu.view.custom.ButtonRound();
+        login_githubServerButton = new deu.view.custom.ButtonRound();
+        login_githubClientButton = new deu.view.custom.ButtonRound();
         login_SideBarLabel = new deu.view.custom.LabelRound();
         signup = new javax.swing.JPanel();
         signup_signupNumberField = new deu.view.custom.TextFieldRound();
@@ -246,7 +247,7 @@ public class Auth extends javax.swing.JFrame {
         login_deuProjectDescription1.setBackground(new java.awt.Color(204, 204, 204));
         login_deuProjectDescription1.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         login_deuProjectDescription1.setForeground(new java.awt.Color(102, 102, 102));
-        login_deuProjectDescription1.setText("소프트웨어 공학 시간에 진행하는자바로 구현 한 ");
+        login_deuProjectDescription1.setText("소프트웨어 공학 강의에 진행하는 자바로 구현 하는");
         login.add(login_deuProjectDescription1);
         login_deuProjectDescription1.setBounds(20, 460, 230, 20);
 
@@ -259,7 +260,7 @@ public class Auth extends javax.swing.JFrame {
 
         login_githubLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images-new/logo/github.png"))); // NOI18N
         login.add(login_githubLogo);
-        login_githubLogo.setBounds(23, 512, 50, 50);
+        login_githubLogo.setBounds(20, 530, 50, 50);
 
         login_githubLogoTitle.setBackground(new java.awt.Color(255, 255, 255));
         login_githubLogoTitle.setFont(new java.awt.Font("Helvetica Neue", 0, 11)); // NOI18N
@@ -267,7 +268,7 @@ public class Auth extends javax.swing.JFrame {
         login_githubLogoTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         login_githubLogoTitle.setText("LectureRoomReservationSystem");
         login.add(login_githubLogoTitle);
-        login_githubLogoTitle.setBounds(80, 520, 170, 14);
+        login_githubLogoTitle.setBounds(20, 510, 230, 14);
 
         jLabel1.setText("관리자 계정");
         login.add(jLabel1);
@@ -281,16 +282,27 @@ public class Auth extends javax.swing.JFrame {
         login.add(jLabel3);
         jLabel3.setBounds(40, 410, 130, 20);
 
-        login_githubButton.setBackground(new java.awt.Color(204, 204, 204));
-        login_githubButton.setForeground(new java.awt.Color(102, 102, 102));
-        login_githubButton.setText("이동하기");
-        login_githubButton.setToolTipText("");
-        login_githubButton.setRoundBottomLeft(10);
-        login_githubButton.setRoundBottomRight(10);
-        login_githubButton.setRoundTopLeft(10);
-        login_githubButton.setRoundTopRight(10);
-        login.add(login_githubButton);
-        login_githubButton.setBounds(80, 540, 170, 20);
+        login_githubServerButton.setBackground(new java.awt.Color(204, 204, 204));
+        login_githubServerButton.setForeground(new java.awt.Color(102, 102, 102));
+        login_githubServerButton.setText("서버 저장소");
+        login_githubServerButton.setToolTipText("");
+        login_githubServerButton.setRoundBottomLeft(10);
+        login_githubServerButton.setRoundBottomRight(10);
+        login_githubServerButton.setRoundTopLeft(10);
+        login_githubServerButton.setRoundTopRight(10);
+        login.add(login_githubServerButton);
+        login_githubServerButton.setBounds(80, 532, 170, 20);
+
+        login_githubClientButton.setBackground(new java.awt.Color(204, 204, 204));
+        login_githubClientButton.setForeground(new java.awt.Color(102, 102, 102));
+        login_githubClientButton.setText("클라이언트 리포지토리");
+        login_githubClientButton.setToolTipText("");
+        login_githubClientButton.setRoundBottomLeft(10);
+        login_githubClientButton.setRoundBottomRight(10);
+        login_githubClientButton.setRoundTopLeft(10);
+        login_githubClientButton.setRoundTopRight(10);
+        login.add(login_githubClientButton);
+        login_githubClientButton.setBounds(80, 558, 170, 20);
 
         login_SideBarLabel.setBackground(new java.awt.Color(249, 249, 251));
         login_SideBarLabel.setForeground(new java.awt.Color(34, 37, 40));
@@ -511,6 +523,13 @@ public class Auth extends javax.swing.JFrame {
         signup_undoButton.addActionListener(listener);
     }
 
+    public void addGithubServerButtonListener(ActionListener listener) {
+        login_githubServerButton.addActionListener(listener);
+    }
+    public void addGithubClientButtonListener(ActionListener listener) {
+        login_githubClientButton.addActionListener(listener);
+    }
+
     // 사용자 설정 메서드
     public void showPanel(String name) {
         CardLayout layout = (CardLayout) getContentPane().getLayout();
@@ -644,9 +663,10 @@ public class Auth extends javax.swing.JFrame {
     private javax.swing.JLabel login_deuProjectLogo;
     private javax.swing.JLabel login_deuProjectTitle;
     private javax.swing.JLabel login_forgotPassword;
-    private deu.view.custom.ButtonRound login_githubButton;
+    private deu.view.custom.ButtonRound login_githubClientButton;
     private javax.swing.JLabel login_githubLogo;
     private javax.swing.JLabel login_githubLogoTitle;
+    private deu.view.custom.ButtonRound login_githubServerButton;
     private deu.view.custom.ButtonRound login_loginButton;
     private javax.swing.JLabel login_loginDescription;
     private javax.swing.JLabel login_loginLogo;
