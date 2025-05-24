@@ -2,10 +2,7 @@ package deu.controller.business;
 
 import deu.config.Config;
 import deu.config.ConfigLoader;
-import deu.model.dto.request.command.LectureCommandRequest;
-import deu.model.dto.request.command.ReservationCommandRequest;
 import deu.model.dto.request.command.ReservationManagementCommandRequest;
-import deu.model.dto.request.data.lecture.LectureRequest;
 import deu.model.dto.request.data.reservation.RoomReservationRequest;
 import deu.model.dto.response.BasicResponse;
 import deu.model.entity.RoomReservation;
@@ -29,7 +26,7 @@ public class RoomReservationManagementClientController {
     private RoomReservationManagementClientController() {}
 
     // 예약 수정
-    public BasicResponse modifyRoomReservation(RoomReservation roomReservation) {
+    public BasicResponse modifyRoomReservation(RoomReservationRequest roomReservation) {
         try (
                 Socket socket = new Socket(host, port);
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
@@ -71,13 +68,13 @@ public class RoomReservationManagementClientController {
     }
 
     // 예약 상태가 "대기" 인 모든 예약 내역 반환
-    public BasicResponse findAllRoomReservation(String roomReservationId) {
+    public BasicResponse findAllRoomReservation() {
         try (
                 Socket socket = new Socket(host, port);
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
         ) {
-            ReservationManagementCommandRequest req = new ReservationManagementCommandRequest("예약 대기 전체 조회", roomReservationId);
+            ReservationManagementCommandRequest req = new ReservationManagementCommandRequest("예약 대기 전체 조회","");
             out.writeObject(req);
 
             Object res = in.readObject();
@@ -91,7 +88,7 @@ public class RoomReservationManagementClientController {
         return null;
     }
 
-    // 예약 상태 변경 "대기 -> 완료"
+    // 예약 상태 변경 "대기 -> 승인"
     public BasicResponse changeRoomReservationStatus(String roomReservationId) {
         try (
                 Socket socket = new Socket(host, port);

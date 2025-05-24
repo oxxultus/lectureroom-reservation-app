@@ -409,7 +409,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="50" y="40" width="120" height="20"/>
+                  <AbsoluteConstraints x="50" y="40" width="50" height="20"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -441,7 +441,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="220" y="10" width="120" height="20"/>
+                  <AbsoluteConstraints x="220" y="10" width="160" height="20"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -455,7 +455,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="350" y="10" width="40" height="20"/>
+                  <AbsoluteConstraints x="380" y="10" width="40" height="20"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -472,7 +472,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="390" y="10" width="140" height="20"/>
+                  <AbsoluteConstraints x="420" y="10" width="130" height="20"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -486,7 +486,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="350" y="40" width="40" height="20"/>
+                  <AbsoluteConstraints x="380" y="40" width="40" height="20"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -503,7 +503,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="390" y="40" width="320" height="20"/>
+                  <AbsoluteConstraints x="420" y="40" width="290" height="20"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -517,7 +517,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="180" y="40" width="40" height="20"/>
+                  <AbsoluteConstraints x="240" y="40" width="40" height="20"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -538,7 +538,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="220" y="40" width="120" height="20"/>
+                  <AbsoluteConstraints x="280" y="40" width="100" height="20"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -554,6 +554,7 @@
                 <Property name="borderColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color type="null"/>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="roundBottomLeft" type="int" value="10"/>
                 <Property name="roundBottomRight" type="int" value="10"/>
                 <Property name="roundTopLeft" type="int" value="10"/>
@@ -577,6 +578,7 @@
                 <Property name="borderColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color type="null"/>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="roundBottomLeft" type="int" value="10"/>
                 <Property name="roundBottomRight" type="int" value="10"/>
                 <Property name="roundTopLeft" type="int" value="10"/>
@@ -588,21 +590,21 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JLabel" name="titleLabel1">
+            <Component class="javax.swing.JLabel" name="reservationIdLabel">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="&#xc608;&#xc57d;&#xc790;"/>
+                <Property name="text" type="java.lang.String" value="&#xace0;&#xc720;&#xac12;"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="540" y="10" width="40" height="20"/>
+                  <AbsoluteConstraints x="560" y="10" width="40" height="20"/>
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="deu.view.custom.TextFieldRound" name="reservationUserNumber">
+            <Component class="deu.view.custom.TextFieldRound" name="reservationIdField">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -616,7 +618,42 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="580" y="10" width="130" height="20"/>
+                  <AbsoluteConstraints x="600" y="10" width="110" height="20"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="javax.swing.JLabel" name="reservationDateLabel">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="&#xb0a0;&#xc9dc;"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="100" y="40" width="40" height="20"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="deu.view.custom.TextFieldRound" name="reservationDateField">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="0" type="rgb"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="caretColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="0" type="rgb"/>
+                </Property>
+                <Property name="round" type="int" value="10"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="140" y="40" width="100" height="20"/>
                 </Constraint>
               </Constraints>
             </Component>

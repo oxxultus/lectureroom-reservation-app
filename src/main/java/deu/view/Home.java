@@ -23,6 +23,10 @@ import javax.swing.event.AncestorListener;
 @Setter
 public class Home extends javax.swing.JPanel {
 
+    @Getter
+    private static Home instance;
+    private JFrame reservationListFrame;
+
     private String userNumber;
     private String userPassword;
 
@@ -35,6 +39,21 @@ public class Home extends javax.swing.JPanel {
     public static final Color FLOOR_DEFAULT_COLOR = new Color(255, 255, 255);
     public static final Color FLOOR_SELECTED_COLOR = new Color(20, 90, 170);
     public static final Color ROOM_SELECTED_COLOR = new Color(20, 90, 170);
+
+    public static Home getInstance(String userId, String userPw) {
+        if (instance == null) {
+            instance = new Home(userId, userPw);
+        }
+        return instance;
+    }
+    public static void setInstanceNull() {
+        instance = null;
+    }
+    public void closeFloatingFrames() {
+        if (reservationListFrame != null && reservationListFrame.isVisible()) {
+            reservationListFrame.setVisible(false);
+        }
+    }
 
     /**
      * Creates new form Home
@@ -129,8 +148,7 @@ public class Home extends javax.swing.JPanel {
         descriptionLabel = new javax.swing.JLabel();
         descriptionField = new deu.view.custom.TextFieldRound();
         reservationUserNumberLabel = new javax.swing.JLabel();
-        reservationUserNumberField = new deu.view.custom.TextFieldRound();
-        updateButton = new deu.view.custom.ButtonRound();
+        reservationUniqueNumberField = new deu.view.custom.TextFieldRound();
         cancelButton = new deu.view.custom.ButtonRound();
         calendar = new javax.swing.JPanel();
         day0_0 = new deu.view.custom.TimeSlotButton();
@@ -631,38 +649,27 @@ public class Home extends javax.swing.JPanel {
 
         reservationUserNumberLabel.setForeground(new java.awt.Color(255, 255, 255));
         reservationUserNumberLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        reservationUserNumberLabel.setText("예약자");
+        reservationUserNumberLabel.setText("고유값");
         reservationInformationPanel.add(reservationUserNumberLabel);
         reservationUserNumberLabel.setBounds(180, 40, 40, 20);
 
-        reservationUserNumberField.setEditable(false);
-        reservationUserNumberField.setBackground(new java.awt.Color(255, 255, 255));
-        reservationUserNumberField.setForeground(new java.awt.Color(0, 0, 0));
-        reservationUserNumberField.setRound(10);
-        reservationInformationPanel.add(reservationUserNumberField);
-        reservationUserNumberField.setBounds(220, 40, 120, 20);
+        reservationUniqueNumberField.setEditable(false);
+        reservationUniqueNumberField.setBackground(new java.awt.Color(255, 255, 255));
+        reservationUniqueNumberField.setForeground(new java.awt.Color(0, 0, 0));
+        reservationUniqueNumberField.setRound(10);
+        reservationInformationPanel.add(reservationUniqueNumberField);
+        reservationUniqueNumberField.setBounds(220, 40, 120, 20);
 
-        updateButton.setBackground(new java.awt.Color(0, 102, 255));
-        updateButton.setForeground(new java.awt.Color(255, 255, 255));
-        updateButton.setText("저장하기");
-        updateButton.setBorderColor(null);
-        updateButton.setRoundBottomLeft(10);
-        updateButton.setRoundBottomRight(10);
-        updateButton.setRoundTopLeft(10);
-        updateButton.setRoundTopRight(10);
-        reservationInformationPanel.add(updateButton);
-        updateButton.setBounds(700, 10, 90, 20);
-
-        cancelButton.setBackground(new java.awt.Color(102, 102, 102));
+        cancelButton.setBackground(new java.awt.Color(51, 51, 51));
         cancelButton.setForeground(new java.awt.Color(255, 255, 255));
-        cancelButton.setText(" 취소하기");
+        cancelButton.setText(" 예약취소");
         cancelButton.setBorderColor(null);
         cancelButton.setRoundBottomLeft(10);
         cancelButton.setRoundBottomRight(10);
         cancelButton.setRoundTopLeft(10);
         cancelButton.setRoundTopRight(10);
         reservationInformationPanel.add(cancelButton);
-        cancelButton.setBounds(700, 40, 90, 20);
+        cancelButton.setBounds(700, 10, 90, 50);
 
         myReservationCalendar.add(reservationInformationPanel);
         reservationInformationPanel.setBounds(10, 10, 800, 70);
@@ -735,7 +742,7 @@ public class Home extends javax.swing.JPanel {
         day5_0.setBorderColor(java.awt.Color.darkGray);
         day5_0.setBorderPainted(true);
         day5_0.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        day5_0.setName("day4_0"); // NOI18N
+        day5_0.setName("day5_0"); // NOI18N
         day5_0.setRoundBottomLeft(13);
         day5_0.setRoundBottomRight(13);
         day5_0.setRoundTopLeft(13);
@@ -2127,7 +2134,7 @@ public class Home extends javax.swing.JPanel {
     private javax.swing.JLabel reservationTotalCount;
     private deu.view.custom.PanelRound reservationTotalCountPanel;
     private javax.swing.JLabel reservationTotalCountTitle;
-    private deu.view.custom.TextFieldRound reservationUserNumberField;
+    private deu.view.custom.TextFieldRound reservationUniqueNumberField;
     private javax.swing.JLabel reservationUserNumberLabel;
     private javax.swing.JLabel time0;
     private javax.swing.JLabel time1;
@@ -2144,7 +2151,6 @@ public class Home extends javax.swing.JPanel {
     private javax.swing.JLabel time9;
     private deu.view.custom.TextFieldRound titleField;
     private javax.swing.JLabel titleLabel;
-    private deu.view.custom.ButtonRound updateButton;
     private deu.view.custom.ButtonRound userManagementButton;
     // End of variables declaration//GEN-END:variables
 }

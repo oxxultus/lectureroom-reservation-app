@@ -839,7 +839,7 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="&#xc608;&#xc57d;&#xc790;"/>
+                    <Property name="text" type="java.lang.String" value="&#xace0;&#xc720;&#xac12;"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -847,7 +847,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="deu.view.custom.TextFieldRound" name="reservationUserNumberField">
+                <Component class="deu.view.custom.TextFieldRound" name="reservationUniqueNumberField">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -864,38 +864,15 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="deu.view.custom.ButtonRound" name="updateButton">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="ff" green="66" red="0" type="rgb"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="&#xc800;&#xc7a5;&#xd558;&#xae30;"/>
-                    <Property name="borderColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color type="null"/>
-                    </Property>
-                    <Property name="roundBottomLeft" type="int" value="10"/>
-                    <Property name="roundBottomRight" type="int" value="10"/>
-                    <Property name="roundTopLeft" type="int" value="10"/>
-                    <Property name="roundTopRight" type="int" value="10"/>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="700" y="10" width="90" height="20"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
                 <Component class="deu.view.custom.ButtonRound" name="cancelButton">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="66" green="66" red="66" type="rgb"/>
+                      <Color blue="33" green="33" red="33" type="rgb"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value=" &#xcde8;&#xc18c;&#xd558;&#xae30;"/>
+                    <Property name="text" type="java.lang.String" value=" &#xc608;&#xc57d;&#xcde8;&#xc18c;"/>
                     <Property name="borderColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color type="null"/>
                     </Property>
@@ -906,7 +883,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="700" y="40" width="90" height="20"/>
+                      <AbsoluteConstraints x="700" y="10" width="90" height="50"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -1056,7 +1033,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Helvetica Neue" size="12" style="0"/>
                     </Property>
-                    <Property name="name" type="java.lang.String" value="day4_0" noResource="true"/>
+                    <Property name="name" type="java.lang.String" value="day5_0" noResource="true"/>
                     <Property name="roundBottomLeft" type="int" value="13"/>
                     <Property name="roundBottomRight" type="int" value="13"/>
                     <Property name="roundTopLeft" type="int" value="13"/>

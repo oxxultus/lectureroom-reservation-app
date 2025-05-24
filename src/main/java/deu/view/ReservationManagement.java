@@ -111,8 +111,10 @@ public class ReservationManagement extends javax.swing.JPanel {
         reservationTimeField = new deu.view.custom.TextFieldRound();
         deleteButton = new deu.view.custom.ButtonRound();
         updateButton = new deu.view.custom.ButtonRound();
-        titleLabel1 = new javax.swing.JLabel();
-        reservationUserNumber = new deu.view.custom.TextFieldRound();
+        reservationIdLabel = new javax.swing.JLabel();
+        reservationIdField = new deu.view.custom.TextFieldRound();
+        reservationDateLabel = new javax.swing.JLabel();
+        reservationDateField = new deu.view.custom.TextFieldRound();
         calendar = new javax.swing.JPanel();
         day0_0 = new deu.view.custom.TimeSlotButton();
         day1_0 = new deu.view.custom.TimeSlotButton();
@@ -374,7 +376,7 @@ public class ReservationManagement extends javax.swing.JPanel {
         floorField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         floorField.setRound(10);
         reservationInformationPanel.add(floorField);
-        floorField.setBounds(50, 40, 120, 20);
+        floorField.setBounds(50, 40, 50, 20);
 
         lectureRoomLabel.setForeground(new java.awt.Color(255, 255, 255));
         lectureRoomLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -388,39 +390,39 @@ public class ReservationManagement extends javax.swing.JPanel {
         lectureRoomField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         lectureRoomField.setRound(10);
         reservationInformationPanel.add(lectureRoomField);
-        lectureRoomField.setBounds(220, 10, 120, 20);
+        lectureRoomField.setBounds(220, 10, 160, 20);
 
         titleLabel.setForeground(new java.awt.Color(255, 255, 255));
         titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleLabel.setText("제목");
         reservationInformationPanel.add(titleLabel);
-        titleLabel.setBounds(350, 10, 40, 20);
+        titleLabel.setBounds(380, 10, 40, 20);
 
         titleField.setBackground(new java.awt.Color(255, 255, 255));
         titleField.setForeground(new java.awt.Color(0, 0, 0));
         titleField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         titleField.setRound(10);
         reservationInformationPanel.add(titleField);
-        titleField.setBounds(390, 10, 140, 20);
+        titleField.setBounds(420, 10, 130, 20);
 
         descriptionLabel.setForeground(new java.awt.Color(255, 255, 255));
         descriptionLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         descriptionLabel.setText("설명");
         reservationInformationPanel.add(descriptionLabel);
-        descriptionLabel.setBounds(350, 40, 40, 20);
+        descriptionLabel.setBounds(380, 40, 40, 20);
 
         descriptionField.setBackground(new java.awt.Color(255, 255, 255));
         descriptionField.setForeground(new java.awt.Color(0, 0, 0));
         descriptionField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         descriptionField.setRound(10);
         reservationInformationPanel.add(descriptionField);
-        descriptionField.setBounds(390, 40, 320, 20);
+        descriptionField.setBounds(420, 40, 290, 20);
 
         reservationUserNumberLabel.setForeground(new java.awt.Color(255, 255, 255));
         reservationUserNumberLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         reservationUserNumberLabel.setText("시간");
         reservationInformationPanel.add(reservationUserNumberLabel);
-        reservationUserNumberLabel.setBounds(180, 40, 40, 20);
+        reservationUserNumberLabel.setBounds(240, 40, 40, 20);
 
         reservationTimeField.setEditable(false);
         reservationTimeField.setBackground(new java.awt.Color(255, 255, 255));
@@ -429,12 +431,13 @@ public class ReservationManagement extends javax.swing.JPanel {
         reservationTimeField.setCaretColor(new java.awt.Color(0, 0, 0));
         reservationTimeField.setRound(10);
         reservationInformationPanel.add(reservationTimeField);
-        reservationTimeField.setBounds(220, 40, 120, 20);
+        reservationTimeField.setBounds(280, 40, 100, 20);
 
         deleteButton.setBackground(new java.awt.Color(102, 102, 102));
         deleteButton.setForeground(new java.awt.Color(255, 255, 255));
         deleteButton.setText("삭제하기");
         deleteButton.setBorderColor(null);
+        deleteButton.setEnabled(false);
         deleteButton.setRoundBottomLeft(10);
         deleteButton.setRoundBottomRight(10);
         deleteButton.setRoundTopLeft(10);
@@ -446,6 +449,7 @@ public class ReservationManagement extends javax.swing.JPanel {
         updateButton.setForeground(new java.awt.Color(255, 255, 255));
         updateButton.setText("수정하기");
         updateButton.setBorderColor(null);
+        updateButton.setEnabled(false);
         updateButton.setRoundBottomLeft(10);
         updateButton.setRoundBottomRight(10);
         updateButton.setRoundTopLeft(10);
@@ -453,19 +457,34 @@ public class ReservationManagement extends javax.swing.JPanel {
         reservationInformationPanel.add(updateButton);
         updateButton.setBounds(720, 10, 90, 23);
 
-        titleLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        titleLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleLabel1.setText("예약자");
-        reservationInformationPanel.add(titleLabel1);
-        titleLabel1.setBounds(540, 10, 40, 20);
+        reservationIdLabel.setForeground(new java.awt.Color(255, 255, 255));
+        reservationIdLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        reservationIdLabel.setText("고유값");
+        reservationInformationPanel.add(reservationIdLabel);
+        reservationIdLabel.setBounds(560, 10, 40, 20);
 
-        reservationUserNumber.setEditable(false);
-        reservationUserNumber.setBackground(new java.awt.Color(255, 255, 255));
-        reservationUserNumber.setForeground(new java.awt.Color(0, 0, 0));
-        reservationUserNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        reservationUserNumber.setRound(10);
-        reservationInformationPanel.add(reservationUserNumber);
-        reservationUserNumber.setBounds(580, 10, 130, 20);
+        reservationIdField.setEditable(false);
+        reservationIdField.setBackground(new java.awt.Color(255, 255, 255));
+        reservationIdField.setForeground(new java.awt.Color(0, 0, 0));
+        reservationIdField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        reservationIdField.setRound(10);
+        reservationInformationPanel.add(reservationIdField);
+        reservationIdField.setBounds(600, 10, 110, 20);
+
+        reservationDateLabel.setForeground(new java.awt.Color(255, 255, 255));
+        reservationDateLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        reservationDateLabel.setText("날짜");
+        reservationInformationPanel.add(reservationDateLabel);
+        reservationDateLabel.setBounds(100, 40, 40, 20);
+
+        reservationDateField.setEditable(false);
+        reservationDateField.setBackground(new java.awt.Color(255, 255, 255));
+        reservationDateField.setForeground(new java.awt.Color(0, 0, 0));
+        reservationDateField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        reservationDateField.setCaretColor(new java.awt.Color(0, 0, 0));
+        reservationDateField.setRound(10);
+        reservationInformationPanel.add(reservationDateField);
+        reservationDateField.setBounds(140, 40, 100, 20);
 
         myReservationCalendar.add(reservationInformationPanel);
         reservationInformationPanel.setBounds(10, 10, 820, 70);
@@ -1861,6 +1880,10 @@ public class ReservationManagement extends javax.swing.JPanel {
     private javax.swing.JPanel lectureRoomList;
     private deu.view.custom.PanelRound lectureRoomListPanel;
     private deu.view.custom.PanelRound myReservationCalendar;
+    private deu.view.custom.TextFieldRound reservationDateField;
+    private javax.swing.JLabel reservationDateLabel;
+    private deu.view.custom.TextFieldRound reservationIdField;
+    private javax.swing.JLabel reservationIdLabel;
     private deu.view.custom.PanelRound reservationInformationPanel;
     private javax.swing.JPanel reservationList;
     private deu.view.custom.ButtonRound reservationListFrameButton;
@@ -1869,7 +1892,6 @@ public class ReservationManagement extends javax.swing.JPanel {
     private javax.swing.JPanel reservationListPanel;
     private javax.swing.JScrollPane reservationListScrollPane;
     private deu.view.custom.TextFieldRound reservationTimeField;
-    private deu.view.custom.TextFieldRound reservationUserNumber;
     private javax.swing.JLabel reservationUserNumberLabel;
     private javax.swing.JLabel time0;
     private javax.swing.JLabel time1;
@@ -1886,7 +1908,6 @@ public class ReservationManagement extends javax.swing.JPanel {
     private javax.swing.JLabel time9;
     private deu.view.custom.TextFieldRound titleField;
     private javax.swing.JLabel titleLabel;
-    private javax.swing.JLabel titleLabel1;
     private deu.view.custom.ButtonRound updateButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,9 +3,12 @@ package deu.controller.event;
 import deu.controller.business.LectureClientController;
 import deu.controller.business.RoomReservationManagementClientController;
 import deu.controller.business.RoomReservationClientController;
+import deu.model.dto.request.data.reservation.RoomReservationRequest;
 import deu.model.dto.response.BasicResponse;
 import deu.model.entity.Lecture;
 import deu.model.entity.RoomReservation;
+import deu.model.enums.DayOfWeek;
+import deu.view.Home;
 import deu.view.ReservationManagement;
 import deu.view.custom.ButtonRound;
 import deu.view.custom.RoundReservationInformationButton;
@@ -18,10 +21,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 public class ReservationManagementSwingController {
     private final ReservationManagement view;
@@ -143,6 +147,9 @@ public class ReservationManagementSwingController {
                 view.setSelectedRoomButton(roomBtn);
                 view.getLectureRoomField().setText(room);
 
+                view.getDeleteButton().setEnabled(true);
+                view.getUpdateButton().setEnabled(true);
+
                 updateCalendarWithDummyData();
             });
 
@@ -150,24 +157,44 @@ public class ReservationManagementSwingController {
         }
     }
 
-    // 4. 캘린더에 예약, 강의 정보 갱신하는 기능 - (5,6,7 호출)
+    // 4. 캘린더에 예약, 강의 정보 갱신하는 기능 - (5,6,7 호출) TODO: + SwingWorker
     private void updateCalendarWithDummyData() {
         view.getCalendar().setVisible(false);
 
-        // 5. 강의 데이터 가져오기
-        Lecture[][] schedule = fetchWeeklyLectureSchedule();
-        if (schedule == null) return;
+        // 백그라운드 작업을 위한 SwingWorker
+        SwingWorker<Void, Void> worker = new SwingWorker<>() {
+            Lecture[][] schedule;
+            RoomReservation[][] reservationSchedule;
+            String[][] timeLabels;
 
-        // 6. 예약 데이터 가져오기
-        RoomReservation[][] reservationSchedule = fetchWeeklyReservationSchedule();
+            @Override
+            protected Void doInBackground() {
+                // 5. 강의 데이터 가져오기  TODO: 서버랑 연결해야 한다. + SwingWorker
+                schedule = fetchWeeklyLectureSchedule();
+                if (schedule == null) return null;
 
-        // 7. 교시별 라벨 생성 (ex: 09:00~10:00)
-        String[][] dummySubjects = generateTimeSlotLabels();
+                // 6. 예약 데이터 가져오기  TODO: 서버랑 연결해야 한다. + SwingWorker
+                reservationSchedule = fetchWeeklyReservationSchedule();
 
-        // 캘린더에 강의/예약 정보 적용
-        applyScheduleToCalendar(schedule, reservationSchedule, dummySubjects);
+                // 7. 시간 라벨 생성
+                timeLabels = generateTimeSlotLabels();
 
-        view.getCalendar().setVisible(true);
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                // UI 갱신은 EDT에서 수행
+                if (schedule != null && reservationSchedule != null && timeLabels != null) {
+                    applyScheduleToCalendar(schedule, reservationSchedule, timeLabels);
+                    view.getCalendar().setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "캘린더 데이터를 불러오는 데 실패했습니다.", "오류", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        };
+
+        worker.execute(); // SwingWorker 실행
     }
 
     // 5. 서버로부터 주간 강의 스케줄 받아오기
@@ -191,20 +218,28 @@ public class ReservationManagementSwingController {
         return (Lecture[][]) res.data;
     }
 
-    // 6. 서버로부터 주간 예약 스케줄 받아오기 TODO: 예약 정보를 서버로 부터 받아와야 한다.
+    // 6. 서버로부터 주간 예약 스케줄 받아오기
     private RoomReservation[][] fetchWeeklyReservationSchedule() {
-        /* 아래와 유사하게 받아오면 된다. 현제는 임시데이터가 들어 가 있다.
-            BasicResponse res = lectureClientController.returnLectureOfWeek(
+        RoomReservation[][] grid = new RoomReservation[7][13];
+
+        try {
+            BasicResponse res = roomReservationClientController.weekRoomReservationByLectureroom(
                     view.getBuildingField().getText(),
                     view.getFloorField().getText(),
                     view.getLectureRoomField().getText()
             );
-         */
-        RoomReservation[][] grid = new RoomReservation[7][13];
 
-        grid[0][11] = createDummyReservation2("정보관", "2", "A01", "S2023001", "스터디 모임", "자료구조 복습 스터디", "2025-05-19", "MONDAY", "09:00", "10:00");
-        grid[0][12] = createDummyReservation2("정보관", "2", "A01", "S2023002", "회의", "프로젝트 회의", "2025-05-19", "MONDAY", "10:00", "11:00");
-        grid[1][12] = createDummyReservation2("정보관", "3", "B01", "S2023003", "연습", "발표 연습", "2025-05-20", "TUESDAY", "12:00", "13:00");
+            if (!"200".equals(res.code)) {
+                JOptionPane.showMessageDialog(null, "예약 정보를 불러오지 못했습니다.\n" + res.data, "오류", JOptionPane.WARNING_MESSAGE);
+            } else if (res.data instanceof RoomReservation[][] result) {
+                grid = result;
+            } else {
+                JOptionPane.showMessageDialog(null, "예약 데이터 형식이 올바르지 않습니다.", "형변환 오류", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "예약 데이터를 가져오는 중 예외가 발생했습니다:\n" + e.getMessage(), "예외 발생", JOptionPane.ERROR_MESSAGE);
+        }
+
         return grid;
     }
 
@@ -228,7 +263,7 @@ public class ReservationManagementSwingController {
                 String buttonName = "day" + day + "_" + period;
 
                 for (Component comp : view.getCalendar().getComponents()) {
-                    if (comp instanceof TimeSlotButton dayBtn && buttonName.equals(comp.getName())) {
+                    if (comp instanceof TimeSlotButton dayBtn && buttonName.equals(dayBtn.getName())) {
                         dayBtn.setText(labels[day][period]);
 
                         // 기존 리스너 제거
@@ -236,71 +271,225 @@ public class ReservationManagementSwingController {
                             dayBtn.removeActionListener(al);
                         }
 
+                        dayBtn.setOpaque(true);
+                        dayBtn.setContentAreaFilled(true);
+                        dayBtn.setForeground(Color.BLACK);
+                        dayBtn.setLecture(null);
+                        dayBtn.setRoomReservation(null);
+
+                        // 강의가 있는 경우
                         if (schedule[day][period] != null) {
-                            // 강의가 있는 경우
-                            dayBtn.setBackground(new Color(100, 149, 237)); // 파란색
+                            dayBtn.setEnabled(false);
                             dayBtn.setLecture(schedule[day][period]);
                             dayBtn.setText(schedule[day][period].getTitle());
-                            dayBtn.setEnabled(false);
-                        } else if (reservationSchedule != null && reservationSchedule[day][period] != null) {
-                            // 예약이 있는 경우
-                            dayBtn.setBackground(new Color(255, 165, 0)); // 주황색
-                            dayBtn.setRoomReservation(reservationSchedule[day][period]); // 예약 객체 전달
-                            dayBtn.setText(reservationSchedule[day][period].getTitle());
-                            dayBtn.setEnabled(false);
-                        } else {
-                            // 비어있는 시간대
-                            dayBtn.setBackground(null);
-                            dayBtn.setEnabled(true);
-                            dayBtn.addActionListener(ev -> {
-                                JButton source = (JButton) ev.getSource();
-                                view.getReservationTimeField().setText(source.getName());
+                            dayBtn.setBackground(new Color(100, 149, 237)); // 파란색
+                            continue;
+                        }
 
-                                if (view.getSelectedCalendarButton() != null) {
-                                    view.getSelectedCalendarButton().setBackground(null);
+                        // 예약이 있는 경우
+                        if (reservationSchedule != null && reservationSchedule[day][period] != null) {
+                            RoomReservation reservation = reservationSchedule[day][period];
+                            dayBtn.setEnabled(true);
+                            dayBtn.setRoomReservation(reservation);
+                            dayBtn.setText(reservation.getTitle());
+
+                            // 상태에 따라 색상
+                            if ("승인".equals(reservation.getStatus())) {
+                                dayBtn.setBackground(new Color(60, 179, 113)); // 초록
+                            } else {
+                                dayBtn.setBackground(new Color(241, 196, 15)); // 노란색 (대기)
+                            }
+
+                            dayBtn.addActionListener(ev -> {
+                                TimeSlotButton source = (TimeSlotButton) ev.getSource();
+                                RoomReservation r = source.getRoomReservation();
+                                TimeSlotButton prev = (TimeSlotButton) view.getSelectedCalendarButton();
+
+                                // 이전 선택된 버튼 색 복원
+                                if (prev != null && prev != source) {
+                                    RoomReservation prevRes = prev.getRoomReservation();
+
+                                    if (prevRes != null) {
+                                        String status = prevRes.getStatus();
+                                        if ("승인".equals(status)) {
+                                            prev.setBackground(new Color(60, 179, 113)); // 초록 복원
+                                        } else {
+                                            prev.setBackground(new Color(241, 196, 15)); // 노란색 복원
+                                        }
+                                    } else {
+                                        prev.setBackground(Color.WHITE); // 비어 있는 시간대 복원
+                                    }
                                 }
 
-                                source.setBackground(new Color(255, 200, 0));
+                                // 현재 선택 처리
+                                source.setBackground(new Color(30, 144, 255)); // 파란색
                                 view.setSelectedCalendarButton(source);
+
+                                String[] dateTime = parseDateTimeFromButtonName(source.getName());
+                                if (dateTime != null) {
+                                    view.getReservationDateField().setText(dateTime[0]);
+                                    view.getReservationTimeField().setText(dateTime[1]);
+                                } else {
+                                    view.getReservationDateField().setText("");
+                                    view.getReservationTimeField().setText("");
+                                }
+
+                                view.getBuildingField().setText(r.getBuildingName());
+                                view.getFloorField().setText(r.getFloor());
+                                view.getReservationIdField().setText(r.getId());
+                                view.getLectureRoomField().setText(r.getLectureRoom());
+                                view.getTitleField().setText(r.getTitle());
+                                view.getDescriptionField().setText(r.getDescription());
                             });
+
+                            continue;
                         }
+
+                        // 비어 있는 시간대
+                        dayBtn.setEnabled(false);
+                        dayBtn.setBackground(null);
                     }
                 }
             }
         }
     }
 
-    // 수정하기 버튼 기능  TODO: 서버랑 연결해야 한다.
+    // 수정하기 버튼 기능  TODO: 서버랑 연결해야 한다. + SwingWorker
     private void updateButton(ActionEvent e) {
+        int choice = JOptionPane.showConfirmDialog(null, "정말로 예약을 수정하시겠습니까?", "예약 수정 확인", JOptionPane.YES_NO_OPTION);
+        if (choice != JOptionPane.YES_OPTION) {
+            return;
+        }
 
-        // 필드 값을 가져온다.
-        view.getReservationUserNumber().getText();
-        view.getTitleField().getText();
-        view.getBuildingField().getText();
-        view.getFloorField().getText();
-        view.getLectureRoomField().getText();
-        view.getReservationTimeField().getText();
-        view.getDescriptionField().getText();
+        view.getUpdateButton().setEnabled(false); // 버튼 잠금
 
-        // TODO: 가져온 값을 바탕으로 컨트롤러를 호출하여 서버와 통신하여 수정 처리한다.
+        // 필드 값들 미리 가져오기 (EDT 내에서만 Swing 컴포넌트 접근해야 하므로 여기서 수집)
+        String reservationId = view.getReservationIdField().getText();
+        String building = view.getBuildingField().getText();
+        String floor = view.getFloorField().getText();
+        String lectureRoom = view.getLectureRoomField().getText();
+        String title = view.getTitleField().getText();
+        String description = view.getDescriptionField().getText();
+        String reservationDate = view.getReservationDateField().getText();
+        String reservationTime = view.getReservationTimeField().getText();
+
+        SwingWorker<BasicResponse, Void> worker = new SwingWorker<>() {
+            @Override
+            protected BasicResponse doInBackground() {
+                try {
+                    String[] timeParts = reservationTime.split("~");
+                    String startTime = timeParts[0].trim();
+                    String endTime = timeParts[1].trim();
+
+                    LocalDate date = LocalDate.parse(reservationDate);
+                    DayOfWeek dayOfWeek = DayOfWeek.fromString(date.getDayOfWeek().name());
+                    String dayOfWeekStr = (dayOfWeek != null ? dayOfWeek.name() : "요일 매핑 실패");
+
+                    RoomReservationRequest roomReservationRequest = new RoomReservationRequest(
+                            building,
+                            floor,
+                            lectureRoom,
+                            title,
+                            description,
+                            reservationDate,
+                            dayOfWeekStr,
+                            startTime,
+                            endTime,
+                            ""
+                    );
+                    roomReservationRequest.setId(reservationId);
+
+                    return roomReservationManagementClientController.modifyRoomReservation(roomReservationRequest);
+                } catch (Exception ex) {
+                    return new BasicResponse("500", "예외 발생: " + ex.getMessage());
+                }
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    BasicResponse response = get();
+
+                    updateCalendarWithDummyData();
+                    if (!"200".equals(response.code)) {
+                        JOptionPane.showMessageDialog(null, "예약 수정에 실패했습니다.\n" + response.data, "수정 실패", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "예약이 성공적으로 수정되었습니다.", "수정 완료", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "예약 수정 처리 중 오류 발생: " + ex.getMessage(), "예외 발생", JOptionPane.ERROR_MESSAGE);
+                } finally {
+                    view.getUpdateButton().setEnabled(true); // 버튼 다시 활성화
+                }
+            }
+        };
+
+        worker.execute(); // 백그라운드 실행
     }
 
-    // 삭제하기 버튼 기능  TODO: 서버랑 연결해야 한다.
+    // 삭제하기 버튼 기능  TODO: 서버랑 연결해야 한다. + SwingWorker
     private void deleteButton(ActionEvent e) {
+        // 유효성 검사
+        boolean check = validateReservationInput();
+        if (!check) {
+            updateCalendarWithDummyData();
+            return;
+        }
 
-        // 필드 값을 가져온다.
-        view.getReservationUserNumber().getText();
-        view.getTitleField().getText();
-        view.getBuildingField().getText();
-        view.getFloorField().getText();
-        view.getLectureRoomField().getText();
-        view.getReservationTimeField().getText();
+        // 필드 값 수집 (EDT에서만 Swing 컴포넌트 접근)
+        String uniqueNumber = view.getReservationIdField().getText();
+        String building = view.getBuildingField().getText();
+        String floor = view.getFloorField().getText();
+        String lectureRoom = view.getLectureRoomField().getText();
+        String title = view.getTitleField().getText();
 
-        // TODO: 가져온 값을 바탕으로 컨트롤러를 호출하여 서버와 통신하여 삭제 처리한다.
+        // 삭제 여부 확인
+        int confirm = JOptionPane.showConfirmDialog(
+                null,
+                "정말 이 예약을 삭제하시겠습니까?\n[" + title + "] " + building + " " + floor + "층 " + lectureRoom,
+                "예약 삭제 확인",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
 
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
 
-        // 필드 초기화
-        clearReservationFieldData();
+        // 버튼 잠금
+        view.getDeleteButton().setEnabled(false);
+
+        SwingWorker<BasicResponse, Void> worker = new SwingWorker<>() {
+            @Override
+            protected BasicResponse doInBackground() {
+                try {
+                    return roomReservationManagementClientController.deleteRoomReservation(uniqueNumber);
+                } catch (Exception ex) {
+                    return new BasicResponse("500", "예외 발생: " + ex.getMessage());
+                }
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    BasicResponse response = get();
+
+                    if (!"200".equals(response.code)) {
+                        JOptionPane.showMessageDialog(null, "예약 삭제에 실패했습니다.\n" + response.data, "삭제 실패", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        clearReservationFieldDataForDeleteButton();
+                        updateCalendarWithDummyData();
+                        JOptionPane.showMessageDialog(null, "예약이 성공적으로 삭제되었습니다.", "삭제 완료", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "삭제 처리 중 오류 발생: " + ex.getMessage(), "예외 발생", JOptionPane.ERROR_MESSAGE);
+                } finally {
+                    view.getDeleteButton().setEnabled(true); // 버튼 복원
+                }
+            }
+        };
+
+        worker.execute(); // 백그라운드 실행
     }
 
     // 예약 대기 목록 =====================================================================================================
@@ -308,68 +497,88 @@ public class ReservationManagementSwingController {
     // 예약 대기 목록을 갱신하는 기능
     private void reservationListPanelRefresh() {
         JPanel reservationListPanel = view.getReservationList();
-
         reservationListPanel.removeAll();
         reservationListPanel.setLayout(new GridLayout(0, 1, 0, 5)); // 세로 1열
 
-        // 전체 예약 리스트를 가져오는 과정 (예시)
-        List<RoomReservation> allRoomReservations = getAllReservationsFromServerOrFile();
+        // 비동기 실행
+        SwingWorker<List<RoomReservation>, Void> worker = new SwingWorker<>() {
+            @Override
+            protected List<RoomReservation> doInBackground() {
+                return getAllReservationsFromServerOrFile();
+            }
 
-        List<RoundReservationInformationButton> pendingReservations = getPendingReservations(allRoomReservations);
+            @Override
+            protected void done() {
+                try {
+                    List<RoomReservation> allRoomReservations = get();
 
-        for (RoundReservationInformationButton btn : pendingReservations) {
-            btn.addActionListener(e -> processReservationChoice(btn));
-            reservationListPanel.add(btn);
+                    List<RoundReservationInformationButton> pendingReservations = getPendingReservations(allRoomReservations);
+
+                    if (pendingReservations.isEmpty()) {
+                        JLabel emptyLabel = new JLabel("대기 중인 예약이 없습니다.", SwingConstants.CENTER);
+                        emptyLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+                        reservationListPanel.add(emptyLabel);
+                    } else {
+                        for (RoundReservationInformationButton btn : pendingReservations) {
+                            // 중복 방지를 위해 기존 리스너 제거
+                            for (ActionListener al : btn.getActionListeners()) {
+                                btn.removeActionListener(al);
+                            }
+                            btn.addActionListener(e -> processReservationChoice(btn));
+                            reservationListPanel.add(btn);
+                        }
+                    }
+
+                    reservationListPanel.revalidate();
+                    reservationListPanel.repaint();
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "예약 목록을 불러오는 중 오류가 발생했습니다:\n" + e.getMessage(),
+                            "오류", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        };
+
+        worker.execute();
+    }  // TODO: 서버랑 연결해야 한다. + SwingWorker
+
+    // 예약 리스트를 반환하는 메서드 TODO: 서버로 부터 예약 대기 목록을 받아와야 한다.
+    @SuppressWarnings("unchecked")
+    private List<RoomReservation> getAllReservationsFromServerOrFile() {
+        BasicResponse response = roomReservationManagementClientController.findAllRoomReservation();
+
+        // 서버 응답 오류 처리
+        if (response == null || !"200".equals(response.code) || response.data == null) {
+            System.err.println("⚠ 서버에서 예약 데이터를 가져오지 못했습니다.");
+            return List.of(); // 빈 리스트 반환
         }
 
-        reservationListPanel.revalidate();
-        reservationListPanel.repaint();
+        try {
+            return (List<RoomReservation>) response.data;
+        } catch (ClassCastException e) {
+            System.err.println("⚠ 데이터 형식이 올바르지 않습니다: " + e.getMessage());
+            return List.of();
+        }
     }
 
-    // 임시로 전체 예약 리스트를 반환하는 메서드
-    private List<RoomReservation> getAllReservationsFromServerOrFile() {
-
-        // TODO: 해당 부분에서 서버로부터 강의 객체 리스트를 전달 받으면 된다.
-        List<RoomReservation> dummyList = new ArrayList<>();
-
-        dummyList.add(createDummyReservation("0", "정보관", "9", "A01", "S2023001", "대기", "2025-05-19", "MONDAY", "13:00", "15:00"));
-        dummyList.add(createDummyReservation("1", "정보관", "9", "A02", "S2023002", "완료", "2025-05-19", "MONDAY", "09:00", "10:00"));
-        dummyList.add(createDummyReservation("2", "정보관", "9", "A03", "S2023003", "대기", "2025-05-19", "MONDAY", "10:00", "11:00"));
-        dummyList.add(createDummyReservation("3", "정보관", "9", "A03", "S2023003", "대기", "2025-05-19", "MONDAY", "10:00", "11:00"));
-        dummyList.add(createDummyReservation("0", "정보관", "9", "A01", "S2023001", "대기", "2025-05-19", "MONDAY", "13:00", "15:00"));
-        dummyList.add(createDummyReservation("1", "정보관", "9", "A02", "S2023002", "완료", "2025-05-19", "MONDAY", "09:00", "10:00"));
-        dummyList.add(createDummyReservation("2", "정보관", "9", "A03", "S2023003", "대기", "2025-05-19", "MONDAY", "10:00", "11:00"));
-        dummyList.add(createDummyReservation("3", "정보관", "9", "A03", "S2023003", "대기", "2025-05-19", "MONDAY", "10:00", "11:00"));
-        dummyList.add(createDummyReservation("0", "정보관", "9", "A01", "S2023001", "대기", "2025-05-19", "MONDAY", "13:00", "15:00"));
-        dummyList.add(createDummyReservation("1", "정보관", "9", "A02", "S2023002", "완료", "2025-05-19", "MONDAY", "09:00", "10:00"));
-        dummyList.add(createDummyReservation("2", "정보관", "9", "A03", "S2023003", "대기", "2025-05-19", "MONDAY", "10:00", "11:00"));
-        dummyList.add(createDummyReservation("3", "정보관", "9", "A03", "S2023003", "대기", "2025-05-19", "MONDAY", "10:00", "11:00"));
-        dummyList.add(createDummyReservation("0", "정보관", "9", "A01", "S2023001", "대기", "2025-05-19", "MONDAY", "13:00", "15:00"));
-        dummyList.add(createDummyReservation("1", "정보관", "9", "A02", "S2023002", "완료", "2025-05-19", "MONDAY", "09:00", "10:00"));
-        dummyList.add(createDummyReservation("2", "정보관", "9", "A03", "S2023003", "대기", "2025-05-19", "MONDAY", "10:00", "11:00"));
-        dummyList.add(createDummyReservation("3", "정보관", "9", "A03", "S2023003", "대기", "2025-05-19", "MONDAY", "10:00", "11:00"));
-        dummyList.add(createDummyReservation("0", "정보관", "9", "A01", "S2023001", "대기", "2025-05-19", "MONDAY", "13:00", "15:00"));
-        dummyList.add(createDummyReservation("1", "정보관", "9", "A02", "S2023002", "완료", "2025-05-19", "MONDAY", "09:00", "10:00"));
-        dummyList.add(createDummyReservation("2", "정보관", "9", "A03", "S2023003", "대기", "2025-05-19", "MONDAY", "10:00", "11:00"));
-        dummyList.add(createDummyReservation("3", "정보관", "9", "A03", "S2023003", "대기", "2025-05-19", "MONDAY", "10:00", "11:00"));
-
-        return dummyList;
-    }
-
-    // 예약 대기 목록을 서버로 부터 받아오는 기능  TODO: 서버로 부터 예약 대기 목록을 받아와야 한다.
+    // 예약 대기 목록을 서버로 부터 받아오는 기능
     private List<RoundReservationInformationButton> getPendingReservations(List<RoomReservation> allRoomReservations) {
+
         List<RoundReservationInformationButton> result = new ArrayList<>();
 
         for (RoomReservation roomReservation : allRoomReservations) {
             if ("대기".equals(roomReservation.getStatus())) {
                 RoundReservationInformationButton btn = new RoundReservationInformationButton();
                 btn.setRoomReservation(roomReservation);
-                btn.setText(roomReservation.getBuildingName() + " / " +
+                btn.setText("<html>" +
+                        "[ " + roomReservation.getDate() + " / " + roomReservation.getDayOfTheWeek() + " ]<br>" +
+                        roomReservation.getBuildingName() + "-" + roomReservation.getFloor() + "층 / " +
                         roomReservation.getLectureRoom() + " / " +
-                        roomReservation.getStartTime() + "~" + roomReservation.getEndTime());
+                        roomReservation.getStartTime() + "~" + roomReservation.getEndTime() +
+                        "</html>");
                 btn.setPreferredSize(new Dimension(112, 40));
-                btn.setBackground(Color.WHITE);
-                btn.setForeground(Color.BLACK);
+                btn.setBackground(new Color(100, 149, 237)); // 파란색
+                btn.setForeground(Color.WHITE);
                 btn.setFont(new Font("SansSerif", Font.PLAIN, 12));
                 btn.setRoundTopLeft(10);
                 btn.setRoundTopRight(10);
@@ -392,30 +601,31 @@ public class ReservationManagementSwingController {
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null,
-                new String[]{"예약 수락", "예약 거절"},
+                new String[]{"예약 수락", "예약 삭제"},
                 "예약 수락"
         );
 
         if (choice == JOptionPane.YES_OPTION) {
-            // int code = new ReservationController().acceptReservation(btn);
-            int code = 200;
-            if (code == 200) {
+            BasicResponse response = roomReservationManagementClientController.changeRoomReservationStatus(btn.getRoomReservation().getId());
+            String code = response.code;
+            if (code.equals("200")) {
                 JOptionPane.showMessageDialog(view, "예약이 수락되었습니다.");
-            } else if (code == 409) {
+            } else if (code.equals("409")) {
                 JOptionPane.showMessageDialog(view, "동일 시간대에 이미 예약이 존재합니다.", "예약 실패", JOptionPane.WARNING_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(view, "처리에 실패했습니다.", "오류", JOptionPane.ERROR_MESSAGE);
             }
         } else if (choice == JOptionPane.NO_OPTION) {
-            // int code = new ReservationController().rejectReservation(btn.getNumber());
-            int code = 200;
-            if (code == 200) {
-                JOptionPane.showMessageDialog(view, "예약이 거절되었습니다.");
+            BasicResponse response = roomReservationManagementClientController.deleteRoomReservation(btn.getRoomReservation().getId());
+            String code = response.code;
+            if (code.equals("200")) {
+                JOptionPane.showMessageDialog(view, "예약이 거절되어 삭제되었습니다.");
             } else {
                 JOptionPane.showMessageDialog(view, "처리에 실패했습니다.", "오류", JOptionPane.ERROR_MESSAGE);
             }
         }
-        reservationListPanelRefresh(); // 리스트 갱신
+        reservationListPanelRefresh(); // 대기 리스트 갱신
+        updateCalendarWithDummyData(); // 캘린더 갱신
     }
 
     // 수정 안해도 되는 부분 ================================================================================================
@@ -440,38 +650,37 @@ public class ReservationManagementSwingController {
         };
     }
     // 예약 목록 프레임 띄우는 기능 - 수정 금지
-    private void reservationListFrameButton(ActionEvent e){
+    private void reservationListFrameButton(ActionEvent e) {
         JFrame authFrame = (JFrame) SwingUtilities.getWindowAncestor(view);
-        JFrame reservationListFrame = view.getReservationListFrame(); // 또는 직접 필드 사용
+        JFrame reservationListFrame = view.getReservationListFrame();
+        Home.getInstance().setReservationListFrame(reservationListFrame);
 
         if (authFrame != null && reservationListFrame != null) {
-            int authX = authFrame.getX();
-            int authY = authFrame.getY();
-            int authWidth = authFrame.getWidth();
-            int authHeight = authFrame.getHeight();
-
-            // 프레임 우측에 위치 (10px 여백)
-            int x = authX + authWidth + 10;
-            int y = authY + (authHeight - reservationListFrame.getHeight()) / 2;
+            int x = authFrame.getX() + authFrame.getWidth() + 10;
+            int y = authFrame.getY() + (authFrame.getHeight() - reservationListFrame.getHeight()) / 2;
 
             reservationListFrame.setLocation(x, y);
             reservationListFrame.setVisible(true);
-            reservationListFrame.toFront(); // 항상 위로
+            reservationListFrame.toFront();
         }
     }
     // 입력 필드 초기화 - 수정 금지
     private void clearReservationFieldData(){
         // 필드 값을 비운다.
-        view.getReservationUserNumber().setText("");
+        view.getReservationIdField().setText("");
         view.getTitleField().setText("");
         view.getDescriptionField().setText("");
         view.getReservationTimeField().setText("");
-        view.getLectureRoomField().setText("");
-
-        //view.getLectureRoomField().setText("");
-        // view.getReservationTimeField().setText("");
-        // view.getBuildingField().setText("");
-        // view.getFloorField().setText("");
+        view.getReservationDateField().setText("");
+    }
+    // 입력 필드 초기화 - 수정 금지
+    private void clearReservationFieldDataForDeleteButton(){
+        // 필드 값을 비운다.
+        view.getReservationIdField().setText("");
+        view.getTitleField().setText("");
+        view.getDescriptionField().setText("");
+        view.getReservationTimeField().setText("");
+        view.getReservationDateField().setText("");
     }
     // 선택 UI 초기화 메서드 - 수정 금지
     private void clearSelectionUI() {
@@ -493,40 +702,78 @@ public class ReservationManagementSwingController {
 
         return List.of();
     }
+    // 이름에서 날짜와 시간대를 분리 - 수정 금지
+    private String[] parseDateTimeFromButtonName(String name) {
+        if (name != null && name.matches("day\\d+_\\d+")) {
+            String[] parts = name.substring(3).split("_");
+            int dayOffset = Integer.parseInt(parts[0]);
+            int periodIndex = Integer.parseInt(parts[1]);
 
-    // 반복 제거를 위한 Reservation 생성 메서드 - 수정 금지 [ ! ] 테스트용
-    private RoomReservation createDummyReservation(String id, String buildingName, String floor,
-                                                   String lectureRoom, String number, String status,
-                                                   String date, String dayOfWeek, String startTime, String endTime) {
-        RoomReservation roomReservation = new RoomReservation();
-        roomReservation.setId(id);
-        roomReservation.setBuildingName(buildingName);
-        roomReservation.setFloor(floor);
-        roomReservation.setLectureRoom(lectureRoom);
-        roomReservation.setNumber(number);
-        roomReservation.setStatus(status);
-        roomReservation.setDate(date);
-        roomReservation.setDayOfTheWeek(dayOfWeek);
-        roomReservation.setStartTime(startTime);
-        roomReservation.setEndTime(endTime);
-        return roomReservation;
+            // 날짜 계산
+            LocalDate targetDate = LocalDate.now().plusDays(dayOffset);
+            String dateStr = targetDate.toString(); // yyyy-MM-dd
+
+            // 시간 계산
+            LocalTime startTime = LocalTime.of(9 + periodIndex, 0);
+            LocalTime endTime = startTime.plusHours(1);
+            String timeStr = startTime.toString() + "~" + endTime.toString(); // HH:mm ~ HH:mm
+
+            return new String[]{dateStr, timeStr};
+        }
+        return null;
     }
-    private RoomReservation createDummyReservation2(String building, String floor, String room,
-                                                   String userId, String title, String description,
-                                                   String date, String dayOfWeek, String start, String end) {
-        RoomReservation r = new RoomReservation();
-        r.setId(UUID.randomUUID().toString());
-        r.setBuildingName(building);
-        r.setFloor(floor);
-        r.setLectureRoom(room);
-        r.setNumber(userId);
-        r.setStatus("완료");
-        r.setTitle(title);
-        r.setDescription(description);
-        r.setDate(date);
-        r.setDayOfTheWeek(dayOfWeek);
-        r.setStartTime(start);
-        r.setEndTime(end);
-        return r;
+    // 예약/삭제 진행 시 유효성 검사 - 수정 금지
+    private boolean validateReservationInput() {
+        String building = view.getBuildingField().getText();
+        String floor = view.getFloorField().getText();
+        String lectureRoom = view.getLectureRoomField().getText();
+        String title = view.getTitleField().getText();
+        String description = view.getDescriptionField().getText();
+        String reservationDate = view.getReservationDateField().getText();
+        String reservationTime = view.getReservationTimeField().getText(); // 예: "09:00~10:00"
+
+        // 건물명 유효성 검사
+        if (building == null || building.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "건물을 선택해주세요..", "건물 선택 오류", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        // 층 유효성 검사 (숫자인지)
+        if (floor == null || !floor.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "층을 선택해주세요.", "층 선택 오류", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        // 강의실 유효성 검사
+        if (lectureRoom == null || lectureRoom.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "강의실을 선택해주세요.", "강의실 선택 오류", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        // 제목 유효성 검사
+        if (title == null || title.trim().length() < 2) {
+            JOptionPane.showMessageDialog(null, "예약 시간을 선택하세요", "일자 선택 오류", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        // 설명 유효성 검사 (선택 사항이 아니면 검사)
+        if (description == null || description.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "예약 시간을 선택하세요", "일자 선택 오류", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        // 날짜 유효성 검사 (형식이 무조건 yyyy-MM-dd 이라고 가정)
+        if (reservationDate == null || reservationDate.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "예약 시간을 선택하세요.", "일자 선택 오류", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        // 시간 유효성 검사 ("HH:mm~HH:mm" 형식)
+        if (reservationTime == null || !reservationTime.matches("\\d{2}:\\d{2}\\s*~\\s*\\d{2}:\\d{2}")) {
+            JOptionPane.showMessageDialog(null, "예약 시간을 선택하세요", "일자 선택 오류", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        return true;
     }
 }

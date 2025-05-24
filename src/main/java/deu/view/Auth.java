@@ -526,14 +526,20 @@ public class Auth extends javax.swing.JFrame {
         signup_signupMajorField.setText("");
     }
     public void transitionToHome(String userId, String userPw) {
-        Home homePanel = new Home(userId, userPw);
+        // Home 인스턴스가 null이면 새로 생성
+        Home homePanel = Home.getInstance();
+        if (homePanel == null) {
+            homePanel = Home.getInstance(userId, userPw);
+        }
 
+        // 컨트롤러 연결
         new HomeSwingController(homePanel);
 
+        // 이름 및 권한 체크
         homePanel.setName("home");
-
         checkManagementAuthority(homePanel);
 
+        // 패널 등록 및 전환
         addPanel(homePanel, "home");
         showPanel("home");
     }
