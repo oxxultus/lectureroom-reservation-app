@@ -275,15 +275,20 @@ public class HomeSwingController {
 
                     if (!"200".equals(response.code)) {
                         JOptionPane.showMessageDialog(null, "예약 삭제에 실패했습니다: " + response.data, "삭제 실패", JOptionPane.ERROR_MESSAGE);
+                        refreshUserReservationCalendar();
+                        refreshMyReservationList();
                         return;
                     }
 
                     resetReservationTextField();
                     refreshUserReservationCalendar();
+                    refreshMyReservationList();
                     JOptionPane.showMessageDialog(null, "예약이 성공적으로 삭제되었습니다.", "삭제 완료", JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "삭제 처리 중 예외 발생: " + ex.getMessage(), "삭제 예외", JOptionPane.ERROR_MESSAGE);
+                    refreshUserReservationCalendar();
+                    refreshMyReservationList();
                 }
             }
         };
