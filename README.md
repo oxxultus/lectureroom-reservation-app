@@ -29,4 +29,4 @@ mvn clean package
 java -jar target/DeuLectureRoomClient-1.0.0.jar
 ```
 - 서버 주소: localhost:9999
-- 리소스 경로: ./assets/, ./data/
+- 리소스 경로: ./data/
